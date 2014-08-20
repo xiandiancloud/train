@@ -90,27 +90,26 @@
 			</div>
 		</div> --%>
 		<div class="row topback">
-			<div class="col-sm-3 nospace theight">
+			<div class="col-sm-4 nospace theight">
 
-				<div class="panel panel-success" id="leftpanel">
+				<div class="panel" id="leftpanel">
 					<div class="panel-body">
 						<div id="pagination" class="center"></div>
-						
-						<div class="panel panel-primary cmargin5">
-						  <div class="panel-heading">
-						    <h3 class="panel-title">实验定义</h3>
+						<div class="panel cmargin5">
+						  <div class="h30 l1back hfont">
+						    <div class="lmargin5">实验定义</div>
 						  </div>
 						  <div class="panel-body">
 							<form class="form-horizontal" role="form">
 							  <div class="form-group">
-							    <label for="trainname" class="col-sm-3 control-label"><h5>名称</h5></label>
-							    <div class="col-sm-9">
+							    <label for="trainname" class="col-sm-2 control-label"><div class="h2font">名称</div></label>
+							    <div class="col-sm-10">
 							      <input type="text" class="form-control" id="trainname" disabled="disabled">
 							    </div>
 							  </div>
 							  <div class="form-group">
-							    <label for="traincode" class="col-sm-3 control-label"><h5>编号</h5></label>
-							    <div class="col-sm-9">
+							    <label for="traincode" class="col-sm-2 control-label"><div class="h2font">编号</div></label>
+							    <div class="col-sm-10">
 							      <input type="text" class="form-control" id="traincode" disabled="disabled">
 							    </div>
 							  </div>
@@ -118,14 +117,19 @@
 						  </div>
 						</div>
 
-						<div class="panel panel-success">
-							<div class="panel-body">
-								<div class="panel panel-info w80 center">
-									<h6>环境</h6>
-								</div>
-								<div class="h5"></div>
-								<h6 id="trainprename"></h6>
-								<h6 id="hasenv" class="none">
+						<div class="panel cmargin5">
+						  <div class="l2back h30 hfont">
+						    <div class="lmargin5">环境</div>
+						  </div>
+						  <div class="panel-body">
+							<form class="form-horizontal" role="form">
+							  <div class="form-group">
+							    <label for="trainprename" class="col-sm-2 control-label"><div class="h2font">模板</div></label>
+							    <div class="col-sm-10">
+							      <input type="text" class="form-control" id="trainprename" disabled="disabled">
+							    </div>
+							  </div>
+							  <h6 id="hasenv" class="none">
 									<table class="table table-bordered">
 										<tbody>
 											<tr>
@@ -151,36 +155,59 @@
 									<button type="button" class="btn btn-primary">创建环境</button>
 								</a>
 								<img src="images/Loading.gif" class="none" id="imgenv"/>
-								<hr>
-								<div class="panel panel-info w80 center">
-									<h6>命令</h6>
-								</div>
-								<div class="h5"></div>
-								<h6 id="traincon"></h6>
-								<hr>
-								<div class="panel panel-info w80 center">
-									<h6>结果</h6>
-								</div>
-								<div class="h5"></div>
-								<h6>实验结果：</h6>
-								<h6 id="trainresult"></h6>
-								<h6>实验数据：</h6>
-								<h6 id="trainanswer"></h6>
-								<hr>
+							</form>
+						  </div>
+						</div>
+						
+						<div class="panel cmargin5">
+						  <div class="l3back h30 hfont">
+						    <div class="lmargin5">题目</div>
+						  </div>
+						  <div class="panel-body">
+							    <label for="trainname" class="control-label"><div class="h2font">内容</div></label>
+							    <h6 id="traincon"></h6>
+						  </div>
+						</div>
+						
+						<div class="panel cmargin5">
+						  <div class="l4back h30 hfont">
+						    <div class="lmargin5">结果</div>
+						  </div>
+						  <div class="panel-body">
+							    <form role="form">
+								  <div class="form-group">
+								    <label for="trainanswer"><div class="h2font">内容</div></label>
+								    <textarea class="form-control" rows="6" id="trainanswer"></textarea>
+								  </div>
+								</form>
 								<a href="javascript:void(0);" id="trainsubmit">
 									<button type="button" class="btn btn-primary" id="trainbutton">提交</button>
 								</a>
 								<img src="images/Loading.gif" class="none" id="imgsubmit"/>
-								<!-- <a href="#">
-									<button type="button" class="btn btn-primary">再来一遍</button>
-								</a> -->
-							</div>
+						  </div>
 						</div>
+						
+						<div class="panel cmargin5">
+						  <div class="l5back h30 hfont">
+						    <div class="lmargin5">成绩</div>
+						  </div>
+						  <div class="panel-body">
+						  </div>
+						</div>
+						
+						<div class="panel cmargin5">
+						  <div class="l6back h30 hfont">
+						    <div class="lmargin5">答案</div>
+						  </div>
+						  <div class="panel-body">
+						  </div>
+						</div>
+						
 					</div>
 				</div>
 				<!-- </div> -->
 			</div>
-			<div class="col-sm-9 nospace fheight">
+			<div class="col-sm-8 nospace fheight">
 				<iframe id="iframe" src="http://192.168.1.90:8090/" frameBorder="0"
 					width="100%" scrolling="no" height="100%"></iframe>
 			</div>
@@ -494,7 +521,7 @@
 
 				$("#trainname").attr("value","${train.name}");//html("实验名称：${train.name}");
 				$("#traincode").attr("value","${train.codenum}");//html("实验名称：${train.name}");
-				$("#trainprename").html("${train.preName}");
+				$("#trainprename").attr("value","${train.preName}");//html("${train.preName}");
 				//$("#trainjoin").attr("href", "");
 				$("#traincon").html("${train.conContent}");
 				//$("#trainanswer").html("${train.conAnswer}");
