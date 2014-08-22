@@ -60,9 +60,9 @@
 			<div class="col-sm-8">
 				<form role="form">
 					<div class="form-group">
-						<a>登陆名&nbsp;*</a>
+						<a>电子邮件&nbsp;*</a>
 						<div class="h5"></div>
-						<input type="text" class="form-control" id="username" placeholder="文本输入">
+						<input type="text" class="form-control" id="email" placeholder="dhl@163.com">
 						<div class="clear"></div>
 						<a>密码&nbsp;*</a>
 						<div class="h5"></div>
@@ -108,17 +108,17 @@
 		
 		function login()
 		{
-			var username = $("#username").val();
+			var email = $("#email").val();
 			var password = $("#password").val();
 			var url = "${url}";
-			var data = {username:username,password:password};
+			var data = {email:email,password:password};
 			$.ajax({
 				url:"login.action",
 				type:"post",
 				data:data,
 				success:function(s){
 					var a=eval("("+s+")");	
-					if (a.sucess="sucess")
+					if (a.sucess=="sucess")
 					{
 						if (url)
 						{
@@ -127,7 +127,10 @@
 						else
 						location.href="mycourse.action";
 					}
-					
+					else
+					{
+						alert(a.msg);
+					}
 				}
 			});
 		}

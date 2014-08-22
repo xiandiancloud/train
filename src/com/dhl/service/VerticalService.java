@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.dhl.dao.SequentialDao;
 import com.dhl.dao.VerticalDao;
 import com.dhl.domain.Vertical;
 
@@ -17,8 +16,8 @@ public class VerticalService {
 	
 	@Autowired
 	private VerticalDao verticalDao;
-	@Autowired
-	private SequentialDao sequentialDao;
+//	@Autowired
+//	private SequentialDao sequentialDao;
 	
 	public List<Vertical> getAllVertical(int sequentialId)
 	{
@@ -31,11 +30,11 @@ public class VerticalService {
 	 * @param courseId
 	 * @return
 	 */
-	public Vertical saveVertical(String name,int sequentialId)
+	public Vertical save(Vertical c)
 	{
-		Vertical c = new Vertical();
-		c.setName(name);
-		c.setSequential(sequentialDao.get(sequentialId));
+//		Vertical c = new Vertical();
+//		c.setName(name);
+//		c.setSequential(sequentialDao.get(sequentialId));
 		verticalDao.save(c);
 		return c;
 	}

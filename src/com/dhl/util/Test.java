@@ -1,12 +1,60 @@
 package com.dhl.util;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 
 public class Test {
 
 	/**
+     * 对字符串加密,加密算法使用MD5,SHA-1,SHA-256,默认使用SHA-256
+     * 
+     * @param strSrc
+     *            要加密的字符串
+     * @param encName
+     *            加密类型
+     * @return
+     */
+    public static String Encrypt(String strSrc, String encName) {
+        MessageDigest md = null;
+        String strDes = null;
+
+        byte[] bt = strSrc.getBytes();
+        try {
+            if (encName == null || encName.equals("")) {
+                encName = "SHA-256";
+            }
+            md = MessageDigest.getInstance(encName);
+            md.update(bt);
+            strDes = bytes2Hex(md.digest()); // to HexString
+        } catch (NoSuchAlgorithmException e) {
+            return null;
+        }
+        return strDes;
+    }
+
+    public static String bytes2Hex(byte[] bts) {
+        String des = "";
+        String tmp = null;
+        for (int i = 0; i < bts.length; i++) {
+            tmp = (Integer.toHexString(bts[i] & 0xFF));
+            if (tmp.length() == 1) {
+                des += "0";
+            }
+            des += tmp;
+        }
+        return des;
+    }
+    
+    
+	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		
+		String s=Test.Encrypt("default123456", "");
+	     System.out.println(s);
+	     
 //		UtilTools.createServer();
 		
 //		UtilTools.stopServer("9b087620-aa6f-4d55-abc4-0307eb6a9826");
@@ -15,7 +63,7 @@ public class Test {
 		
 //		UtilTools.getServer("d9fcc80d-c639-42cd-b449-3f30c2600300");
 		
-		UtilTools.delServer("d9fcc80d-c639-42cd-b449-3f30c2600300");
+//		UtilTools.delServer("d9fcc80d-c639-42cd-b449-3f30c2600300");
 		
 //		 String hostname = "192.168.1.110";  
 //	        String username = "dhl";  

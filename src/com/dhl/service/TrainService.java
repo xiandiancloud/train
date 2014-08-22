@@ -16,27 +16,22 @@ public class TrainService {
 	private TrainDao trainDao;
 
 	/**
-	 * 保存章节
-	 * 
-	 * @param name
-	 * @param courseId
+	 * 根据编码取得实验
 	 * @return
 	 */
-	public Train saveTrain(String name, String preName, String preContent,
-			String preShell,String conName,String conContent,String conShell,String conanswer,String garName,String garContent,String garShell) {
-		Train c = new Train();
-		c.setName(name);
-		c.setPreName(preName);
-//		c.setPreContent(preContent);
-//		c.setPreShell(preShell);
-		c.setConName(conName);
-		c.setConContent(conContent);
-		c.setConShell(conShell);
-		c.setConAnswer(conanswer);
-//		c.setGarName(garName);
-//		c.setGarContent(garContent);
-//		c.setGarShell(garShell);
-		return c;
+	public Train getTrainByCodenum(String codenum)
+	{
+		return getTrainByCodenum(codenum);
+	}
+	
+	/**
+	 * 保存实验
+	 * 
+	 * @return
+	 */
+	public Train save(Train t) {
+		trainDao.save(t);
+		return t;
 	}
 
 }

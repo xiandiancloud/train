@@ -36,7 +36,7 @@
 				  </c:when> 
 				  <c:otherwise>   
 				   <li class="dropdown"><a class="dropdown-toggle"
-					data-toggle="dropdown">${USER_CONTEXT.name}<b class="caret"></b></a>
+					data-toggle="dropdown">${USER_CONTEXT.username}<b class="caret"></b></a>
 					<ul class="dropdown-menu">
 						<li><a href="mycourse.action">我的云课堂</a></li>
 						<li><a href="setting.action?index=1">设置</a></li>

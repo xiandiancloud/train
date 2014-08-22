@@ -19,6 +19,7 @@ import com.dhl.service.UCEService;
 import com.dhl.service.UserCourseService;
 import com.dhl.service.UserService;
 import com.dhl.service.UserTrainService;
+import com.dhl.util.MD5;
 
 /**
  * 
@@ -38,33 +39,34 @@ public class UserController extends BaseController {
 	private UserTrainService userTrainService;
 	@Autowired
 	private UserCourseService userCourseService;
-	
-	@RequestMapping("/ssologin")
-	public ModelAndView ssologin(HttpServletRequest request, String userName) {
-		// ModelAndView view =new ModelAndView();
-		User user = userService.getUserByUserName(userName);
-		if (user == null) {
-			user = userService.add(userName);
-		}
-		setSessionUser(request, user);
-		String url = "redirect:/getAllCourse.action";
 
-		return new ModelAndView(url);
-	}
-
-	@RequestMapping("/ssotocourse")
-	public ModelAndView ssotocourse(HttpServletRequest request,
-			String userName, int courseId) {
-		// ModelAndView view =new ModelAndView();
-		User user = userService.getUserByUserName(userName);
-		if (user == null) {
-			user = userService.add(userName);
-		}
-		setSessionUser(request, user);
-		String url = "redirect:/getSimpleCourse.action?courseId=" + courseId;
-
-		return new ModelAndView(url);
-	}
+	// @RequestMapping("/ssologin")
+	// public ModelAndView ssologin(HttpServletRequest request, String userName)
+	// {
+	// // ModelAndView view =new ModelAndView();
+	// User user = userService.getUserByUserName(userName);
+	// if (user == null) {
+	// user = userService.add(userName);
+	// }
+	// setSessionUser(request, user);
+	// String url = "redirect:/getAllCourse.action";
+	//
+	// return new ModelAndView(url);
+	// }
+	//
+	// @RequestMapping("/ssotocourse")
+	// public ModelAndView ssotocourse(HttpServletRequest request,
+	// String userName, int courseId) {
+	// // ModelAndView view =new ModelAndView();
+	// User user = userService.getUserByUserName(userName);
+	// if (user == null) {
+	// user = userService.add(userName);
+	// }
+	// setSessionUser(request, user);
+	// String url = "redirect:/getSimpleCourse.action?courseId=" + courseId;
+	//
+	// return new ModelAndView(url);
+	// }
 
 	@RequestMapping("/tologin")
 	public ModelAndView tologin(HttpServletRequest request, String url) {
@@ -78,13 +80,57 @@ public class UserController extends BaseController {
 		return view;
 	}
 
+	/**
+	 * 跳转到注册页面
+	 * 
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping("/toregeister")
 	public ModelAndView toregeister(HttpServletRequest request) {
 		ModelAndView view = new ModelAndView();
 		view.setViewName("/regeister");
 		return view;
 	}
-	
+
+	/**
+	 * 注册用户
+	 * 
+	 * @param name
+	 *            ：全名(真实姓名)
+	 */
+	@RequestMapping("/regeister")
+	public void regeister(HttpServletRequest request,
+			HttpServletResponse response, String roleName, String email,
+			String password, String username, String name, String gender,
+			String mailing_address, String year_of_birth,
+			String level_of_education, String goals) {
+		try {
+			PrintWriter out = response.getWriter();
+			User user = userService.getUserBymail(email);
+			if (user != null) {
+				String result = "{'sucess':'fail','msg':'电子邮件已经注册'}";
+				out.write(result);
+				return;
+			}
+			user = userService.getUserByUserName(username);
+			if (user != null) {
+				String result = "{'sucess':'fail','msg':'公开用户名已经注册'}";
+				out.write(result);
+				return;
+			}
+			user = userService.save(roleName, email, password, username, name,
+					gender, mailing_address, year_of_birth, level_of_education,
+					goals);
+			setSessionUser(request, user);
+
+			String result = "{'sucess':'sucess'}";
+			out.write(result);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	@RequestMapping("/loginout")
 	public ModelAndView loginout(HttpServletRequest request) {
 		setSessionUser(request, null);
@@ -95,28 +141,33 @@ public class UserController extends BaseController {
 
 	@RequestMapping("/login")
 	public void login(HttpServletRequest request, HttpServletResponse response,
-			String username, String password) {
+			String email, String password) {
 		try {
-			// ModelAndView view = new ModelAndView();
-			User user = userService.getUserByUserName(username);
+			PrintWriter out = response.getWriter();
+			User user = userService.getUserBymail(email);
 			if (user == null) {
-				user = userService.add(username);
+				String result = "{'sucess':'fail','msg':'电子邮件不对'}";
+				out.write(result);
+				return;
+			}
+			MD5 md5 = new MD5();
+			String inputstr = md5.getMD5ofStr(password);
+			if (!inputstr.equals(user.getPassword())) {
+				String result = "{'sucess':'fail','msg':'登陆密码不对'}";
+				out.write(result);
+				return;
 			}
 			setSessionUser(request, user);
 
-			PrintWriter out = response.getWriter();
 			String result = "{'sucess':'sucess'}";
 			out.write(result);
 		} catch (Exception e) {
 		}
-		// view.setViewName("redirect:/mycourse.cation");
-		// return view;
-		// String url = "redirect:/mycourse.action";
-		// return new ModelAndView(url);
 	}
 
 	/**
 	 * 个人设置，环境准备，个人课程情况等等总结信息
+	 * 
 	 * @param request
 	 * @param index
 	 * @return
@@ -141,11 +192,12 @@ public class UserController extends BaseController {
 			List<UCEnvironment> uce = uceService.getMyUCE(user.getId());
 			view.addObject("uce", uce);
 		}
-		if (index == 3)
-		{
-			List<UserCourse> having = userCourseService.getMyHavingCourse(user.getId());
-			List<UserCourse> finish = userCourseService.getMyFinishCourse(user.getId());
-			
+		if (index == 3) {
+			List<UserCourse> having = userCourseService.getMyHavingCourse(user
+					.getId());
+			List<UserCourse> finish = userCourseService.getMyFinishCourse(user
+					.getId());
+
 			view.addObject("having", having);
 			view.addObject("finish", finish);
 		}
@@ -153,13 +205,6 @@ public class UserController extends BaseController {
 		view.setViewName("setting");
 		return view;
 	}
-
-//	@RequestMapping("/deleteEnv")
-//	public ModelAndView deleteEnv(HttpServletRequest request, int id) {
-//		uceService.delete(id);
-//		String url = "redirect:/setting.action?index=2";
-//		return new ModelAndView(url);
-//	}
 
 	/**
 	 * 判断环境是否已经准备好
@@ -182,12 +227,11 @@ public class UserController extends BaseController {
 						name);
 				UserTrain userTrain = userTrainService.getUserTrain(
 						user.getId(), courseId, trainId);
-				String result = userTrain == null ? "" : userTrain
-						.getResult();
+				String result = userTrain == null ? "" : userTrain.getResult();
 				String revalue = userTrain == null ? "" : userTrain
 						.getRevalue();
 				if (uce != null) {
-					
+
 					String str = "{'sucess':'sucess','ip':'"
 							+ uce.getHostname() + "','username':'"
 							+ uce.getUsername() + "','result':'" + result
@@ -197,7 +241,7 @@ public class UserController extends BaseController {
 					out.write(str);
 				} else {
 					String str = "{'sucess':'fail','result':'" + result
-							+ "','revalue':'" + revalue+ "'}";
+							+ "','revalue':'" + revalue + "'}";
 					out.write(str);
 				}
 			} else {

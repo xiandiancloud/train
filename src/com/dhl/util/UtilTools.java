@@ -124,69 +124,6 @@ public class UtilTools {
 		return strDate;
 	}
 
-	// public static String timeTostrNoHMS(Date date){
-	// String strDate="";
-	// if(date!=null){
-	// SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
-	// strDate=format.format(date);
-	// }
-	// return strDate;
-	// }
-	//
-	// public static String timeTostrNoHMS2(Date date){
-	// String strDate="";
-	// if(date!=null){
-	// SimpleDateFormat format=new SimpleDateFormat("yyyyMMdd");
-	// strDate=format.format(date);
-	// }
-	// return strDate;
-	// }
-	//
-	// public static Date strTodate(String str)
-	// {
-	// SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	// Date d = null;
-	// try {
-	// d = format.parse(str);
-	// } catch (ParseException e) {
-	// // TODO Auto-generated catch block
-	// e.printStackTrace();
-	// }
-	// return d;
-	// }
-	//
-	// public static Date strTodateShort(String str)
-	// {
-	// SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
-	// Date d = null;
-	// try {
-	// d = format.parse(str);
-	// } catch (ParseException e) {
-	// // TODO Auto-generated catch block
-	// e.printStackTrace();
-	// }
-	// return d;
-	// }
-	//
-	//
-	// public static int compare(Date firstDate,Date secondDate)
-	// {
-	// Calendar firstCalendar = null;
-	// if (firstDate != null)
-	// {
-	// firstCalendar = Calendar.getInstance();
-	// firstCalendar.setTime(firstDate);
-	// }
-	//
-	// Calendar secondCalendar = null;
-	// if (secondDate != null)
-	// {
-	// secondCalendar = Calendar.getInstance();
-	// secondCalendar.setTime(secondDate);
-	// }
-	// return firstCalendar.compareTo(secondCalendar);
-	// }
-
 	public static String htmlspecialchars(String str) {
 		str = str.replaceAll("&", "&amp;");
 		str = str.replaceAll("<", "&lt;");

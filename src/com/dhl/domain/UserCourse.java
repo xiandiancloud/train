@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
+ * 学生课程
  * @author dhl
  *
  */

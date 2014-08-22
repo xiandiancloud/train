@@ -51,8 +51,7 @@ public class ISController extends BaseController {
 						out.write(uh);
 					} else {
 
-						String[] servers = UtilTools.createServer(user
-								.getName() + System.currentTimeMillis());
+						String[] servers = UtilTools.createServer(user.getUsername() + System.currentTimeMillis());
 
 						// 创建成功后，保存hostname
 						String ip = servers[0];
@@ -67,8 +66,7 @@ public class ISController extends BaseController {
 						out.write(str);
 					}
 				} else {
-					String[] servers = UtilTools.createServer(user.getName()
-							+ System.currentTimeMillis());
+					String[] servers = UtilTools.createServer(user.getUsername() + System.currentTimeMillis());
 					// 创建成功后，保存hostname
 					String ip = servers[0];
 					String username = servers[1];

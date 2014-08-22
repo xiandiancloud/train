@@ -35,22 +35,29 @@ public class CourseService {
 	 * @param desc
 	 * @return
 	 */
-	public Course saveCourse(String name,String imgpath,String desc)
+	public Course save(Course course)
 	{
-		Course course = new Course();
-		course.setName(name);
-		course.setImgpath(imgpath);
-		course.setDescrible(desc);
 		courseDao.save(course);
 		return course;
 	}
 	
+	/**
+	 * 取得所有的课程
+	 * @param pageNo
+	 * @param pageSize
+	 * @return 返回课程的分页对象
+	 */
 	public Page getAllCourse(int pageNo,int pageSize)
 	{
 		return courseDao.getAllCourse(pageNo,pageSize);
 	}
 	
-	public Course getCourse(int id)
+	/**
+	 * 根据课程id取得课程
+	 * @param id
+	 * @return
+	 */
+	public Course get(int id)
 	{
 		return courseDao.get(id);
 	}

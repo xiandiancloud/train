@@ -55,6 +55,7 @@ public class CourseController extends BaseController {
 	private UserCourseService userCourseService;
 	@Autowired
 	private UserTrainHistoryService userTrainHistoryService;
+
 	/**
 	 * 参加课程,继续学习
 	 * 
@@ -72,23 +73,22 @@ public class CourseController extends BaseController {
 			return new ModelAndView(url);
 		}
 		userCourseService.setMyCourseActiveState(user.getId());
-		UserCourse ucs = userCourseService.getUserCourse(user.getId(), courseId);
+		UserCourse ucs = userCourseService
+				.getUserCourse(user.getId(), courseId);
 		if (ucs == null) {
 			UserCourse uc = new UserCourse();
 			uc.setUserId(user.getId());
-			uc.setCourse(courseService.getCourse(courseId));
+			uc.setCourse(courseService.get(courseId));
 			uc.setState(0);
 			uc.setDocounts(1);
 			uc.setActivestate(1);
 			uc.setUsetime("0");
 			userCourseService.save(uc);
-		}
-		else
-		{
+		} else {
 			ucs.setActivestate(1);
 			userCourseService.updateUserCourse(ucs);
 		}
-		Course course = courseService.getCourse(courseId);
+		Course course = courseService.get(courseId);
 		view.addObject("course", course);
 
 		Set<Chapter> chapterset = course.getChapters();
@@ -156,22 +156,21 @@ public class CourseController extends BaseController {
 			return new ModelAndView(url);
 		}
 		userCourseService.setMyCourseActiveState(user.getId());
-		UserCourse ucs = userCourseService.getUserCourse(user.getId(), courseId);
+		UserCourse ucs = userCourseService
+				.getUserCourse(user.getId(), courseId);
 		if (ucs == null) {
 			UserCourse uc = new UserCourse();
 			uc.setUserId(user.getId());
-			uc.setCourse(courseService.getCourse(courseId));
+			uc.setCourse(courseService.get(courseId));
 			uc.setState(0);
 			uc.setDocounts(1);
 			uc.setActivestate(1);
 			userCourseService.save(uc);
-		}
-		else
-		{
+		} else {
 			ucs.setActivestate(1);
 			userCourseService.updateUserCourse(ucs);
 		}
-		Course course = courseService.getCourse(courseId);
+		Course course = courseService.get(courseId);
 		view.addObject("course", course);
 
 		Set<Chapter> chapterset = course.getChapters();
@@ -227,6 +226,7 @@ public class CourseController extends BaseController {
 
 	/**
 	 * 首页显示最近操作的课程，登陆后显示
+	 * 
 	 * @param request
 	 * @param response
 	 */
@@ -242,30 +242,40 @@ public class CourseController extends BaseController {
 
 				out.write(str);
 			} else {
-				
-				UserCourse userCourse = userCourseService.getUserRecentlyCourse(user.getId());
-				
-				List<VerticalTrain> vtlist = vtService.getAllTrainByCourseId(userCourse.getCourse().getId());
-				List<UserTrain> utlist = utService.getMyFinishCourseTrain(
-						user.getId(), userCourse.getCourse().getId());
-				int counts = vtlist == null ? 0 : vtlist.size();
-				int ncounts = utlist == null ? 0 : utlist.size();
-				String complete = "0%";
-				if (utlist != null) {
-					double c = ncounts * 100 / counts;
-					complete = Math.floor(c) + "%";
-				}
-				String str = "{'sucess':'sucess','name':'" + userCourse.getCourse().getName()
-						+ "','img':'" + userCourse.getCourse().getImgpath() +"','courseId':'"+ userCourse.getCourse().getId() + "','complete':'"
-						+ complete + "'}";
 
-				out.write(str);
+				UserCourse userCourse = userCourseService
+						.getUserRecentlyCourse(user.getId());
+				if (userCourse == null) {
+					String str = "{'sucess':'fail'}";
+
+					out.write(str);
+				} else {
+					List<VerticalTrain> vtlist = vtService
+							.getAllTrainByCourseId(userCourse.getCourse()
+									.getId());
+					List<UserTrain> utlist = utService.getMyFinishCourseTrain(
+							user.getId(), userCourse.getCourse().getId());
+					int counts = vtlist == null ? 0 : vtlist.size();
+					int ncounts = utlist == null ? 0 : utlist.size();
+					String complete = "0%";
+					if (utlist != null) {
+						double c = ncounts * 100 / counts;
+						complete = Math.floor(c) + "%";
+					}
+					String str = "{'sucess':'sucess','name':'"
+							+ userCourse.getCourse().getName() + "','img':'"
+							+ userCourse.getCourse().getImgpath()
+							+ "','courseId':'" + userCourse.getCourse().getId()
+							+ "','complete':'" + complete + "'}";
+
+					out.write(str);
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * 课程的完成状态
 	 * 
@@ -298,11 +308,11 @@ public class CourseController extends BaseController {
 				}
 				UserCourse uc = userCourseService.getUserCourse(user.getId(),
 						courseId);
-//				UserCourseTime uctime = userCourseService.getUserCourseTime(
-//						user.getId(), courseId, uc.getDocounts());
+				// UserCourseTime uctime = userCourseService.getUserCourseTime(
+				// user.getId(), courseId, uc.getDocounts());
 				String str = "{'sucess':'sucess','allcounts':'" + counts
-						+ "','counts':'" + ncounts +"','dotime':'"+ uc.getUsetime() + "','complete':'"
-						+ complete + "'}";
+						+ "','counts':'" + ncounts + "','dotime':'"
+						+ uc.getUsetime() + "','complete':'" + complete + "'}";
 
 				out.write(str);
 			}
@@ -332,11 +342,10 @@ public class CourseController extends BaseController {
 			} else {
 				UserCourse uc = userCourseService.getUserCourse(user.getId(),
 						courseId);
-//				UserCourseTime uctime = userCourseService.getUserCourseTime(
-//						user.getId(), courseId, uc.getDocounts());
+				// UserCourseTime uctime = userCourseService.getUserCourseTime(
+				// user.getId(), courseId, uc.getDocounts());
 				String dotime = uc.getUsetime();
-				if (dotime == null || "".equals(dotime))
-				{
+				if (dotime == null || "".equals(dotime)) {
 					dotime = "0:00:00";
 				}
 				String str = "{'sucess':'sucess','dotime':'" + dotime + "'}";
@@ -357,7 +366,7 @@ public class CourseController extends BaseController {
 	 */
 	@RequestMapping("/setdotime")
 	public void setdotime(HttpServletRequest request,
-			HttpServletResponse response, int courseId,String usetime) {
+			HttpServletResponse response, int courseId, String usetime) {
 
 		try {
 			PrintWriter out = response.getWriter();
@@ -371,9 +380,9 @@ public class CourseController extends BaseController {
 						courseId);
 				uc.setUsetime(usetime);
 				userCourseService.updateUserCourse(uc);
-//				UserCourseTime uct = userCourseService.getUserCourseTime(
-//						user.getId(), courseId, uc.getDocounts());
-//				userCourseService.updateUserCourseTime(uct, usetime);
+				// UserCourseTime uct = userCourseService.getUserCourseTime(
+				// user.getId(), courseId, uc.getDocounts());
+				// userCourseService.updateUserCourseTime(uct, usetime);
 				String str = "{'sucess':'sucess'}";
 
 				out.write(str);
@@ -382,7 +391,7 @@ public class CourseController extends BaseController {
 
 		}
 	}
-	
+
 	/**
 	 * 完成课程
 	 * 
@@ -413,7 +422,7 @@ public class CourseController extends BaseController {
 
 		}
 	}
-	
+
 	/**
 	 * 再来一次课程
 	 * 
@@ -437,11 +446,10 @@ public class CourseController extends BaseController {
 						courseId);
 				int docounts = uc.getDocounts();
 				String usetime = uc.getUsetime();
-				List<UserTrain> utlist = utService.getMyCourseTrain(user.getId(),
-						courseId);
-				for (UserTrain ut:utlist)
-				{
-					//保存历史记录
+				List<UserTrain> utlist = utService.getMyCourseTrain(
+						user.getId(), courseId);
+				for (UserTrain ut : utlist) {
+					// 保存历史记录
 					UserTrainHistory entity = new UserTrainHistory();
 					entity.setCounts(ut.getCounts());
 					entity.setCourseId(ut.getCourseId());
@@ -452,25 +460,25 @@ public class CourseController extends BaseController {
 					entity.setDocounts(docounts);
 					entity.setUsetime(usetime);
 					userTrainHistoryService.save(entity);
-					//更新老的用户实验记录
+					// 更新老的用户实验记录
 					ut.setResult("");
 					ut.setRevalue("");
 					ut.setCounts(0);
 					utService.update(ut);
 				}
-				//更新用户课程
+				// 更新用户课程
 				uc.setState(0);
 				uc.setUsetime("0");
-				uc.setDocounts(docounts+1);
+				uc.setDocounts(docounts + 1);
 				userCourseService.updateUserCourse(uc);
 				String str = "{'sucess':'sucess'}";
 				out.write(str);
 			}
 		} catch (Exception e) {
-e.printStackTrace();
+			e.printStackTrace();
 		}
 	}
-	
+
 	// @RequestMapping("/tonextcourse")
 	// public void tonextcourse(HttpServletRequest request, int courseId,int
 	// num) {
@@ -570,8 +578,8 @@ e.printStackTrace();
 			String url = "redirect:/tologin.action";
 			return new ModelAndView(url);
 		}
-//		List<UserCourse> mycourses = userCourseService.getMyAllCourse(user
-//				.getId());
+		// List<UserCourse> mycourses = userCourseService.getMyAllCourse(user
+		// .getId());
 		List<UserCourse> mycourses = userCourseService.getMyHavingCourse(user
 				.getId());
 		view.addObject("having", mycourses);
@@ -663,7 +671,7 @@ e.printStackTrace();
 	@RequestMapping("/getCourse")
 	public ModelAndView getCourse(HttpServletRequest request, int courseId) {
 		ModelAndView view = new ModelAndView();
-		Course course = courseService.getCourse(courseId);
+		Course course = courseService.get(courseId);
 		view.addObject("course", course);
 		// Set<Chapter> chapterset = course.getChapters();
 		// Iterator it = chapterset.iterator();
@@ -693,12 +701,9 @@ e.printStackTrace();
 					courseId);
 			if (mycourse != null) {
 				view.addObject("buttonshow", 1);
-				if (mycourse.getState() == 0)
-				{
+				if (mycourse.getState() == 0) {
 					view.addObject("coursehaving", 0);
-				}
-				else
-				{
+				} else {
 					view.addObject("coursehaving", 1);
 				}
 			} else {

@@ -125,8 +125,11 @@ public class UploadCourseController extends BaseController {
 					return;
 				}*/
 				if (clist == null || clist.size() <= 0) {
-					course = courseService.saveCourse(name,
-							maproot.get("imgpath"), maproot.get("desc"));
+					Course c = new Course();
+					c.setName(name);
+					c.setDescrible(maproot.get("desc"));
+					c.setImgpath(maproot.get("imgpath"));
+					course = courseService.save(c);
 					id=course.getId();
 				}
 			}
@@ -137,7 +140,10 @@ public class UploadCourseController extends BaseController {
 			//if (course != null) {
 					//number = course.getId();
 				    //number=1;
-					Chapter chapter = chapterService.saveChapter(maproot.get("display_name"), number);
+					Chapter c = new Chapter();
+					c.setName(maproot.get("display_name"));
+					c.setCourse(courseService.get(number));
+					Chapter chapter = chapterService.save(c);
 					id=chapter.getId();
 			//}
 			}
@@ -147,7 +153,10 @@ public class UploadCourseController extends BaseController {
 				// + maproot.get("display_name") + "','" + number + "')");
 				
 				int chapterId = number;
-				Sequential sequence = sequentialService.saveSequential(maproot.get("display_name") , chapterId);
+				Sequential s = new Sequential();
+				s.setName(maproot.get("display_name"));
+				s.setChapter(chapterService.get(chapterId));
+				Sequential sequence = sequentialService.save(s);
 				id=sequence.getId();
 			}
 			if (root.getName().equals("vertical")) {
@@ -157,27 +166,30 @@ public class UploadCourseController extends BaseController {
 				// number=Db.getId("select max(id) from t_vertical");
 				
 				int sequenticalId = number;
-				Vertical vertical = verticalService.saveVertical(maproot.get("display_name") , sequenticalId);
+				Vertical v = new Vertical();
+				v.setName(maproot.get("display_name"));
+				v.setSequential(sequentialService.get(sequenticalId));
+				Vertical vertical = verticalService.save(v);
 				id=vertical.getId();
 			}
 			if(root.getName().equals("traing")){
 				//Db.insert("insert into t_train values(null,'" + maproot.get("display_name")+"'");
 				//System.out.println("hello");
-				String name=maproot.get("display_name");
-				Element con = root.element("content");
-				String conContent=con.element("realcontent").getText();
-				String conName=con.attributeValue("display_name");
-				String conShell = con.element("shell").getText();
-				String conanswer = con.element("answer").getText();
-				Element pre = root.element("precondition");
-				String preContent=pre.element("realcontent").getText();
-				String preName=pre.attributeValue("display_name");
-				String preShell=pre.element("shell").getText();
-				Element gar = root.element("garbage");
-				String garContent=gar.element("realcontent").getText();
-				String garName=gar.attributeValue("display_name");
-				String garShell=gar.element("shell").getText();
-				trainService.saveTrain(preName, preName, preContent, preShell, conName, conContent, conShell, conanswer, garName, garContent, garShell);
+//				String name=maproot.get("display_name");
+//				Element con = root.element("content");
+//				String conContent=con.element("realcontent").getText();
+//				String conName=con.attributeValue("display_name");
+//				String conShell = con.element("shell").getText();
+//				String conanswer = con.element("answer").getText();
+//				Element pre = root.element("precondition");
+//				String preContent=pre.element("realcontent").getText();
+//				String preName=pre.attributeValue("display_name");
+//				String preShell=pre.element("shell").getText();
+//				Element gar = root.element("garbage");
+//				String garContent=gar.element("realcontent").getText();
+//				String garName=gar.attributeValue("display_name");
+//				String garShell=gar.element("shell").getText();
+//				trainService.saveTrain(preName, preName, preContent, preShell, conName, conContent, conShell, conanswer, garName, garContent, garShell);
 			}
 			else
 			{

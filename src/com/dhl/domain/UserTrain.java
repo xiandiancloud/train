@@ -27,7 +27,7 @@ public class UserTrain extends BaseDomain {
 	private int counts;
 	private String result;
 	private String revalue;
-	
+
 	public String getRevalue() {
 		return revalue;
 	}

@@ -1,13 +1,20 @@
 package com.dhl.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.dhl.dao.Page;
+import com.dhl.dao.RoleDao;
 import com.dhl.dao.UserDao;
+import com.dhl.dao.UserProfileDao;
+import com.dhl.dao.UserRoleDao;
+import com.dhl.domain.Role;
 import com.dhl.domain.User;
+import com.dhl.domain.UserProfile;
+import com.dhl.domain.UserRole;
+import com.dhl.util.MD5;
 
 /**
  * 用户管理服务器，负责查询用户、注册用户、锁定用户等操作
@@ -18,13 +25,88 @@ public class UserService {
 	
 	@Autowired
 	private UserDao userDao;
+	@Autowired
+	private UserProfileDao userProfileDao;
+	@Autowired
+	private RoleDao roleDao;
+	@Autowired
+	private UserRoleDao userRoleDao;
 	
-    public User add(String userName){
-    	User user = new User();
-    	user.setName(userName);
-        userDao.save(user);
-        return user;
-    }
+	/**
+	 * 保存用户
+	 * @param user
+	 */
+	public User save(String roleName, String email,
+			String password, String username, String name, String gender,
+			String mailing_address, String year_of_birth,
+			String level_of_education, String goals)
+	{
+		User user = new User();
+		user.setEmail(email);
+		MD5 md5 = new MD5();
+		user.setPassword(md5.getMD5ofStr(password));
+		user.setUsername(username);
+		user.setIs_active(0);
+		user.setIs_staff(0);
+		user.setIs_superuser(0);
+		user.setLast_login(new Date());
+		user.setDate_joined(new Date());
+		user.setFirst_name("");
+		user.setLast_name("");
+		userDao.save(user);
+		UserProfile upf = new UserProfile();
+		upf.setUser_id(user.getId());
+		upf.setName(name);
+		upf.setAllow_certificate(1);
+		upf.setCourseware("course.xml");
+		upf.setGender(gender);
+		upf.setMailing_address(mailing_address);
+		upf.setLanguage("");
+		upf.setLocation("");
+		upf.setMeta("");
+		if (!"".equals(year_of_birth))
+		{
+			int yb = Integer.parseInt(year_of_birth);
+			upf.setYear_of_birth(yb);
+		}
+		upf.setLevel_of_education(level_of_education);
+		upf.setGoals(goals);
+		userProfileDao.save(upf);
+		Role role = roleDao.getRoleByname(roleName);
+		UserRole ur = new UserRole();
+		ur.setRoleId(role.getId());
+		ur.setUserId(user.getId());
+		userRoleDao.save(ur);
+		return user;
+	}
+	
+//	/**
+//	 * 保存用户
+//	 * @param user
+//	 */
+//	public void save(User user)
+//	{
+//		userDao.save(user);
+//	}
+//	
+//	/**
+//	 * 保存用户属性
+//	 * @param user
+//	 */
+//	public void saveProfile(UserProfile userProfile)
+//	{
+//		userProfileDao.save(userProfile);
+//	}
+	
+	/**
+	 * 根据邮箱查找用户
+	 * @param mail
+	 * @return
+	 */
+	public User getUserBymail(String email)
+	{
+		return userDao.getUserBymail(email);
+	}
 	
 	/**
      * 更新用户
@@ -73,8 +155,8 @@ public class UserService {
 		return userDao.loadAll();
 	}
 	
-	public Page getPage(int pageNo,int pageSize)
+	/*public Page getPage(int pageNo,int pageSize)
     {
     	return userDao.getPage(pageNo, pageSize);
-    }
+    }*/
 }

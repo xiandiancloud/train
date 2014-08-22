@@ -95,7 +95,7 @@
 				<div class="panel" id="leftpanel">
 					<div class="panel-body">
 						<div id="pagination" class="center"></div>
-						<div class="panel cmargin5">
+						<div class="panel panel-default cmargin5">
 						  <div class="h30 l1back hfont">
 						    <div class="lmargin5">实验定义</div>
 						  </div>
@@ -117,7 +117,7 @@
 						  </div>
 						</div>
 
-						<div class="panel cmargin5">
+						<div class="panel panel-default cmargin5">
 						  <div class="l2back h30 hfont">
 						    <div class="lmargin5">环境</div>
 						  </div>
@@ -159,7 +159,7 @@
 						  </div>
 						</div>
 						
-						<div class="panel cmargin5">
+						<div class="panel panel-default cmargin5">
 						  <div class="l3back h30 hfont">
 						    <div class="lmargin5">题目</div>
 						  </div>
@@ -169,7 +169,7 @@
 						  </div>
 						</div>
 						
-						<div class="panel cmargin5">
+						<div class="panel panel-default cmargin5">
 						  <div class="l4back h30 hfont">
 						    <div class="lmargin5">结果</div>
 						  </div>
@@ -187,7 +187,7 @@
 						  </div>
 						</div>
 						
-						<div class="panel cmargin5">
+						<div class="panel panel-default cmargin5">
 						  <div class="l5back h30 hfont">
 						    <div class="lmargin5">成绩</div>
 						  </div>
@@ -195,7 +195,7 @@
 						  </div>
 						</div>
 						
-						<div class="panel cmargin5">
+						<div class="panel panel-default cmargin5">
 						  <div class="l6back h30 hfont">
 						    <div class="lmargin5">答案</div>
 						  </div>

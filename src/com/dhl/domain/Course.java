@@ -41,6 +41,28 @@ public class Course extends BaseDomain {
 //	public void setCategory(Category category) {
 //		this.category = category;
 //	}
+	private int publish;
+	private String starttime;
+	private String endtime;
+	
+	public int getPublish() {
+		return publish;
+	}
+	public void setPublish(int publish) {
+		this.publish = publish;
+	}
+	public String getStarttime() {
+		return starttime;
+	}
+	public void setStarttime(String starttime) {
+		this.starttime = starttime;
+	}
+	public String getEndtime() {
+		return endtime;
+	}
+	public void setEndtime(String endtime) {
+		this.endtime = endtime;
+	}
 	public Set<Chapter> getChapters() {
 		return chapters;
 	}

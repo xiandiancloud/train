@@ -26,13 +26,28 @@ public class Train extends BaseDomain {
 	private String preName;
 //	private String preContent;
 //	private String preShell;
-	private String conName;
+//	private String conName;
 	private String conContent;
 	private String conShell;
 	private String conAnswer;
 //	private String garName;
 //	private String garContent;
 //	private String garShell;
+	private int score;
+	private String scoretag;
+	
+	public int getScore() {
+		return score;
+	}
+	public void setScore(int score) {
+		this.score = score;
+	}
+	public String getScoretag() {
+		return scoretag;
+	}
+	public void setScoretag(String scoretag) {
+		this.scoretag = scoretag;
+	}
 	public String getCodenum() {
 		return codenum;
 	}
@@ -57,12 +72,12 @@ public class Train extends BaseDomain {
 	public void setPreName(String preName) {
 		this.preName = preName;
 	}
-	public String getConName() {
-		return conName;
-	}
-	public void setConName(String conName) {
-		this.conName = conName;
-	}
+//	public String getConName() {
+//		return conName;
+//	}
+//	public void setConName(String conName) {
+//		this.conName = conName;
+//	}
 	public String getConContent() {
 		return conContent;
 	}
