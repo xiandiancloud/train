@@ -109,6 +109,18 @@ public class UserService {
 	}
 	
 	/**
+	 * 取得用户的角色
+	 * @param userId
+	 * @return
+	 */
+	public Role getUserRoleByuserId(int userId)
+	{
+		UserRole ur = userRoleDao.getUserRoleByUserId(userId);
+		Role role = roleDao.get(ur.getRoleId());
+		return role;
+	}
+	
+	/**
      * 更新用户
      * @param user 
      */

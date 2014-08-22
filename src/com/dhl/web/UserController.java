@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.dhl.cons.CommonConstant;
+import com.dhl.domain.Role;
 import com.dhl.domain.UCEnvironment;
 import com.dhl.domain.User;
 import com.dhl.domain.UserCourse;
@@ -139,6 +141,13 @@ public class UserController extends BaseController {
 		return new ModelAndView(url);
 	}
 
+	/**
+	 * 学生登陆
+	 * @param request
+	 * @param response
+	 * @param email
+	 * @param password
+	 */
 	@RequestMapping("/login")
 	public void login(HttpServletRequest request, HttpServletResponse response,
 			String email, String password) {
@@ -165,6 +174,47 @@ public class UserController extends BaseController {
 		}
 	}
 
+	/**
+	 * 老师登陆
+	 * @param request
+	 * @param response
+	 * @param email
+	 * @param password
+	 */
+	@RequestMapping("/tlogin")
+	public void tlogin(HttpServletRequest request, HttpServletResponse response,
+			String email, String password) {
+		try {
+			PrintWriter out = response.getWriter();
+			User user = userService.getUserBymail(email);
+			if (user == null) {
+				String result = "{'sucess':'fail','msg':'电子邮件不对'}";
+				out.write(result);
+				return;
+			}
+			MD5 md5 = new MD5();
+			String inputstr = md5.getMD5ofStr(password);
+			if (!inputstr.equals(user.getPassword())) {
+				String result = "{'sucess':'fail','msg':'登陆密码不对'}";
+				out.write(result);
+				return;
+			}
+			
+			Role role = userService.getUserRoleByuserId(user.getId());
+			if (!CommonConstant.ROLE_T.equals(role.getRoleName()))
+			{
+				String result = "{'sucess':'fail','msg':'登陆邮件不是老师身份'}";
+				out.write(result);
+				return;
+			}
+			setSessionUser(request, user);
+
+			String result = "{'sucess':'sucess'}";
+			out.write(result);
+		} catch (Exception e) {
+		}
+	}
+	
 	/**
 	 * 个人设置，环境准备，个人课程情况等等总结信息
 	 * 
