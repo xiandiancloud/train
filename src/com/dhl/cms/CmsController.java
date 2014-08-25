@@ -120,7 +120,7 @@ public class CmsController extends BaseController {
 
 		try {
 			PrintWriter out = response.getWriter();
-			User user = getSessionUser(request);
+//			User user = getSessionUser(request);
 //			if (user == null) {
 //				String str = "{'sucess':'fail'}";
 //
@@ -144,23 +144,26 @@ public class CmsController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping("/createcourse")
-	public ModelAndView createcourse(HttpServletRequest request, String name) {
-		ModelAndView view = new ModelAndView();
-		User user = getSessionUser(request);
-//		if (user == null) {
-//			String url = "redirect:/tologin.action";
-//			return new ModelAndView(url);
-//		}
-		Course c = new Course();
-		c.setName(name);
-		courseService.save(c);
-		TeacherCourse tc = new TeacherCourse();
-		tc.setCourse(c);
-		tc.setUserId(user.getId());
-		teacherCourseService.save(tc);
-		view.addObject("course", c);
-		view.setViewName("/teachercourse");
-		return view;
+	public void createcourse(HttpServletRequest request,HttpServletResponse response, String name,String org,String coursecode,String starttime) {
+		try {
+			PrintWriter out = response.getWriter();
+			User user = getSessionUser(request);
+			Course c = new Course();
+			c.setName(name);
+			c.setOrg(org);
+			c.setCoursecode(coursecode);
+			c.setStarttime(starttime);
+			courseService.save(c);
+			TeacherCourse tc = new TeacherCourse();
+			tc.setCourse(c);
+			tc.setUserId(user.getId());
+			teacherCourseService.save(tc);
+			
+			String str = "{'sucess':'sucess'}";
+			out.write(str);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -175,7 +178,7 @@ public class CmsController extends BaseController {
 
 		try {
 			PrintWriter out = response.getWriter();
-			User user = getSessionUser(request);
+//			User user = getSessionUser(request);
 //			if (user == null) {
 //				String str = "{'sucess':'fail'}";
 //
@@ -205,7 +208,7 @@ public class CmsController extends BaseController {
 
 		try {
 			PrintWriter out = response.getWriter();
-			User user = getSessionUser(request);
+//			User user = getSessionUser(request);
 //			if (user == null) {
 //				String str = "{'sucess':'fail'}";
 //
@@ -235,7 +238,7 @@ public class CmsController extends BaseController {
 
 		try {
 			PrintWriter out = response.getWriter();
-			User user = getSessionUser(request);
+//			User user = getSessionUser(request);
 //			if (user == null) {
 //				String str = "{'sucess':'fail'}";
 //
@@ -267,7 +270,7 @@ public class CmsController extends BaseController {
 
 		try {
 			PrintWriter out = response.getWriter();
-			User user = getSessionUser(request);
+//			User user = getSessionUser(request);
 //			if (user == null) {
 //				String str = "{'sucess':'fail'}";
 //

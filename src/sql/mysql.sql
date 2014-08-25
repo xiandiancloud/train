@@ -40,6 +40,8 @@ create table t_course
    publish             int(10) default 0,
    starttime           varchar(255) default null,
    endtime             varchar(255) default null,
+   org                 varchar(255) default null,
+   coursecode          varchar(255) default null,
    primary key (id),
    UNIQUE KEY (name)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
