@@ -37,10 +37,10 @@ public class ISController extends BaseController {
 		try {
 			PrintWriter out = response.getWriter();
 			User user = getSessionUser(request);
-			if (user == null) {
-				String str = "{'sucess':'fail'}";
-				out.write(str);
-			} else {
+//			if (user == null) {
+//				String str = "{'sucess':'fail'}";
+//				out.write(str);
+//			} else {
 
 				UCEnvironment uce = uceService.getMyUCE(user.getId(), courseId,
 						name);
@@ -80,7 +80,7 @@ public class ISController extends BaseController {
 					out.write(str);
 				}
 
-			}
+//			}
 		} catch (Exception e) {
 			PrintWriter out = null;
 			try {

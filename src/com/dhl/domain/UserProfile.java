@@ -34,6 +34,35 @@ public class UserProfile extends BaseDomain {
 	private int allow_certificate;
 	private String country;
 	private String city;
+	private String school_name;
+	private String major;
+	private String class_name;
+	private String admission_time;
+	
+	public String getSchool_name() {
+		return school_name;
+	}
+	public void setSchool_name(String school_name) {
+		this.school_name = school_name;
+	}
+	public String getMajor() {
+		return major;
+	}
+	public void setMajor(String major) {
+		this.major = major;
+	}
+	public String getClass_name() {
+		return class_name;
+	}
+	public void setClass_name(String class_name) {
+		this.class_name = class_name;
+	}
+	public String getAdmission_time() {
+		return admission_time;
+	}
+	public void setAdmission_time(String admission_time) {
+		this.admission_time = admission_time;
+	}
 	public int getId() {
 		return id;
 	}

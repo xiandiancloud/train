@@ -48,11 +48,11 @@ public class ShellController extends BaseController {
 			System.out.println(rp);
 			PrintWriter out = response.getWriter();
 			User user = getSessionUser(request);
-			if (user == null) {
-				String str = "{'user':'nouser','msg':'用户还没有登陆'}";
-
-				out.write(str);
-			} else {
+//			if (user == null) {
+//				String str = "{'user':'nouser','msg':'用户还没有登陆'}";
+//
+//				out.write(str);
+//			} else {
 
 				System.out.println("path ---------- " + path);
 				// ----------shell start--------------
@@ -146,7 +146,7 @@ public class ShellController extends BaseController {
 					
 //				}
 
-			}
+//			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			PrintWriter out = null;

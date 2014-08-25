@@ -31,6 +31,8 @@
 <link type="text/css" rel="stylesheet" href="tcss/style-app-extend1.css">
 <link type="text/css" rel="stylesheet" href="tcss/style-xmodule.css">
 
+	<script src="js/jquery-1.11.1.js"></script>
+	<script src="js/index.js"></script>
 </head>
 
 <body class="is-signedin index view-dashboard hide-wip lang_zh-cn">
@@ -71,7 +73,7 @@
 
 				</div>
 
-				<div id="box" style="display:none">
+				<div class="wrapper-create-element wrapper-create-course">
 					<form class="create-course course-info" id="create-course-form"
 						name="create-course-form">
 						<div class="wrap-error">
@@ -88,16 +90,16 @@
 
 								<ol class="list-input">
 									<li class="field text required" id="field-course-name"><label
-										for="new-course-name">课程名称</label> <input
-										class="new-course-name" id="new-course-name" type="text"
+										for="name">课程名称</label> <input
+										class="new-course-name" id="name" type="text"
 										name="new-course-name" aria-required="true"
 										placeholder="例如，计算机科学导论" /> <span class="tip">The
 											public display name for your course. This cannot be changed,
 											but you can set a different display name in Advanced Settings
 											later.</span> <span class="tip tip-error is-hiding"></span></li>
 									<li class="field text required" id="field-organization"><label
-										for="new-course-org">组织</label> <input class="new-course-org"
-										id="new-course-org" type="text" name="new-course-org"
+										for="org">组织</label> <input class="new-course-org"
+										id="org" type="text" name="new-course-org"
 										aria-required="true"
 										placeholder="例如：UniversityX 或 OrganizationX" /> <span
 										class="tip">资助本课程的机构名称。 <strong>注意：这是你课程URL的一部分，请勿使用空格或特殊字符。</strong>
@@ -105,8 +107,8 @@
 									</span> <span class="tip tip-error is-hiding"></span></li>
 
 									<li class="field text required" id="field-course-number">
-										<label for="new-course-number">课程代码</label> <input
-										class="new-course-number" id="new-course-number" type="text"
+										<label for="coursecode">课程代码</label> <input
+										class="new-course-number" id="coursecode" type="text"
 										name="new-course-number" aria-required="true"
 										placeholder="例如： CS101" /> <span class="tip">这个编号用来标记该课程在组织内的唯一性。
 											<strong>注意：这是课程URL的一部分，请勿使用空格或特殊字符，一旦设定不可更改。</strong>
@@ -114,8 +116,8 @@
 									</li>
 
 									<li class="field text required" id="field-course-run"><label
-										for="new-course-run">开课时间</label> <input
-										class="new-course-run" id="new-course-run" type="text"
+										for="starttime">开课时间</label> <input
+										class="new-course-run" id="starttime" type="text"
 										name="new-course-run" aria-required="true"
 										placeholder="例如：2014_T1" /> <span class="tip">
 											您课程开设的学期。 <strong>注意：这是课程URL的一部分，请勿使用空格或特殊字符，一旦设定不可更改。</strong>
@@ -127,8 +129,8 @@
 
 						<div class="actions">
 							<input type="hidden" value="False"
-								class="allow-unicode-course-id" /> <input type="submit"
-								value="创建" class="action action-primary new-course-save" /> <input
+								class="allow-unicode-course-id" /> <input type="button"
+								value="创建" class="action action-primary new-course-save" onclick="createcourse();"/> <input
 								type="button" value="取消"
 								class="action action-secondary action-cancel new-course-cancel"
 								onclick="btn()" />
@@ -144,11 +146,11 @@
 
 									<div class="course-metadata">
 										<span class="course-org metadata-item"> <span
-											class="label">组织：</span> <span class="value">xianggang</span>
+											class="label">组织：</span> <span class="value">${tcourse.course.org}</span>
 										</span> <span class="course-num metadata-item"> <span
-											class="label">课程代码：</span> <span class="value">NO006</span>
+											class="label">课程代码：</span> <span class="value">${tcourse.course.coursecode}</span>
 										</span> <span class="course-run metadata-item"> <span
-											class="label">开课时间</span> <span class="value">2014_T2</span>
+											class="label">开课时间</span> <span class="value">${tcourse.course.starttime}</span>
 										</span>
 									</div>
 							</a>
@@ -329,13 +331,38 @@
 
 	</div>
 	<script type="text/javascript">
-		var box1 = document.getElementById('box');
+	/* 	var box1 = document.getElementById('box');
 		function btn() {
 			if (box1.style.display == '') {
 				box1.style.display = 'none';
 			} else {
 				box1.style.display = '';
 			}
+		} */
+		
+		function createcourse()
+		{
+			var name = $("#name").val();
+			var org = $("#org").val();
+			var coursecode = $("#coursecode").val();
+			var starttime = $("#starttime").val();
+			var data = {name:name,org:org,coursecode:coursecode,starttime:starttime};
+			$.ajax({
+				url:"cms/createcourse.action",
+				type:"post",
+				data:data,
+				success:function(s){
+					var a=eval("("+s+")");	
+					if (a.sucess=="sucess")
+					{
+						location.href="cms/totcourselist.action";
+					}
+					else
+					{
+						alert(a.msg);
+					}
+				}
+			});
 		}
 	</script>
 </body>

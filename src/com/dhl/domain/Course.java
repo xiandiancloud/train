@@ -29,6 +29,24 @@ public class Course extends BaseDomain {
 	private String name;	
 	private String imgpath;
 	private String describle;
+	private int publish;
+	private String starttime;
+	private String endtime;
+	private String org;
+	private String coursecode;
+	
+	public String getOrg() {
+		return org;
+	}
+	public void setOrg(String org) {
+		this.org = org;
+	}
+	public String getCoursecode() {
+		return coursecode;
+	}
+	public void setCoursecode(String coursecode) {
+		this.coursecode = coursecode;
+	}
 	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER,mappedBy = "course")
 	@OrderBy(value="id ASC")
 	private Set<Chapter> chapters;
@@ -41,9 +59,7 @@ public class Course extends BaseDomain {
 //	public void setCategory(Category category) {
 //		this.category = category;
 //	}
-	private int publish;
-	private String starttime;
-	private String endtime;
+
 	
 	public int getPublish() {
 		return publish;

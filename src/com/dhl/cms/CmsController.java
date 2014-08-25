@@ -1,4 +1,4 @@
-package com.dhl.web;
+package com.dhl.cms;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -28,6 +28,7 @@ import com.dhl.service.SequentialService;
 import com.dhl.service.TeacherCourseService;
 import com.dhl.service.TrainService;
 import com.dhl.service.VerticalService;
+import com.dhl.web.BaseController;
 
 /**
  * 老师定义课程，使用等使用
@@ -36,7 +37,8 @@ import com.dhl.service.VerticalService;
  * @since
  */
 @Controller
-public class TeacherController extends BaseController {
+@RequestMapping("/cms")
+public class CmsController extends BaseController {
 	// 课程
 	@Autowired
 	private CourseService courseService;
@@ -75,12 +77,8 @@ public class TeacherController extends BaseController {
 		ModelAndView view = new ModelAndView();
 		User user = getSessionUser(request);
 		List<TeacherCourse> tcourselist = teacherCourseService.getMyTCourse(user.getId());
-		if (tcourselist != null && tcourselist.size() == 0)
-		{
-			tcourselist = null;
-		}
 		view.addObject("tcourselist", tcourselist);
-		view.setViewName("/teacher/tcourselist");
+		view.setViewName("/cms/tcourselist");
 		return view;
 	}
 	
@@ -93,7 +91,7 @@ public class TeacherController extends BaseController {
 	@RequestMapping("/totlogin")
 	public ModelAndView totlogin(HttpServletRequest request) {
 		ModelAndView view = new ModelAndView();
-		view.setViewName("/teacher/signin");
+		view.setViewName("/cms/signin");
 		return view;
 	}
 	
@@ -106,7 +104,7 @@ public class TeacherController extends BaseController {
 	@RequestMapping("/totregeister")
 	public ModelAndView totregeister(HttpServletRequest request) {
 		ModelAndView view = new ModelAndView();
-		view.setViewName("/teacher/signup");
+		view.setViewName("/cms/signup");
 		return view;
 	}
 	
@@ -122,17 +120,17 @@ public class TeacherController extends BaseController {
 
 		try {
 			PrintWriter out = response.getWriter();
-			User user = getSessionUser(request);
-			if (user == null) {
-				String str = "{'sucess':'fail'}";
-
-				out.write(str);
-			} else {
+//			User user = getSessionUser(request);
+//			if (user == null) {
+//				String str = "{'sucess':'fail'}";
+//
+//				out.write(str);
+//			} else {
 				Course course = courseService.get(courseId);
 				course.setPublish(1);
 				String str = "{'sucess':'sucess'}";
 				out.write(str);
-			}
+//			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -146,23 +144,26 @@ public class TeacherController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping("/createcourse")
-	public ModelAndView createcourse(HttpServletRequest request, String name) {
-		ModelAndView view = new ModelAndView();
-		User user = getSessionUser(request);
-		if (user == null) {
-			String url = "redirect:/tologin.action";
-			return new ModelAndView(url);
+	public void createcourse(HttpServletRequest request,HttpServletResponse response, String name,String org,String coursecode,String starttime) {
+		try {
+			PrintWriter out = response.getWriter();
+			User user = getSessionUser(request);
+			Course c = new Course();
+			c.setName(name);
+			c.setOrg(org);
+			c.setCoursecode(coursecode);
+			c.setStarttime(starttime);
+			courseService.save(c);
+			TeacherCourse tc = new TeacherCourse();
+			tc.setCourse(c);
+			tc.setUserId(user.getId());
+			teacherCourseService.save(tc);
+			
+			String str = "{'sucess':'sucess'}";
+			out.write(str);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		Course c = new Course();
-		c.setName(name);
-		courseService.save(c);
-		TeacherCourse tc = new TeacherCourse();
-		tc.setCourse(c);
-		tc.setUserId(user.getId());
-		teacherCourseService.save(tc);
-		view.addObject("course", c);
-		view.setViewName("/teachercourse");
-		return view;
 	}
 
 	/**
@@ -177,19 +178,19 @@ public class TeacherController extends BaseController {
 
 		try {
 			PrintWriter out = response.getWriter();
-			User user = getSessionUser(request);
-			if (user == null) {
-				String str = "{'sucess':'fail'}";
-
-				out.write(str);
-			} else {
+//			User user = getSessionUser(request);
+//			if (user == null) {
+//				String str = "{'sucess':'fail'}";
+//
+//				out.write(str);
+//			} else {
 				Chapter c = new Chapter();
 				c.setName(name);
 				c.setCourse(courseService.get(courseId));
 				chapterService.save(c);
 				String str = "{'sucess':'sucess'}";
 				out.write(str);
-			}
+//			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -207,19 +208,19 @@ public class TeacherController extends BaseController {
 
 		try {
 			PrintWriter out = response.getWriter();
-			User user = getSessionUser(request);
-			if (user == null) {
-				String str = "{'sucess':'fail'}";
-
-				out.write(str);
-			} else {
+//			User user = getSessionUser(request);
+//			if (user == null) {
+//				String str = "{'sucess':'fail'}";
+//
+//				out.write(str);
+//			} else {
 				Sequential s = new Sequential();
 				s.setName(name);
 				s.setChapter(chapterService.get(chapterId));
 				sequentialService.save(s);
 				String str = "{'sucess':'sucess'}";
 				out.write(str);
-			}
+//			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -237,12 +238,12 @@ public class TeacherController extends BaseController {
 
 		try {
 			PrintWriter out = response.getWriter();
-			User user = getSessionUser(request);
-			if (user == null) {
-				String str = "{'sucess':'fail'}";
-
-				out.write(str);
-			} else {
+//			User user = getSessionUser(request);
+//			if (user == null) {
+//				String str = "{'sucess':'fail'}";
+//
+//				out.write(str);
+//			} else {
 
 				Vertical v = new Vertical();
 				v.setName(name);
@@ -250,7 +251,7 @@ public class TeacherController extends BaseController {
 				verticalService.save(v);
 				String str = "{'sucess':'sucess'}";
 				out.write(str);
-			}
+//			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -269,12 +270,12 @@ public class TeacherController extends BaseController {
 
 		try {
 			PrintWriter out = response.getWriter();
-			User user = getSessionUser(request);
-			if (user == null) {
-				String str = "{'sucess':'fail'}";
-
-				out.write(str);
-			} else {
+//			User user = getSessionUser(request);
+//			if (user == null) {
+//				String str = "{'sucess':'fail'}";
+//
+//				out.write(str);
+//			} else {
 
 				Train t = new Train();
 				t.setName(name);
@@ -288,7 +289,7 @@ public class TeacherController extends BaseController {
 				trainService.save(t);
 				String str = "{'sucess':'sucess'}";
 				out.write(str);
-			}
+//			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

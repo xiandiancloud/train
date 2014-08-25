@@ -67,11 +67,11 @@ public class CourseController extends BaseController {
 	public ModelAndView tocourse(HttpServletRequest request, int courseId) {
 		ModelAndView view = new ModelAndView();
 		User user = getSessionUser(request);
-		if (user == null) {
-			String url = "redirect:/tologin.action?url=getCourse.courseId="
-					+ courseId;
-			return new ModelAndView(url);
-		}
+//		if (user == null) {
+//			String url = "redirect:/tologin.action?url=getCourse.courseId="
+//					+ courseId;
+//			return new ModelAndView(url);
+//		}
 		userCourseService.setMyCourseActiveState(user.getId());
 		UserCourse ucs = userCourseService
 				.getUserCourse(user.getId(), courseId);
@@ -150,11 +150,11 @@ public class CourseController extends BaseController {
 			int verticalId, int trainId) {
 		ModelAndView view = new ModelAndView();
 		User user = getSessionUser(request);
-		if (user == null) {
-			String url = "redirect:/tologin.action?url=getCourse.courseId="
-					+ courseId;
-			return new ModelAndView(url);
-		}
+//		if (user == null) {
+//			String url = "redirect:/tologin.action?url=getCourse.courseId="
+//					+ courseId;
+//			return new ModelAndView(url);
+//		}
 		userCourseService.setMyCourseActiveState(user.getId());
 		UserCourse ucs = userCourseService
 				.getUserCourse(user.getId(), courseId);
@@ -290,11 +290,11 @@ public class CourseController extends BaseController {
 		try {
 			PrintWriter out = response.getWriter();
 			User user = getSessionUser(request);
-			if (user == null) {
-				String str = "{'sucess':'fail'}";
-
-				out.write(str);
-			} else {
+//			if (user == null) {
+//				String str = "{'sucess':'fail'}";
+//
+//				out.write(str);
+//			} else {
 				List<VerticalTrain> vtlist = vtService
 						.getAllTrainByCourseId(courseId);
 				List<UserTrain> utlist = utService.getMyFinishCourseTrain(
@@ -315,7 +315,7 @@ public class CourseController extends BaseController {
 						+ uc.getUsetime() + "','complete':'" + complete + "'}";
 
 				out.write(str);
-			}
+//			}
 		} catch (Exception e) {
 
 		}
@@ -335,11 +335,11 @@ public class CourseController extends BaseController {
 		try {
 			PrintWriter out = response.getWriter();
 			User user = getSessionUser(request);
-			if (user == null) {
-				String str = "{'sucess':'fail'}";
-
-				out.write(str);
-			} else {
+//			if (user == null) {
+//				String str = "{'sucess':'fail'}";
+//
+//				out.write(str);
+//			} else {
 				UserCourse uc = userCourseService.getUserCourse(user.getId(),
 						courseId);
 				// UserCourseTime uctime = userCourseService.getUserCourseTime(
@@ -351,7 +351,7 @@ public class CourseController extends BaseController {
 				String str = "{'sucess':'sucess','dotime':'" + dotime + "'}";
 
 				out.write(str);
-			}
+//			}
 		} catch (Exception e) {
 
 		}
@@ -371,11 +371,11 @@ public class CourseController extends BaseController {
 		try {
 			PrintWriter out = response.getWriter();
 			User user = getSessionUser(request);
-			if (user == null) {
-				String str = "{'sucess':'fail'}";
-
-				out.write(str);
-			} else {
+//			if (user == null) {
+//				String str = "{'sucess':'fail'}";
+//
+//				out.write(str);
+//			} else {
 				UserCourse uc = userCourseService.getUserCourse(user.getId(),
 						courseId);
 				uc.setUsetime(usetime);
@@ -386,7 +386,7 @@ public class CourseController extends BaseController {
 				String str = "{'sucess':'sucess'}";
 
 				out.write(str);
-			}
+//			}
 		} catch (Exception e) {
 
 		}
@@ -406,18 +406,18 @@ public class CourseController extends BaseController {
 		try {
 			PrintWriter out = response.getWriter();
 			User user = getSessionUser(request);
-			if (user == null) {
-				String str = "{'sucess':'fail'}";
-
-				out.write(str);
-			} else {
+//			if (user == null) {
+//				String str = "{'sucess':'fail'}";
+//
+//				out.write(str);
+//			} else {
 				UserCourse uc = userCourseService.getUserCourse(user.getId(),
 						courseId);
 				uc.setState(1);
 				userCourseService.updateUserCourse(uc);
 				String str = "{'sucess':'sucess'}";
 				out.write(str);
-			}
+//			}
 		} catch (Exception e) {
 
 		}
@@ -437,11 +437,11 @@ public class CourseController extends BaseController {
 		try {
 			PrintWriter out = response.getWriter();
 			User user = getSessionUser(request);
-			if (user == null) {
-				String str = "{'sucess':'fail'}";
-
-				out.write(str);
-			} else {
+//			if (user == null) {
+//				String str = "{'sucess':'fail'}";
+//
+//				out.write(str);
+//			} else {
 				UserCourse uc = userCourseService.getUserCourse(user.getId(),
 						courseId);
 				int docounts = uc.getDocounts();
@@ -473,7 +473,7 @@ public class CourseController extends BaseController {
 				userCourseService.updateUserCourse(uc);
 				String str = "{'sucess':'sucess'}";
 				out.write(str);
-			}
+//			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -574,10 +574,10 @@ public class CourseController extends BaseController {
 	public ModelAndView mycourse(HttpServletRequest request) {
 		ModelAndView view = new ModelAndView();
 		User user = getSessionUser(request);
-		if (user == null) {
-			String url = "redirect:/tologin.action";
-			return new ModelAndView(url);
-		}
+//		if (user == null) {
+//			String url = "redirect:/tologin.action";
+//			return new ModelAndView(url);
+//		}
 		// List<UserCourse> mycourses = userCourseService.getMyAllCourse(user
 		// .getId());
 		List<UserCourse> mycourses = userCourseService.getMyHavingCourse(user
