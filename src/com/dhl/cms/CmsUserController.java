@@ -90,7 +90,7 @@ public class CmsUserController extends BaseController {
 	@RequestMapping("/tloginout")
 	public ModelAndView tloginout(HttpServletRequest request) {
 		setSessionUser(request, null);
-		String url = "redirect:/getAllCategory.action";
+		String url = "redirect:/cms/totcourselist.action";
 
 		return new ModelAndView(url);
 	}

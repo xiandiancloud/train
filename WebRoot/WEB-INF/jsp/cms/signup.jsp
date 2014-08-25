@@ -31,6 +31,7 @@
 <link type="text/css" rel="stylesheet" href="tcss/style-xmodule.css">
 
 <script src="js/jquery-1.11.1.js"></script>
+<script src="js/index.js"></script>
 </head>
 
 <body class="not-signedin view-signup hide-wip lang_zh-cn">

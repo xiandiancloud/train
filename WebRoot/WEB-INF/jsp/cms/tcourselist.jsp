@@ -32,7 +32,7 @@
 <link type="text/css" rel="stylesheet" href="tcss/style-xmodule.css">
 
 	<script src="js/jquery-1.11.1.js"></script>
-	
+	<script src="js/index.js"></script>
 </head>
 
 <body class="is-signedin index view-dashboard hide-wip lang_zh-cn">
@@ -73,7 +73,7 @@
 
 				</div>
 
-				<div id="box" style="display:none">
+				<div class="wrapper-create-element wrapper-create-course">
 					<form class="create-course course-info" id="create-course-form"
 						name="create-course-form">
 						<div class="wrap-error">
@@ -331,14 +331,14 @@
 
 	</div>
 	<script type="text/javascript">
-		var box1 = document.getElementById('box');
+	/* 	var box1 = document.getElementById('box');
 		function btn() {
 			if (box1.style.display == '') {
 				box1.style.display = 'none';
 			} else {
 				box1.style.display = '';
 			}
-		}
+		} */
 		
 		function createcourse()
 		{
