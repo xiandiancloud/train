@@ -44,7 +44,7 @@
 			<div class="wrapper-content wrapper">
 				<section class="content"> <header>
 				<h1 class="title title-1">注册edX Studio</h1>
-				<a href="totlogin.action" class="action action-signin">如果您已经有Studio账号，请直接登录</a>
+				<a href="cms/totlogin.action" class="action action-signin">如果您已经有Studio账号，请直接登录</a>
 				</header>
 				<p class="introduction">如果您已准备好创建在线课程，请在下面注册并创建您的第一个edX课程。</p>
 				<article class="content-primary" role="main">

@@ -110,7 +110,7 @@
 		{
 			var email = $("#email").val();
 			var password = $("#password").val();
-			var url = "${url}";
+			//var url = "${url}";
 			var data = {email:email,password:password};
 			$.ajax({
 				url:"login.action",
@@ -120,12 +120,14 @@
 					var a=eval("("+s+")");	
 					if (a.sucess=="sucess")
 					{
-						if (url)
+						alert(a.toUrl);
+						location.href=a.toUrl;
+						/*if (url)
 						{
 							location.href=url;
 						}
 						else
-						location.href="mycourse.action";
+						location.href="mycourse.action";*/
 					}
 					else
 					{

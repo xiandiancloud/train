@@ -13,6 +13,8 @@
 <!--[if gt IE 9]><!-->
 <html lang="zh-cn"><!--<![endif]-->
   <head>
+  <base href="<%=basePath%>">
+  
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<title>Sign In | edX Studio</title>
@@ -48,7 +50,7 @@
 				<section class="content">
 					<header>
 						<h1 class="title title-1">登录edX Studio</h1>
-						<a href="totregeister.action" class="action action-signin">如果您没有Studio账号，请现在注册。</a>
+						<a href="cms/totregeister.action" class="action action-signin">如果您没有Studio账号，请现在注册。</a>
 					</header>
 
 					<article class="content-primary" role="main">
@@ -113,14 +115,14 @@
 			var password = $("#password").val();
 			var data = {email:email,password:password};
 			$.ajax({
-				url:"tlogin.action",
+				url:"cms/tlogin.action",
 				type:"post",
 				data:data,
 				success:function(s){
 					var a=eval("("+s+")");	
 					if (a.sucess=="sucess")
 					{
-						location.href="totcourselist.action";
+						location.href="cms/totcourselist.action";
 					}
 					else
 					{

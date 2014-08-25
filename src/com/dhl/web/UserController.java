@@ -6,13 +6,13 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.dhl.cons.CommonConstant;
-import com.dhl.domain.Role;
 import com.dhl.domain.UCEnvironment;
 import com.dhl.domain.User;
 import com.dhl.domain.UserCourse;
@@ -70,14 +70,20 @@ public class UserController extends BaseController {
 	// return new ModelAndView(url);
 	// }
 
+	/**
+	 * 跳转到登陆界面
+	 * @param request
+	 * @param url
+	 * @return
+	 */
 	@RequestMapping("/tologin")
 	public ModelAndView tologin(HttpServletRequest request, String url) {
 		ModelAndView view = new ModelAndView();
-		if (url != null && url.length() > 0) {
-			String[] strs = url.split("\\.");
-			url = strs[0] + ".action?" + strs[1];
-			view.addObject("url", url);
-		}
+		// if (url != null && url.length() > 0) {
+		// String[] strs = url.split("\\.");
+		// url = strs[0] + ".action?" + strs[1];
+		// view.addObject("url", url);
+		// }
 		view.setViewName("/login");
 		return view;
 	}
@@ -167,54 +173,18 @@ public class UserController extends BaseController {
 				return;
 			}
 			setSessionUser(request, user);
-
-			String result = "{'sucess':'sucess'}";
+			String toUrl = (String)request.getSession().getAttribute(CommonConstant.LOGIN_TO_URL);
+			request.getSession().removeAttribute(CommonConstant.LOGIN_TO_URL);
+			//如果当前会话中没有保存登录之前的请求URL，则直接跳转到主页
+			if(StringUtils.isEmpty(toUrl)){
+				toUrl = "getAllCategory.action";
+			}
+			String result = "{'sucess':'sucess','toUrl':'"+toUrl+"'}";
 			out.write(result);
 		} catch (Exception e) {
 		}
 	}
 
-	/**
-	 * 老师登陆
-	 * @param request
-	 * @param response
-	 * @param email
-	 * @param password
-	 */
-	@RequestMapping("/tlogin")
-	public void tlogin(HttpServletRequest request, HttpServletResponse response,
-			String email, String password) {
-		try {
-			PrintWriter out = response.getWriter();
-			User user = userService.getUserBymail(email);
-			if (user == null) {
-				String result = "{'sucess':'fail','msg':'电子邮件不对'}";
-				out.write(result);
-				return;
-			}
-			MD5 md5 = new MD5();
-			String inputstr = md5.getMD5ofStr(password);
-			if (!inputstr.equals(user.getPassword())) {
-				String result = "{'sucess':'fail','msg':'登陆密码不对'}";
-				out.write(result);
-				return;
-			}
-			
-			Role role = userService.getUserRoleByuserId(user.getId());
-			if (!CommonConstant.ROLE_T.equals(role.getRoleName()))
-			{
-				String result = "{'sucess':'fail','msg':'登陆邮件不是老师身份'}";
-				out.write(result);
-				return;
-			}
-			setSessionUser(request, user);
-
-			String result = "{'sucess':'sucess'}";
-			out.write(result);
-		} catch (Exception e) {
-		}
-	}
-	
 	/**
 	 * 个人设置，环境准备，个人课程情况等等总结信息
 	 * 
@@ -234,10 +204,10 @@ public class UserController extends BaseController {
 		// String url = "redirect:/getAllCourse.action";
 
 		User user = getSessionUser(request);
-		if (user == null) {
-			String url = "redirect:/tologin.action";
-			return new ModelAndView(url);
-		}
+//		if (user == null) {
+//			String url = "redirect:/tologin.action";
+//			return new ModelAndView(url);
+//		}
 		if (index == 2) {
 			List<UCEnvironment> uce = uceService.getMyUCE(user.getId());
 			view.addObject("uce", uce);
@@ -272,7 +242,7 @@ public class UserController extends BaseController {
 		try {
 			User user = getSessionUser(request);
 			PrintWriter out = response.getWriter();
-			if (user != null) {
+//			if (user != null) {
 				UCEnvironment uce = uceService.getMyUCE(user.getId(), courseId,
 						name);
 				UserTrain userTrain = userTrainService.getUserTrain(
@@ -294,10 +264,10 @@ public class UserController extends BaseController {
 							+ "','revalue':'" + revalue + "'}";
 					out.write(str);
 				}
-			} else {
-				String result = "{'sucess':'fail'}";
-				out.write(result);
-			}
+//			} else {
+//				String result = "{'sucess':'fail'}";
+//				out.write(result);
+//			}
 		} catch (Exception e) {
 
 		}
