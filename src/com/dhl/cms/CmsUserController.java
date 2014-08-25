@@ -55,7 +55,7 @@ public class CmsUserController extends BaseController {
 			HttpServletResponse response, String roleName, String email,
 			String password, String username, String name, String gender,
 			String mailing_address, String year_of_birth,
-			String level_of_education, String goals) {
+			String level_of_education, String goals,String school_name) {
 		try {
 			PrintWriter out = response.getWriter();
 			User user = userService.getUserBymail(email);
@@ -72,7 +72,7 @@ public class CmsUserController extends BaseController {
 			}
 			user = userService.save(roleName, email, password, username, name,
 					gender, mailing_address, year_of_birth, level_of_education,
-					goals);
+					goals,school_name,"","","");
 			setSessionUser(request, user);
 
 			String result = "{'sucess':'sucess'}";

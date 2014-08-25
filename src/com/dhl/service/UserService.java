@@ -39,7 +39,7 @@ public class UserService {
 	public User save(String roleName, String email,
 			String password, String username, String name, String gender,
 			String mailing_address, String year_of_birth,
-			String level_of_education, String goals)
+			String level_of_education, String goals,String school_name,String major,String class_name,String admission_time)
 	{
 		User user = new User();
 		user.setEmail(email);
@@ -71,6 +71,10 @@ public class UserService {
 		}
 		upf.setLevel_of_education(level_of_education);
 		upf.setGoals(goals);
+		upf.setSchool_name(school_name);
+		upf.setMajor(major);
+		upf.setClass_name(class_name);
+		upf.setAdmission_time(admission_time);
 		userProfileDao.save(upf);
 		Role role = roleDao.getRoleByname(roleName);
 		UserRole ur = new UserRole();

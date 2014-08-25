@@ -26,7 +26,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 	private static final String FILTERED_REQUEST = "@@session_context_filtered_request";
 
 	private static final String[] INHERENT_ESCAPE_URIS = { "/totlogin.action",
-			"/tlogin.action", "/toregeister.action", "/bbb.action" };
+			"/tlogin.action", "/totregeister.action","tregeister.action", "/bbb.action" };
 
 	@Override
 	public void afterCompletion(HttpServletRequest arg0,

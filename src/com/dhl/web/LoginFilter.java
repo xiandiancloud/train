@@ -25,18 +25,22 @@ import com.dhl.domain.User;
 public class LoginFilter implements Filter {
 	private static final String FILTERED_REQUEST = "@@session_context_filtered_request";
 
-	private static final String[] INHERENT_ESCAPE_URIS = { "/getAllCategory.action","getCourse.action",
-			"/tologin.action", "/login.action","getCourseByCategoryId.action","recentcourse.action", "/bbb.action" };
+	private static final String[] INHERENT_ESCAPE_URIS = {
+			"/getAllCategory.action", "getCourse.action", "/tologin.action",
+			"/login.action", "getCourseByCategoryId.action",
+			"recentcourse.action", "toregeister.action","regeister.action", "getAllSchool.action",
+			"/bbb.action" };
 
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
-		if (request != null && request.getAttribute(FILTERED_REQUEST) != null || httpRequest.getRequestURI().contains("cms")) {
+		if (request != null && request.getAttribute(FILTERED_REQUEST) != null
+				|| httpRequest.getRequestURI().contains("cms")) {
 			chain.doFilter(request, response);
 		} else {
 
 			request.setAttribute(FILTERED_REQUEST, Boolean.TRUE);
-//			HttpServletRequest httpRequest = (HttpServletRequest) request;
+			// HttpServletRequest httpRequest = (HttpServletRequest) request;
 			User userContext = getSessionUser(httpRequest);
 
 			// ②-3 用户未登录, 且当前URI资源需要登录才能访问
@@ -51,11 +55,11 @@ public class LoginFilter implements Filter {
 				httpRequest.getSession().setAttribute(
 						CommonConstant.LOGIN_TO_URL, toUrl);
 
-//				request.getRequestDispatcher("/tologin.action").forward(request,
-//						response);
+				// request.getRequestDispatcher("/tologin.action").forward(request,
+				// response);
 				HttpServletResponse re = (HttpServletResponse) response;
 				String contextPath = httpRequest.getContextPath();
-				re.sendRedirect(contextPath+"/tologin.action");
+				re.sendRedirect(contextPath + "/tologin.action");
 				return;
 			}
 			chain.doFilter(request, response);

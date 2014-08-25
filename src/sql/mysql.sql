@@ -1,4 +1,3 @@
-
 drop table if exists t_role;
 create table t_role
 (

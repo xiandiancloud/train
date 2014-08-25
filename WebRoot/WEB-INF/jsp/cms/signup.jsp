@@ -68,6 +68,10 @@
 							<li class="field text required" id="field-password"><label
 								for="password">密码</label> <input id="password" type="password"
 								name="password" /></li>
+							<li class="field text required" id="field-school_name"><label
+								for="school_name">学校名称</label><select class="short"
+								id="school_name">
+							</select></li>
 							<li class="field text required" id="field-level_of_education"><label
 								for="level_of_education">最高教育程度</label><select class="short"
 								id="level_of_education">
@@ -275,6 +279,21 @@
 
 	<script>
 		$(function() {
+			$.ajax({
+				url : "getAllSchool.action",
+				type : "post",
+				success : function(s) {
+					var a = eval("(" + s + ")");
+					var tmp = '<option value="">--</option>';
+					var row = a.rows;
+					for ( var i = 0; i < row.length; i++) {
+						var school = row[i];
+						var name = school.name;
+						tmp += '<option value='+name+'>'+name+'</option>';
+					}
+					$("#school_name").html(tmp);
+				}
+			});
 			$('input').keypress(function(e) {
 				var key = e.which;
 				if (key == 13) {
@@ -294,6 +313,7 @@
 			var year_of_birth = $("#year_of_birth").val();
 			var level_of_education = $("#level_of_education").val();
 			var goals = $("#goals").val();
+			var school_name = $("#school_name").val();
 			var data = {
 				roleName : roleName,
 				email : email,
@@ -304,17 +324,18 @@
 				mailing_address : mailing_address,
 				year_of_birth : year_of_birth,
 				level_of_education : level_of_education,
-				goals : goals
+				goals : goals,
+				school_name:school_name
 			};
 			$.ajax({
-				url : "regeister.action",
+				url : "cms/tregeister.action",
 				type : "post",
 				data : data,
 				success : function(s) {
 					var a = eval("(" + s + ")");
 
 					if (a.sucess == "sucess") {
-						location.href = "totcourselist.action";
+						location.href = "cms/totcourselist.action";
 					} else {
 						alert(a.msg);
 					}

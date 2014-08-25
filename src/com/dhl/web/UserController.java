@@ -112,7 +112,7 @@ public class UserController extends BaseController {
 			HttpServletResponse response, String roleName, String email,
 			String password, String username, String name, String gender,
 			String mailing_address, String year_of_birth,
-			String level_of_education, String goals) {
+			String level_of_education, String goals,String school_name,String major,String class_name,String admission_time) {
 		try {
 			PrintWriter out = response.getWriter();
 			User user = userService.getUserBymail(email);
@@ -129,7 +129,7 @@ public class UserController extends BaseController {
 			}
 			user = userService.save(roleName, email, password, username, name,
 					gender, mailing_address, year_of_birth, level_of_education,
-					goals);
+					goals,school_name,major,class_name,admission_time);
 			setSessionUser(request, user);
 
 			String result = "{'sucess':'sucess'}";
