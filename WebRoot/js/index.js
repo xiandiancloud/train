@@ -181,8 +181,19 @@ $(document).ready(function($,_) {
                 // body element, which will close the dropdown.
                 e.stopPropagation();
             }
-        });
+        }); 
         
+        
+       $('.new-component-type').click(function(e) {
+    	   $('.new-component').slideUp(250);
+           $('.new-component-templates').slideDown(250);
+       });
+       
+       $('.cancel-button').click(function(e) {
+    	   $('.new-component').slideDown(250);
+           $('.new-component-templates').slideUp(250);
+       });
+       
        $('.new-course-button').bind('click', addNewCourse);
              
 });
