@@ -123,7 +123,7 @@
 					var a=eval("("+s+")");	
 					if (a.sucess=="sucess")
 					{
-						location.href="cms/totcourselist.action";
+						location.href=a.toUrl;
 					}
 					else
 					{

@@ -120,7 +120,6 @@
 					var a=eval("("+s+")");	
 					if (a.sucess=="sucess")
 					{
-						alert(a.toUrl);
 						location.href=a.toUrl;
 						/*if (url)
 						{

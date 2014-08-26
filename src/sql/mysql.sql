@@ -38,7 +38,8 @@ create table t_course
    describle           varchar(255) default null, 
    publish             int(10) default 0,
    starttime           varchar(255) default null,
-   endtime             varchar(255) default null,
+   starttimedetail     varchar(255) default null,
+   endtimedetail       varchar(255) default null,
    org                 varchar(255) default null,
    coursecode          varchar(255) default null,
    primary key (id),
@@ -51,7 +52,10 @@ create table course_category
    id                  int not null AUTO_INCREMENT,
    courseId            int(10) not null,
    categoryId          int(10) not null,
-   primary key (id)
+   primary key (id),
+   UNIQUE KEY (courseId),
+   CONSTRAINT receivecourse_category_ibfk_1 FOREIGN KEY (courseId) REFERENCES t_course (id) ON DELETE CASCADE,
+   CONSTRAINT receivecourse_category_ibfk_2 FOREIGN KEY (categoryId) REFERENCES t_coursecategory (id) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 drop table if exists t_chapter;
@@ -90,7 +94,7 @@ create table t_train
    id                  int not null AUTO_INCREMENT,
    name                varchar(255) not null,
    codenum             varchar(255) not null,
-   preName             varchar(255) not null,    
+   envname             varchar(255) not null,    
    conContent          varchar(3000) not null,
    conShell            varchar(255) default null,
    conAnswer           varchar(3000) default null,

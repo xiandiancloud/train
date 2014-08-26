@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -129,8 +130,13 @@ public class CmsUserController extends BaseController {
 				return;
 			}
 			setSessionUser(request, user);
-
-			String result = "{'sucess':'sucess'}";
+			String toUrl = (String)request.getSession().getAttribute(CommonConstant.LOGIN_TO_URL);
+			request.getSession().removeAttribute(CommonConstant.LOGIN_TO_URL);
+			//如果当前会话中没有保存登录之前的请求URL，则直接跳转到主页
+			if(StringUtils.isEmpty(toUrl)){
+				toUrl = "cms/totcourselist.action";
+			}
+			String result = "{'sucess':'sucess','toUrl':'"+toUrl+"'}";
 			out.write(result);
 		} catch (Exception e) {
 		}

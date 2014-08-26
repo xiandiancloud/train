@@ -1,6 +1,13 @@
 package com.dhl.util;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
@@ -8,8 +15,16 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.zip.GZIPInputStream;
+import java.util.zip.GZIPOutputStream;
 
+import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
+import org.apache.commons.compress.archivers.tar.TarArchiveOutputStream;
+import org.apache.commons.compress.utils.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.tools.tar.TarEntry;
+import org.apache.tools.tar.TarInputStream;
+import org.apache.tools.tar.TarOutputStream;
 
 import ch.ethz.ssh2.Connection;
 
@@ -142,12 +157,11 @@ public class UtilTools {
 		return str;
 	}
 
-    public static String replaceBr(String str)
-    {
-    	str = str.replaceAll("</br>", "");
-    	return str;
-    }
-    
+	public static String replaceBr(String str) {
+		str = str.replaceAll("</br>", "");
+		return str;
+	}
+
 	public static String[] createServer(String serverName) {
 		Keystone keystone = new Keystone(Configuration.KEYSTONE_AUTH_URL);
 		Access access = keystone
@@ -414,4 +428,420 @@ public class UtilTools {
 		return conn.authenticateWithPassword(usr, psword);
 	}
 
+	/**
+	 * 删除某个文件夹下的所有文件夹和文件
+	 * 
+	 * @param delpath
+	 *            String
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 * @return boolean
+	 */
+	public static boolean deletefile(String delpath) throws Exception {
+		try {
+
+			File file = new File(delpath);
+			// 当且仅当此抽象路径名表示的文件存在且 是一个目录时，返回 true
+			if (!file.isDirectory()) {
+				file.delete();
+			} else if (file.isDirectory()) {
+				String[] filelist = file.list();
+				for (int i = 0; i < filelist.length; i++) {
+					File delfile = new File(delpath + "\\" + filelist[i]);
+					if (!delfile.isDirectory()) {
+						delfile.delete();
+					} else if (delfile.isDirectory()) {
+						deletefile(delpath + "\\" + filelist[i]);
+					}
+				}
+				file.delete();
+			}
+
+		} catch (FileNotFoundException e) {
+		}
+		return true;
+	}
+
+	/**
+	 * 
+	 * @Title: pack
+	 * @Description: 将一组文件打成tar包
+	 * @param sources
+	 *            要打包的原文件数组
+	 * @param target
+	 *            打包后的文件
+	 * @return File 返回打包后的文件
+	 * @throws
+	 */
+	public static File pack(File[] sources, File target) {
+		FileOutputStream out = null;
+		try {
+			out = new FileOutputStream(target);
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		}
+		TarArchiveOutputStream os = new TarArchiveOutputStream(out);
+		for (File file : sources) {
+			try {
+				os.putArchiveEntry(new TarArchiveEntry(file));
+				IOUtils.copy(new FileInputStream(file), os);
+				os.closeArchiveEntry();
+
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		if (os != null) {
+			try {
+				os.flush();
+				os.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return target;
+	}
+
+	/**
+	 * 
+	 * @Title: compress
+	 * @Description: 将文件用gzip压缩
+	 * @param source
+	 *            需要压缩的文件
+	 * @return File 返回压缩后的文件
+	 * @throws
+	 */
+	public static File compress(File source) {
+		File target = new File(source.getName() + ".gz");
+		FileInputStream in = null;
+		GZIPOutputStream out = null;
+		try {
+			in = new FileInputStream(source);
+			out = new GZIPOutputStream(new FileOutputStream(target));
+			byte[] array = new byte[1024];
+			int number = -1;
+			while ((number = in.read(array, 0, array.length)) != -1) {
+				out.write(array, 0, number);
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			if (in != null) {
+				try {
+					in.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+					return null;
+				}
+			}
+
+			if (out != null) {
+				try {
+					out.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+					return null;
+				}
+			}
+		}
+		return target;
+	}
+
+	// 不能对每层都包含文件和目录的多层次目录结构打包
+	public static void CompressedFiles_Gzip(String folderPath,
+			String targzipFilePath) {
+		File srcPath = new File(folderPath);
+		int length = srcPath.listFiles().length;
+		byte[] buf = new byte[1024]; // 设定读入缓冲区尺寸
+		File[] files = srcPath.listFiles();
+		try {
+			// 建立压缩文件输出流
+			FileOutputStream fout = new FileOutputStream(targzipFilePath);
+			// 建立tar压缩输出流
+			TarOutputStream tout = new TarOutputStream(fout);
+			for (int i = 0; i < length; i++) {
+				String filename = srcPath.getPath() + File.separator
+						+ files[i].getName();
+				// 打开需压缩文件作为文件输入流
+				FileInputStream fin = new FileInputStream(filename); // filename是文件全路径
+				TarEntry tarEn = new TarEntry(files[i]); // 此处必须使用new
+															// TarEntry(File
+															// file);
+				// tarEn.setName(files[i].getName());
+				// //此处需重置名称，默认是带全路径的，否则打包后会带全路径
+				tout.putNextEntry(tarEn);
+				int num;
+				while ((num = fin.read(buf)) != -1) {
+					tout.write(buf, 0, num);
+				}
+				tout.closeEntry();
+				fin.close();
+			}
+
+			tout.close();
+			fout.close();
+
+			// 建立压缩文件输出流
+			FileOutputStream gzFile = new FileOutputStream(targzipFilePath
+					+ ".gz");
+			// 建立gzip压缩输出流
+			GZIPOutputStream gzout = new GZIPOutputStream(gzFile);
+			// 打开需压缩文件作为文件输入流
+			FileInputStream tarin = new FileInputStream(targzipFilePath); // targzipFilePath是文件全路径
+			int len;
+			while ((len = tarin.read(buf)) != -1) {
+				gzout.write(buf, 0, len);
+			}
+			gzout.close();
+			gzFile.close();
+			tarin.close();
+		} catch (FileNotFoundException e) {
+			System.out.println(e);
+		} catch (IOException e) {
+			System.out.println(e);
+		}
+	}
+
+	// 循环遍历目录结构中的文件并添加至tar的输出流
+	public static void addFiles(String rootPath, TarOutputStream tout,
+			String folderPath) {
+		File srcPath = new File(rootPath + folderPath);
+		int length = srcPath.listFiles().length;
+		byte[] buf = new byte[1024]; // 设定读入缓冲区尺寸
+		File[] files = srcPath.listFiles();
+		try {
+			for (int i = 0; i < length; i++) {
+				if (files[i].isFile()) {
+					System.out.println("file:" + files[i].getName());
+					String filename = srcPath.getPath() + File.separator
+							+ files[i].getName();
+					// 打开需压缩文件作为文件输入流
+					FileInputStream fin = new FileInputStream(filename); // filename是文件全路径
+					TarEntry tarEn = new TarEntry(files[i]); // 此处必须使用new
+																// TarEntry(File
+																// file);
+					tarEn.setName(folderPath + File.separator
+							+ files[i].getName()); // 此处需重置名称，默认是带全路径的，否则打包后会带全路径
+					tout.putNextEntry(tarEn);
+					int num;
+					while ((num = fin.read(buf)) != -1) {
+						tout.write(buf, 0, num);
+					}
+					tout.closeEntry();
+					fin.close();
+				} else {
+					System.out.println(files[i].getPath());
+					addFiles(rootPath, tout, folderPath + File.separator
+							+ files[i].getName());
+				}
+			}
+		} catch (FileNotFoundException e) {
+			System.out.println(e);
+		} catch (IOException e) {
+			System.out.println(e);
+		}
+
+	}
+
+	// 生成tar并压缩成tar.gz
+	public static void WriteToTarGzip(String rootPath, String folderPath,
+			String targzipFilePath) {
+		byte[] buf = new byte[1024]; // 设定读入缓冲区尺寸
+		try {
+			targzipFilePath = rootPath + targzipFilePath;
+			// 建立压缩文件输出流
+			FileOutputStream fout = new FileOutputStream(targzipFilePath);
+			// 建立tar压缩输出流
+			TarOutputStream tout = new TarOutputStream(fout);
+			addFiles(rootPath, tout, folderPath);
+			tout.close();
+			fout.close();
+
+			// 建立压缩文件输出流
+			FileOutputStream gzFile = new FileOutputStream(targzipFilePath
+					+ ".gz");
+			// 建立gzip压缩输出流
+			GZIPOutputStream gzout = new GZIPOutputStream(gzFile);
+			// 打开需压缩文件作为文件输入流
+			FileInputStream tarin = new FileInputStream(targzipFilePath); // targzipFilePath是文件全路径
+			int len;
+			while ((len = tarin.read(buf)) != -1) {
+				gzout.write(buf, 0, len);
+			}
+			gzout.close();
+			gzFile.close();
+			tarin.close();
+
+		} catch (FileNotFoundException e) {
+			System.out.println(e);
+		} catch (IOException e) {
+			System.out.println(e);
+		}
+
+		File tarfile = new File(targzipFilePath);
+		tarfile.delete();
+	}
+
+	public static void createDirectory(String outputDir, String subDir) {
+
+		File file = new File(outputDir);
+
+		if (!(subDir == null || subDir.trim().equals(""))) {// 子目录不为空
+
+			file = new File(outputDir + "/" + subDir);
+		}
+
+		if (!file.exists()) {
+
+			file.mkdirs();
+		}
+
+	}
+
+	public static boolean delAllFile(String path) {
+		boolean flag = false;
+		File file = new File(path);
+		if (!file.exists()) {
+			return flag;
+		}
+		if (!file.isDirectory()) {
+			return flag;
+		}
+		String[] tempList = file.list();
+		File temp = null;
+		for (int i = 0; i < tempList.length; i++) {
+			if (path.endsWith(File.separator)) {
+				temp = new File(path + tempList[i]);
+			} else {
+				temp = new File(path + File.separator + tempList[i]);
+			}
+			if (temp.isFile()) {
+				temp.delete();
+			}
+			if (temp.isDirectory()) {
+				delAllFile(path + "/" + tempList[i]);// 先删除文件夹里面的文件
+				delFolder(path + "/" + tempList[i]);// 再删除空文件夹
+				flag = true;
+			}
+		}
+		return flag;
+	}
+
+	public static void delFolder(String folderPath) {
+		try {
+			delAllFile(folderPath); // 删除完里面所有内容
+			String filePath = folderPath;
+			filePath = filePath.toString();
+			java.io.File myFilePath = new java.io.File(filePath);
+			myFilePath.delete(); // 删除空文件夹
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void unTarGz(File file, String outputDir) throws IOException {
+
+		TarInputStream tarIn = null;
+
+		try {
+
+			tarIn = new TarInputStream(new GZIPInputStream(
+					new BufferedInputStream(new FileInputStream(file))),
+					1024 * 2);
+
+			createDirectory(outputDir, null);// 创建输出目录
+
+			TarEntry entry = null;
+
+			while ((entry = tarIn.getNextEntry()) != null) {
+
+				if (entry.isDirectory()) {// 是目录
+
+					createDirectory(outputDir, entry.getName());// 创建空目录
+
+				} else {// 是文件
+
+					File tmpFile = new File(outputDir + "/" + entry.getName());
+
+					createDirectory(tmpFile.getParent() + "/", null);// 创建输出目录
+
+					OutputStream out = null;
+
+					try {
+
+						out = new FileOutputStream(tmpFile);
+
+						int length = 0;
+
+						byte[] b = new byte[2048];
+
+						while ((length = tarIn.read(b)) != -1) {
+							out.write(b, 0, length);
+						}
+
+					} catch (IOException ex) {
+						throw ex;
+					} finally {
+
+						if (out != null)
+							out.close();
+					}
+
+				}
+			}
+
+		} catch (IOException ex) {
+			throw new IOException("解压归档文件出现异常", ex);
+		} finally {
+			try {
+				if (tarIn != null) {
+					tarIn.close();
+				}
+			} catch (IOException ex) {
+				throw new IOException("关闭tarFile出现异常", ex);
+			}
+		}
+
+	}
+
+	/**
+	 * 复制单个文件
+	 * 
+	 * @param oldPath
+	 *            String 原文件路径 如：c:/fqf.txt
+	 * @param newPath
+	 *            String 复制后路径 如：f:/fqf.txt
+	 * @return boolean
+	 */
+	public static void copyFile(String oldPath, String newPath) {
+		try {
+			int bytesum = 0;
+			int byteread = 0;
+			File oldfile = new File(oldPath);
+			if (oldfile.exists()) { // 文件存在时
+				InputStream inStream = new FileInputStream(oldPath); // 读入原文件
+				FileOutputStream fs = new FileOutputStream(newPath);
+				byte[] buffer = new byte[1444];
+				// int length;
+				while ((byteread = inStream.read(buffer)) != -1) {
+					bytesum += byteread; // 字节数 文件大小
+					fs.write(buffer, 0, byteread);
+				}
+				inStream.close();
+				fs.close();
+			}
+		} catch (Exception e) {
+			System.out.println("复制单个文件操作出错");
+			e.printStackTrace();
+
+		}
+
+	}
 }

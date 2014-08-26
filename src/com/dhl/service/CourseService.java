@@ -5,9 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.dhl.dao.CourseCategoryDao;
 import com.dhl.dao.CourseDao;
 import com.dhl.dao.Page;
 import com.dhl.domain.Course;
+import com.dhl.domain.CourseCategory;
 
 /**
  *
@@ -17,6 +19,17 @@ public class CourseService {
 	
 	@Autowired
 	private CourseDao courseDao;
+	@Autowired
+	private CourseCategoryDao courseCategoryDao;
+	
+	/**
+	 * 根据课程id取得分类
+	 * @return
+	 */
+	public CourseCategory getCourseCategoryByCourseId(int courseId)
+	{
+		return courseCategoryDao.getCourseCategoryByCourseId(courseId);
+	}
 	
 	/**
 	 * 根据名字查课程
@@ -27,6 +40,8 @@ public class CourseService {
 	{
 		return courseDao.getCourseByName(name);
 	}
+	
+	
 	
 	/**
 	 * 保存课程

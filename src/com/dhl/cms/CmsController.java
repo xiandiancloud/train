@@ -53,16 +53,6 @@ public class CmsController extends BaseController {
 	private VerticalService verticalService;
 	@Autowired
 	private TrainService trainService;
-	// @Autowired
-	// private VerticalService verticalService;
-	// @Autowired
-	// private VerticalTrainService vtService;
-	// @Autowired
-	// private UserTrainService utService;
-	// @Autowired
-	// private UserCourseService userCourseService;
-	// @Autowired
-	// private UserTrainHistoryService userTrainHistoryService;
 	@Autowired
 	private TeacherCourseService teacherCourseService;
 
@@ -76,12 +66,13 @@ public class CmsController extends BaseController {
 	public ModelAndView totcourselist(HttpServletRequest request) {
 		ModelAndView view = new ModelAndView();
 		User user = getSessionUser(request);
-		List<TeacherCourse> tcourselist = teacherCourseService.getMyTCourse(user.getId());
+		List<TeacherCourse> tcourselist = teacherCourseService
+				.getMyTCourse(user.getId());
 		view.addObject("tcourselist", tcourselist);
 		view.setViewName("/cms/tcourselist");
 		return view;
 	}
-	
+
 	/**
 	 * 跳转到老师登陆页面
 	 * 
@@ -94,7 +85,7 @@ public class CmsController extends BaseController {
 		view.setViewName("/cms/signin");
 		return view;
 	}
-	
+
 	/**
 	 * 跳转到老师注册页面
 	 * 
@@ -107,7 +98,7 @@ public class CmsController extends BaseController {
 		view.setViewName("/cms/signup");
 		return view;
 	}
-	
+
 	/**
 	 * 发布课程
 	 * 
@@ -120,17 +111,17 @@ public class CmsController extends BaseController {
 
 		try {
 			PrintWriter out = response.getWriter();
-//			User user = getSessionUser(request);
-//			if (user == null) {
-//				String str = "{'sucess':'fail'}";
-//
-//				out.write(str);
-//			} else {
-				Course course = courseService.get(courseId);
-				course.setPublish(1);
-				String str = "{'sucess':'sucess'}";
-				out.write(str);
-//			}
+			// User user = getSessionUser(request);
+			// if (user == null) {
+			// String str = "{'sucess':'fail'}";
+			//
+			// out.write(str);
+			// } else {
+			Course course = courseService.get(courseId);
+			course.setPublish(1);
+			String str = "{'sucess':'sucess'}";
+			out.write(str);
+			// }
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -144,7 +135,9 @@ public class CmsController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping("/createcourse")
-	public void createcourse(HttpServletRequest request,HttpServletResponse response, String name,String org,String coursecode,String starttime) {
+	public void createcourse(HttpServletRequest request,
+			HttpServletResponse response, String name, String org,
+			String coursecode, String starttime) {
 		try {
 			PrintWriter out = response.getWriter();
 			User user = getSessionUser(request);
@@ -158,7 +151,7 @@ public class CmsController extends BaseController {
 			tc.setCourse(c);
 			tc.setUserId(user.getId());
 			teacherCourseService.save(tc);
-			
+
 			String str = "{'sucess':'sucess'}";
 			out.write(str);
 		} catch (Exception e) {
@@ -178,19 +171,19 @@ public class CmsController extends BaseController {
 
 		try {
 			PrintWriter out = response.getWriter();
-//			User user = getSessionUser(request);
-//			if (user == null) {
-//				String str = "{'sucess':'fail'}";
-//
-//				out.write(str);
-//			} else {
-				Chapter c = new Chapter();
-				c.setName(name);
-				c.setCourse(courseService.get(courseId));
-				chapterService.save(c);
-				String str = "{'sucess':'sucess'}";
-				out.write(str);
-//			}
+			// User user = getSessionUser(request);
+			// if (user == null) {
+			// String str = "{'sucess':'fail'}";
+			//
+			// out.write(str);
+			// } else {
+			Chapter c = new Chapter();
+			c.setName(name);
+			c.setCourse(courseService.get(courseId));
+			chapterService.save(c);
+			String str = "{'sucess':'sucess'}";
+			out.write(str);
+			// }
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -208,19 +201,19 @@ public class CmsController extends BaseController {
 
 		try {
 			PrintWriter out = response.getWriter();
-//			User user = getSessionUser(request);
-//			if (user == null) {
-//				String str = "{'sucess':'fail'}";
-//
-//				out.write(str);
-//			} else {
-				Sequential s = new Sequential();
-				s.setName(name);
-				s.setChapter(chapterService.get(chapterId));
-				sequentialService.save(s);
-				String str = "{'sucess':'sucess'}";
-				out.write(str);
-//			}
+			// User user = getSessionUser(request);
+			// if (user == null) {
+			// String str = "{'sucess':'fail'}";
+			//
+			// out.write(str);
+			// } else {
+			Sequential s = new Sequential();
+			s.setName(name);
+			s.setChapter(chapterService.get(chapterId));
+			sequentialService.save(s);
+			String str = "{'sucess':'sucess'}";
+			out.write(str);
+			// }
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -238,20 +231,20 @@ public class CmsController extends BaseController {
 
 		try {
 			PrintWriter out = response.getWriter();
-//			User user = getSessionUser(request);
-//			if (user == null) {
-//				String str = "{'sucess':'fail'}";
-//
-//				out.write(str);
-//			} else {
+			// User user = getSessionUser(request);
+			// if (user == null) {
+			// String str = "{'sucess':'fail'}";
+			//
+			// out.write(str);
+			// } else {
 
-				Vertical v = new Vertical();
-				v.setName(name);
-				v.setSequential(sequentialService.get(sequenticalId));
-				verticalService.save(v);
-				String str = "{'sucess':'sucess'}";
-				out.write(str);
-//			}
+			Vertical v = new Vertical();
+			v.setName(name);
+			v.setSequential(sequentialService.get(sequenticalId));
+			verticalService.save(v);
+			String str = "{'sucess':'sucess'}";
+			out.write(str);
+			// }
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -266,7 +259,7 @@ public class CmsController extends BaseController {
 	@RequestMapping("/createTrain")
 	public void createTrain(HttpServletRequest request,
 			HttpServletResponse response, String name, String codenum,
-			String preName,String conContent,String conShell,String conAnswer,int score,String scoretag) {
+			String envname,String conContent,String conShell,String conAnswer,int score,String scoretag) {
 
 		try {
 			PrintWriter out = response.getWriter();
@@ -280,7 +273,7 @@ public class CmsController extends BaseController {
 				Train t = new Train();
 				t.setName(name);
 				t.setCodenum(codenum);
-				t.setPreName(preName);
+				t.setEnvname(envname);
 				t.setConContent(conContent);
 				t.setConShell(conShell);
 				t.setConAnswer(conAnswer);
@@ -294,10 +287,11 @@ public class CmsController extends BaseController {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@RequestMapping("/uploadshell")
-	public void uploadshell(HttpServletRequest request,HttpServletResponse response,@RequestParam(value="qqfile", required=true) MultipartFile file)
-	{
+	public void uploadshell(HttpServletRequest request,
+			HttpServletResponse response,
+			@RequestParam(value = "qqfile", required = true) MultipartFile file) {
 		response.setContentType("text/html");
 		PrintWriter out = null;
 		try {
@@ -305,26 +299,22 @@ public class CmsController extends BaseController {
 		} catch (IOException e1) {
 			out.print("{\"success\": \"false\"}");
 		}
-		try
-		{
+		try {
 			if (!file.isEmpty()) {
 				byte[] bytes = file.getBytes();
-				String upath = request.getSession().getServletContext().getRealPath("/");
-				String path =  "shell/" + file.getOriginalFilename();
-				FileOutputStream fos = new FileOutputStream(upath+path);
-				fos.write(bytes); 
+				String upath = request.getSession().getServletContext()
+						.getRealPath("/");
+				String path = "shell/" + file.getOriginalFilename();
+				FileOutputStream fos = new FileOutputStream(upath + path);
+				fos.write(bytes);
 				fos.close();
-				
+
 				out.print("{\"success\": \"true\"}");
-//				out.write("<script>parent.callback('sucess')</script>");
-			}
-			else
-			{
+				// out.write("<script>parent.callback('sucess')</script>");
+			} else {
 				out.print("{\"success\": \"false\"}");
 			}
-		}
-		catch(Exception e)
-		{
+		} catch (Exception e) {
 			out.print("{\"success\": \"false\"}");
 		}
 	}
