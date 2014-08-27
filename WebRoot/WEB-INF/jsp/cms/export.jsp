@@ -39,6 +39,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <link href="tcss/style-app-extend1.css" rel="stylesheet" type="text/css" />
     <link href="tcss/style-xmodule.css" rel="stylesheet" type="text/css" />
 
+<script type="text/javascript" src="js/jquery-1.11.1.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript" src="js/jquery-ui.js"></script> 
   <!-- dummy segment.io -->
 <script type="text/javascript">
   var course_location_analytics = "cetc/CS201/2014_T1";
@@ -354,129 +357,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <!-- view -->
     <div class="wrapper wrapper-view">
         
-        
-
-
-
-<div class="wrapper-header wrapper" id="view-top">
-  <header class="primary" role="banner">
-
-    <div class="wrapper wrapper-l">
-      <h1 class="branding"><a href="/"><img src="images/logo-edx-studio.png" alt="edX Studio"></a></h1>
-
-      
-      <h2 class="info-course">
-        <span class="sr">当前课程</span>
-        <a class="course-link" href="/course/cetc/CS201/2014_T1">
-          <span class="course-org">cetc</span><span class="course-number">CS201</span>
-          <span class="course-title" title="先电云平台">先电云平台</span>
-        </a>
-      </h2>
-
-      <nav class="nav-course nav-dd ui-left">
-        <h2 class="sr">先电云平台导航：</h2>
-        <ol>
-          <li class="nav-item nav-course-courseware">
-            <h3 class="title"><span class="label"><span class="label-prefix sr">课程 </span>内容</span> <i class="icon-caret-down ui-toggle-dd"></i></h3>
-
-            <div class="wrapper wrapper-nav-sub">
-              <div class="nav-sub">
-                <ul>
-                  <li class="nav-item nav-course-courseware-outline">
-                    <a href="/course/cetc/CS201/2014_T1">大纲</a>
-                  </li>
-                  <li class="nav-item nav-course-courseware-updates">
-                    <a href="/course_info/cetc/CS201/2014_T1">更新</a>
-                  </li>
-                  <li class="nav-item nav-course-courseware-pages">
-                    <a href="/tabs/cetc/CS201/2014_T1">页面</a>
-                  </li>
-                  <li class="nav-item nav-course-courseware-uploads">
-                    <a href="/assets/cetc/CS201/2014_T1/">文件&amp;上传</a>
-                  </li>
-                  <li class="nav-item nav-course-courseware-textbooks">
-                    <a href="/textbooks/cetc/CS201/2014_T1">教材</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </li>
-
-          <li class="nav-item nav-course-settings">
-            <h3 class="title"><span class="label"><span class="label-prefix sr">课程 </span>设置</span> <i class="icon-caret-down ui-toggle-dd"></i></h3>
-
-            <div class="wrapper wrapper-nav-sub">
-              <div class="nav-sub">
-                <ul>
-                  <li class="nav-item nav-course-settings-schedule">
-                    <a href="/settings/details/cetc/CS201/2014_T1">日程 &amp; 细节</a>
-                  </li>
-                  <li class="nav-item nav-course-settings-grading">
-                    <a href="/settings/grading/cetc/CS201/2014_T1">评分</a>
-                  </li>
-                  <li class="nav-item nav-course-settings-team">
-                    <a href="/course_team/cetc/CS201/2014_T1/">课程团队</a>
-                  </li>
-                  <li class="nav-item nav-course-settings-advanced">
-                    <a href="/settings/advanced/cetc/CS201/2014_T1">高级设置</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </li>
-
-          <li class="nav-item nav-course-tools">
-            <h3 class="title"><span class="label">工具</span> <i class="icon-caret-down ui-toggle-dd"></i></h3>
-
-            <div class="wrapper wrapper-nav-sub">
-              <div class="nav-sub">
-                <ul>
-                  <li class="nav-item nav-course-tools-checklists">
-                    <a href="/checklists/cetc/CS201/2014_T1/">核对表</a>
-                  </li>
-                  <li class="nav-item nav-course-tools-import">
-                    <a href="/import/cetc/CS201/2014_T1">导入</a>
-                  </li>
-                  <li class="nav-item nav-course-tools-export">
-                    <a href="/export/cetc/CS201/2014_T1">导出</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </li>
-        </ol>
-      </nav>
-    </div>
-
-    <div class="wrapper wrapper-r">
-      <nav class="nav-account nav-is-signedin nav-dd ui-right">
-        <h2 class="sr">帮助 &amp; 账户导航</h2>
-        <ol>
-          
-
-          <li class="nav-item nav-account-user">
-            <h3 class="title"><span class="label"><span class="label-prefix sr">当前登录用户：</span><span class="account-username" title="staff">staff</span></span> <i class="icon-caret-down ui-toggle-dd"></i></h3>
-
-            <div class="wrapper wrapper-nav-sub">
-              <div class="nav-sub">
-                <ul>
-                  <li class="nav-item nav-account-dashboard">
-                    <a href="/">我的课程</a>
-                  </li>
-                  <li class="nav-item nav-account-signout">
-                    <a class="action action-signout" href="/logout">退出</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </li>
-        </ol>
-      </nav>
-
-    </div>
-  </header>
-</div>
-
+<jsp:include page="ttheader.jsp"></jsp:include>
 
       <div id="page-alert"></div>
 
@@ -623,31 +504,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 
 
-      
-
-
-<div class="wrapper-footer wrapper">
-  <footer class="primary" role="contentinfo">
-    <div class="colophon">
-      <p>© 2014 <a href="http://www.edx.org" rel="external" title="该链接将在新的浏览器窗口/标签打开" target="_blank">edX</a>. 保留所有权利。</p>
-    </div>
-
-    <nav class="nav-peripheral">
-      <ol>
-        <li class="nav-item nav-peripheral-tos">
-          <a data-rel="edx.org" href="#">服务条款</a>
-        </li>
-        <li class="nav-item nav-peripheral-pp">
-          <a data-rel="edx.org" href="#">隐私政策</a>
-        </li>
-        <li class="nav-item nav-peripheral-feedback">
-          <a href="http://help.edge.edx.org/discussion/new" class="show-tender" title="请使用工具Tender来分享您的反馈">联系我们</a>
-        </li>
-      </ol>
-    </nav>
-  </footer>
-</div>
-
+<jsp:include page="tfooter.jsp"></jsp:include>
 
       <script type="text/javascript">
 window.Tender = {

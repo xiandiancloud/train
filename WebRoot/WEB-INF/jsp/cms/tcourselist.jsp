@@ -156,7 +156,7 @@
 							</a>
 
 								<ul class="item-actions course-actions">
-									<li class="action"><a href="#" rel="external"
+									<li class="action"><a href="cms/totcourse.action?courseId=${tcourse.course.id}" rel="external"
 										class="button view-button view-live-button">在线查看</a></li>
 								</ul></li>
 						</c:forEach>

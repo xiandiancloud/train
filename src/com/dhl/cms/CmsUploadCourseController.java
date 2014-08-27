@@ -119,10 +119,20 @@ public class CmsUploadCourseController extends BaseController {
 
 					String rootelement = rootpath + File.separator
 							+ rootfile.getName();
-					File rootxml = new File(rootelement+File.separator+"course.xml");
+					File rootxml = new File(rootelement + File.separator
+							+ "course.xml");
 					System.out.println("--- " + rootxml.getName());
-					
-					courseService.get(courseId);
+
+					Course course = courseService.get(courseId);
+					//更新课程
+					if (course != null)
+					{
+						
+					}
+					else
+					{
+						
+					}
 				}
 
 				// 删除文件夹

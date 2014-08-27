@@ -100,6 +100,62 @@ public class CmsController extends BaseController {
 	}
 
 	/**
+	 * 跳转到老师课程页面
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/totcourse")
+	public ModelAndView totcourse(HttpServletRequest request, int courseId) {
+		ModelAndView view = new ModelAndView();
+		view.addObject("courseId", courseId);
+		view.setViewName("/cms/temp");
+		return view;
+	}
+
+	/**
+	 * 跳转到老师更新页面
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/totupdate")
+	public ModelAndView totupdate(HttpServletRequest request, int courseId) {
+		ModelAndView view = new ModelAndView();
+		view.addObject("courseId", courseId);
+		view.setViewName("/cms/update");
+		return view;
+	}
+	
+	/**
+	 * 跳转到老师团队页面
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/totteam")
+	public ModelAndView totteam(HttpServletRequest request, int courseId) {
+		ModelAndView view = new ModelAndView();
+		view.addObject("courseId", courseId);
+		view.setViewName("/cms/team");
+		return view;
+	}
+	
+	/**
+	 * 跳转到老师schedule页面
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/totschedule")
+	public ModelAndView totschedule(HttpServletRequest request, int courseId) {
+		ModelAndView view = new ModelAndView();
+		view.addObject("courseId", courseId);
+		view.setViewName("/cms/schedule");
+		return view;
+	}
+	
+	/**
 	 * 发布课程
 	 * 
 	 * @param request
@@ -259,30 +315,31 @@ public class CmsController extends BaseController {
 	@RequestMapping("/createTrain")
 	public void createTrain(HttpServletRequest request,
 			HttpServletResponse response, String name, String codenum,
-			String envname,String conContent,String conShell,String conAnswer,int score,String scoretag) {
+			String envname, String conContent, String conShell,
+			String conAnswer, int score, String scoretag) {
 
 		try {
 			PrintWriter out = response.getWriter();
-//			User user = getSessionUser(request);
-//			if (user == null) {
-//				String str = "{'sucess':'fail'}";
-//
-//				out.write(str);
-//			} else {
+			// User user = getSessionUser(request);
+			// if (user == null) {
+			// String str = "{'sucess':'fail'}";
+			//
+			// out.write(str);
+			// } else {
 
-				Train t = new Train();
-				t.setName(name);
-				t.setCodenum(codenum);
-				t.setEnvname(envname);
-				t.setConContent(conContent);
-				t.setConShell(conShell);
-				t.setConAnswer(conAnswer);
-				t.setScore(score);
-				t.setScoretag(scoretag);
-				trainService.save(t);
-				String str = "{'sucess':'sucess'}";
-				out.write(str);
-//			}
+			Train t = new Train();
+			t.setName(name);
+			t.setCodenum(codenum);
+			t.setEnvname(envname);
+			t.setConContent(conContent);
+			t.setConShell(conShell);
+			t.setConAnswer(conAnswer);
+			t.setScore(score);
+			t.setScoretag(scoretag);
+			trainService.save(t);
+			String str = "{'sucess':'sucess'}";
+			out.write(str);
+			// }
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
