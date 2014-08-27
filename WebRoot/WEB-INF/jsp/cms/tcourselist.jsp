@@ -97,6 +97,22 @@
 											public display name for your course. This cannot be changed,
 											but you can set a different display name in Advanced Settings
 											later.</span> <span class="tip tip-error is-hiding"></span></li>
+									<li class="field text required" id="field-course-category"><label
+										for="name">课程专业</label> <!-- <input
+										class="new-course-category" id="category" type="text"
+										name="new-course-category" aria-required="true"
+										placeholder="例如，计算机" /> --> <select class="short"	id="category"></select><span class="tip">The
+											public display name for your course. This cannot be changed,
+											but you can set a different display name in Advanced Settings
+											later.</span> <span class="tip tip-error is-hiding"></span></li>
+									<li class="field text required" id="field-course-rank"><label
+										for="name">等级</label> <input
+										class="new-course-rank" id="rank" type="text"
+										name="new-course-rank" aria-required="true"
+										placeholder="例如，高级 中级  低级" /> <span class="tip">The
+											public display name for your course. This cannot be changed,
+											but you can set a different display name in Advanced Settings
+											later.</span> <span class="tip tip-error is-hiding"></span></li>
 									<li class="field text required" id="field-organization"><label
 										for="org">组织</label> <input class="new-course-org"
 										id="org" type="text" name="new-course-org"
@@ -339,14 +355,33 @@
 				box1.style.display = '';
 			}
 		} */
-		
+		$(function() {
+			$.ajax({
+				url:"cms/tgetAllCategory.action",
+				type:"post",
+				success:function(s){
+					var a=eval("("+s+")");	
+					var row = a.rows;
+					var tmp = '';
+					for ( var i = 0; i < row.length; i++) {
+						var category = row[i];
+						var id = category.id;
+						var name = category.name;
+						tmp += '<option value='+id+'>'+name+'</option>';
+					}
+					$("#category").html(tmp);
+				}
+			});
+		});
 		function createcourse()
 		{
 			var name = $("#name").val();
 			var org = $("#org").val();
 			var coursecode = $("#coursecode").val();
 			var starttime = $("#starttime").val();
-			var data = {name:name,org:org,coursecode:coursecode,starttime:starttime};
+			var category = $("#category").val();
+			var rank = $("#rank").val();
+			var data = {name:name,org:org,coursecode:coursecode,starttime:starttime,category:category,rank:rank};
 			$.ajax({
 				url:"cms/createcourse.action",
 				type:"post",

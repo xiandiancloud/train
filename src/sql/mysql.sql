@@ -42,6 +42,7 @@ create table t_course
    endtimedetail       varchar(255) default null,
    org                 varchar(255) default null,
    coursecode          varchar(255) default null,
+   rank                varchar(255) default null,
    primary key (id),
    UNIQUE KEY (name)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;

@@ -259,8 +259,13 @@ public class CourseController extends BaseController {
 					int ncounts = utlist == null ? 0 : utlist.size();
 					String complete = "0%";
 					if (utlist != null) {
-						double c = ncounts * 100 / counts;
-						complete = Math.floor(c) + "%";
+						double c = 0;
+						if (c != 0)
+						{
+							c = ncounts * 100 / counts;
+							complete = Math.floor(c) + "%";
+						}
+						
 					}
 					String str = "{'sucess':'sucess','name':'"
 							+ userCourse.getCourse().getName() + "','img':'"

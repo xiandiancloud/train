@@ -35,6 +35,14 @@ public class Course extends BaseDomain {
 	private String endtimedetail;
 	private String org;
 	private String coursecode;
+	private String rank;
+	public String getRank() {
+		return rank;
+	}
+
+	public void setRank(String rank) {
+		this.rank = rank;
+	}
 
 	public String getOrg() {
 		return org;

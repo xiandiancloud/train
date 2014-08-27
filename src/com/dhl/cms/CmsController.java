@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.dhl.domain.Category;
 import com.dhl.domain.Chapter;
 import com.dhl.domain.Course;
 import com.dhl.domain.Sequential;
@@ -22,6 +23,7 @@ import com.dhl.domain.TeacherCourse;
 import com.dhl.domain.Train;
 import com.dhl.domain.User;
 import com.dhl.domain.Vertical;
+import com.dhl.service.CategoryService;
 import com.dhl.service.ChapterService;
 import com.dhl.service.CourseService;
 import com.dhl.service.SequentialService;
@@ -55,6 +57,8 @@ public class CmsController extends BaseController {
 	private TrainService trainService;
 	@Autowired
 	private TeacherCourseService teacherCourseService;
+	@Autowired
+	private CategoryService categoryService;
 
 	/**
 	 * 跳转到老师课程页面
@@ -126,7 +130,7 @@ public class CmsController extends BaseController {
 		view.setViewName("/cms/update");
 		return view;
 	}
-	
+
 	/**
 	 * 跳转到老师团队页面
 	 * 
@@ -140,7 +144,7 @@ public class CmsController extends BaseController {
 		view.setViewName("/cms/team");
 		return view;
 	}
-	
+
 	/**
 	 * 跳转到老师schedule页面
 	 * 
@@ -154,7 +158,7 @@ public class CmsController extends BaseController {
 		view.setViewName("/cms/schedule");
 		return view;
 	}
-	
+
 	/**
 	 * 发布课程
 	 * 
@@ -193,20 +197,11 @@ public class CmsController extends BaseController {
 	@RequestMapping("/createcourse")
 	public void createcourse(HttpServletRequest request,
 			HttpServletResponse response, String name, String org,
-			String coursecode, String starttime) {
+			String coursecode, String starttime,String category,String rank) {
 		try {
 			PrintWriter out = response.getWriter();
 			User user = getSessionUser(request);
-			Course c = new Course();
-			c.setName(name);
-			c.setOrg(org);
-			c.setCoursecode(coursecode);
-			c.setStarttime(starttime);
-			courseService.save(c);
-			TeacherCourse tc = new TeacherCourse();
-			tc.setCourse(c);
-			tc.setUserId(user.getId());
-			teacherCourseService.save(tc);
+			courseService.createCourse(name, org, coursecode, starttime, user.getId(), Integer.parseInt(category), rank);
 
 			String str = "{'sucess':'sucess'}";
 			out.write(str);
@@ -373,6 +368,50 @@ public class CmsController extends BaseController {
 			}
 		} catch (Exception e) {
 			out.print("{\"success\": \"false\"}");
+		}
+	}
+
+	/**
+	 * 老师在增加课程的时候取得所有分类
+	 * 
+	 * @param request
+	 * @param response
+	 */
+	@RequestMapping("/tgetAllCategory")
+	public void tgetAllCategory(HttpServletRequest request,
+			HttpServletResponse response) {
+
+		try {
+			PrintWriter out = response.getWriter();
+			List<Category> list = categoryService.getAllCategory();
+			String str = getProjectViewStr(list);
+			out.write(str);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private String getProjectViewStr(List<Category> list) {
+		StringBuffer buffer = new StringBuffer();
+		int count = list.size();
+		buffer.append("{\"total\":" + count + ",\"rows\":[");
+		for (int i = 0; i < count; i++) {
+			Category p = list.get(i);
+			buffer.append("{");
+			buffer.append("\"id\":");
+			buffer.append("\"" + p.getId() + "\"");
+			buffer.append(",\"name\":");
+			buffer.append("\"" + p.getName() + "\"");
+			buffer.append("},");
+		}
+		if (count > 0) {
+			String str = buffer.substring(0, buffer.length() - 1) + "]}";
+			str = str.replaceAll("null", "");
+			return str;
+		} else {
+			String str = buffer.toString() + "]}";
+			str = str.replaceAll("null", "");
+			return str;
 		}
 	}
 }

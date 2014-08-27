@@ -9,6 +9,11 @@ import com.dhl.domain.UserCourse;
 @Repository
 public class UserCourseDao extends BaseDao<UserCourse> {
 
+	public void updateUserCourse(int courseId) {
+		String hql = "update UserCourse set docounts = 0, state = 0, activestate = 0, usetime = '0' where courseId = "+courseId;
+        this.getSession().createQuery(hql).executeUpdate();
+	}
+	
 	public UserCourse getUserCourse(int userId, int courseId) {
 		String hql = "from UserCourse where courseId = " + courseId
 				+ " and userId = " + userId;

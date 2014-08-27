@@ -31,9 +31,24 @@ public class UserTrainDao extends BaseDao<UserTrain> {
     	return find(hql);
 	}
 	
+	/**
+	 * 删除课程下的对应的用户信息
+	 * @param userId
+	 * @param courseId
+	 */
 	public void delAllMyCourseTrain(int userId,int courseId)
 	{
 		String hql = "delete UserTrain where courseId = "+courseId +" and userId = "+userId;
     	createQuery(hql).executeUpdate();
+	}
+	
+	/**
+	 * 删除课程下的所有用户信息
+	 * @param courseId
+	 */
+	public void removeUTByCourseId(int courseId)
+	{
+		String hql = "delete from UserTrain where courseId = "+courseId;
+		this.getSession().createQuery(hql).executeUpdate();
 	}
 }

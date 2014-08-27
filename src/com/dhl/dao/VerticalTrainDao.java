@@ -18,4 +18,10 @@ public class VerticalTrainDao extends BaseDao<VerticalTrain> {
 		String hql = "from VerticalTrain where courseId = "+courseId;
     	return find(hql);
 	}
+	
+	public void removeVTByCourseId(int courseId)
+	{
+		String hql = "delete from VerticalTrain where courseId = "+courseId;
+		this.getSession().createQuery(hql).executeUpdate();
+	}
 }

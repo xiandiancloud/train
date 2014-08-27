@@ -18,6 +18,7 @@ import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.dom4j.io.OutputFormat;
+import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,6 +32,7 @@ import com.dhl.domain.Course;
 import com.dhl.domain.CourseCategory;
 import com.dhl.domain.Sequential;
 import com.dhl.domain.Train;
+import com.dhl.domain.User;
 import com.dhl.domain.Vertical;
 import com.dhl.domain.VerticalTrain;
 import com.dhl.service.CourseService;
@@ -119,20 +121,8 @@ public class CmsUploadCourseController extends BaseController {
 
 					String rootelement = rootpath + File.separator
 							+ rootfile.getName();
-					File rootxml = new File(rootelement + File.separator
-							+ "course.xml");
-					System.out.println("--- " + rootxml.getName());
-
-					Course course = courseService.get(courseId);
-					//更新课程
-					if (course != null)
-					{
-						
-					}
-					else
-					{
-						
-					}
+					// User user = getSessionUser(request);
+					courseService.updateCourse(courseId, upath, rootelement);
 				}
 
 				// 删除文件夹
@@ -177,7 +167,8 @@ public class CmsUploadCourseController extends BaseController {
 			UtilTools.deletefile(rootname);
 
 			// 创建course.xml文件
-			createRootXMl(path, rootname, "course.xml", c);
+			createRootXMl(path, rootname, "course.xml", cc.getCategory()
+					.getName(), c);
 
 			// 打包生成tar.gz文件
 			File tarfile = new File(ctxPath + File.separator + c.getStarttime()
@@ -216,7 +207,7 @@ public class CmsUploadCourseController extends BaseController {
 	}
 
 	private void createRootXMl(String path, String coursepath, String xml,
-			Course c) {
+			String category, Course c) {
 		// 创建document对象
 		Document document = DocumentHelper.createDocument();
 		// 定义根节点Element
@@ -224,7 +215,8 @@ public class CmsUploadCourseController extends BaseController {
 		rootGen.addAttribute("url_name", c.getStarttime());
 		rootGen.addAttribute("org", c.getOrg());
 		rootGen.addAttribute("course", c.getCoursecode());
-
+		rootGen.addAttribute("category", category);
+		rootGen.addAttribute("rank", c.getRank());
 		createCourseXMl(path, coursepath, c.getStarttime() + ".xml", c);
 
 		OutputFormat format = null;
@@ -258,8 +250,9 @@ public class CmsUploadCourseController extends BaseController {
 		String imgpath = c.getImgpath();
 		rootGen.addAttribute("course_image", c.getImgpath());
 		rootGen.addAttribute("display_name", c.getName());
-		rootGen.addAttribute("start", c.getStarttimedetail());
-		rootGen.addAttribute("end", c.getEndtimedetail());
+		rootGen.addAttribute("start", c.getStarttime());
+		rootGen.addAttribute("enrollment_start", c.getStarttimedetail());
+		rootGen.addAttribute("enrollment_end", c.getEndtimedetail());
 
 		File imgdir = new File(coursepath + File.separator + "static");
 		if (!imgdir.exists())
@@ -351,7 +344,7 @@ public class CmsUploadCourseController extends BaseController {
 			File file = new File(tt + File.separator + xml);
 			if (!file.exists())
 				file.createNewFile();
-			xmlwriter = new XMLWriter(new FileOutputStream(coursepath), format);
+			xmlwriter = new XMLWriter(new FileOutputStream(file), format);
 			xmlwriter.write(document);
 			xmlwriter.flush();
 			xmlwriter.close();
@@ -392,7 +385,7 @@ public class CmsUploadCourseController extends BaseController {
 			File file = new File(tt + File.separator + xml);
 			if (!file.exists())
 				file.createNewFile();
-			xmlwriter = new XMLWriter(new FileOutputStream(coursepath), format);
+			xmlwriter = new XMLWriter(new FileOutputStream(file), format);
 			xmlwriter.write(document);
 			xmlwriter.flush();
 			xmlwriter.close();
@@ -434,7 +427,7 @@ public class CmsUploadCourseController extends BaseController {
 			File file = new File(tt + File.separator + xml);
 			if (!file.exists())
 				file.createNewFile();
-			xmlwriter = new XMLWriter(new FileOutputStream(coursepath), format);
+			xmlwriter = new XMLWriter(new FileOutputStream(file), format);
 			xmlwriter.write(document);
 			xmlwriter.flush();
 			xmlwriter.close();
@@ -452,10 +445,10 @@ public class CmsUploadCourseController extends BaseController {
 		rootGen.addAttribute("display_name", train.getName());
 		rootGen.addAttribute("codenum", train.getCodenum());
 		rootGen.addAttribute("envname", train.getEnvname());
-		rootGen.addAttribute("conContent", train.getConContent());
-		rootGen.addAttribute("conAnswer", train.getConAnswer());
+		rootGen.addAttribute("content", train.getConContent());
+		rootGen.addAttribute("answer", train.getConAnswer());
 		String shellpath = train.getConShell();
-		rootGen.addAttribute("conShell", shellpath);
+		rootGen.addAttribute("shell", shellpath);
 		rootGen.addAttribute("score", train.getScore() + "");
 		rootGen.addAttribute("scoretag", train.getScoretag());
 
@@ -465,5 +458,27 @@ public class CmsUploadCourseController extends BaseController {
 		UtilTools.copyFile(path + "shell" + File.separator + shellpath,
 				coursepath + File.separator + "shell" + File.separator
 						+ shellpath);
+
+		OutputFormat format = null;
+		XMLWriter xmlwriter = null;
+		try {
+			// 进行格式化
+			format = OutputFormat.createPrettyPrint();
+			// 设定编码
+			format.setEncoding("UTF-8");
+			String tt = coursepath + File.separator + "train";
+			File filedir = new File(tt);
+			if (!filedir.exists())
+				filedir.mkdir();
+			File file = new File(tt + File.separator + xml);
+			if (!file.exists())
+				file.createNewFile();
+			xmlwriter = new XMLWriter(new FileOutputStream(file), format);
+			xmlwriter.write(document);
+			xmlwriter.flush();
+			xmlwriter.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
