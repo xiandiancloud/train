@@ -157,7 +157,7 @@ public class CmsUploadCourseController extends BaseController {
 
 			String path = request.getSession().getServletContext()
 					.getRealPath("/");
-			String ctxPath = path + File.separator + "export";
+			String ctxPath = path + "export";
 
 			CourseCategory cc = courseService
 					.getCourseCategoryByCourseId(courseId);
@@ -171,15 +171,13 @@ public class CmsUploadCourseController extends BaseController {
 					.getName(), c);
 
 			// 打包生成tar.gz文件
-			File tarfile = new File(ctxPath + File.separator + c.getStarttime()
-					+ ".tar");
+			File tarfile = new File(rootname + ".tar");
 			tarfile.createNewFile();
-			UtilTools.WriteToTarGzip(ctxPath + File.separator,
-					c.getStarttime(), c.getStarttime() + ".tar");
+			UtilTools.WriteToTarGzip(ctxPath + File.separator, c.getStarttime(),
+					c.getStarttime() + ".tar");
 
 			// 下载tar.gz文件
-			String downLoadPath = ctxPath + File.separator + c.getStarttime()
-					+ ".tar.gz";
+			String downLoadPath = rootname + ".tar.gz";
 			String fp = c.getStarttime() + ".tar.gz";
 			//
 			File downLoadFile = new File(downLoadPath);
@@ -217,7 +215,6 @@ public class CmsUploadCourseController extends BaseController {
 		rootGen.addAttribute("course", c.getCoursecode());
 		rootGen.addAttribute("category", category);
 		rootGen.addAttribute("rank", c.getRank());
-		createCourseXMl(path, coursepath, c.getStarttime() + ".xml", c);
 
 		OutputFormat format = null;
 		XMLWriter xmlwriter = null;
@@ -239,6 +236,7 @@ public class CmsUploadCourseController extends BaseController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		createCourseXMl(path, coursepath, c.getStarttime() + ".xml", c);
 	}
 
 	private void createCourseXMl(String path, String coursepath, String xml,
@@ -257,9 +255,8 @@ public class CmsUploadCourseController extends BaseController {
 		File imgdir = new File(coursepath + File.separator + "static");
 		if (!imgdir.exists())
 			imgdir.mkdir();
-		UtilTools.copyFile(path + "upload" + File.separator + imgpath,
-				coursepath + File.separator + "static" + File.separator
-						+ imgpath);
+		UtilTools.copyFile(path + "upload" + File.separator + imgpath, coursepath + File.separator
+				+ "static" + File.separator + imgpath);
 
 		Set<Chapter> set = c.getChapters();
 		Iterator<Chapter> it = set.iterator();
@@ -455,9 +452,8 @@ public class CmsUploadCourseController extends BaseController {
 		File imgdir = new File(coursepath + File.separator + "shell");
 		if (!imgdir.exists())
 			imgdir.mkdir();
-		UtilTools.copyFile(path + "shell" + File.separator + shellpath,
-				coursepath + File.separator + "shell" + File.separator
-						+ shellpath);
+		UtilTools.copyFile(path + "shell" + File.separator + shellpath, coursepath
+				+ File.separator + "shell" + File.separator + shellpath);
 
 		OutputFormat format = null;
 		XMLWriter xmlwriter = null;

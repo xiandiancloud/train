@@ -147,6 +147,24 @@ public class CourseService {
 	}
 
 	/**
+	 * 更新课程日程，细节等
+	 * 
+	 * @param courseId
+	 * @param rootelement
+	 */
+	public void updateCourse(int courseId, String describle, String starttimedetail,
+			String endtimedetail, String imgpath) {
+		Course course = get(courseId);
+		// 更新课程
+		if (course != null) {
+			course.setDescrible(describle);
+			course.setStarttimedetail(starttimedetail);
+			course.setEndtimedetail(endtimedetail);
+			course.setImgpath(imgpath);
+			update(course);
+		}
+	}
+	/**
 	 * 导入课程的时候更新课程
 	 * 
 	 * @param courseId
@@ -164,7 +182,8 @@ public class CourseService {
 				String url_name = rt.attributeValue("url_name");
 				String org = rt.attributeValue("org");
 				String coursecode = rt.attributeValue("course");
-
+				String category = rt.attributeValue("category");
+				String rank = rt.attributeValue("rank");
 				File coursexml = new File(rootelement + File.separator
 						+ "course" + File.separator + url_name + ".xml");
 				if (coursexml.exists()) {
@@ -187,11 +206,10 @@ public class CourseService {
 					String starttimedetail = rt
 							.attributeValue("enrollment_start");
 					String endtimedetail = rt.attributeValue("enrollment_end");
-					String category = rt.attributeValue("category");
-					String rank = rt.attributeValue("rank");
+					
 
 					course.setCoursecode(coursecode);
-					course.setImgpath(endcourse_image);
+					course.setImgpath("upload/"+endcourse_image);
 					course.setName(display_name);
 					course.setOrg(org);
 					course.setStarttime(starttime);

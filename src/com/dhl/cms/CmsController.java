@@ -155,6 +155,8 @@ public class CmsController extends BaseController {
 	public ModelAndView totschedule(HttpServletRequest request, int courseId) {
 		ModelAndView view = new ModelAndView();
 		view.addObject("courseId", courseId);
+		Course course = courseService.get(courseId);
+		view.addObject("course", course);
 		view.setViewName("/cms/schedule");
 		return view;
 	}
@@ -188,7 +190,31 @@ public class CmsController extends BaseController {
 	}
 
 	/**
-	 * 创建课程
+	 * 老师更新课程
+	 * 
+	 * @param request
+	 * @param name
+	 * @return
+	 */
+	@RequestMapping("/updatecourse")
+	public void updatecourse(HttpServletRequest request,
+			HttpServletResponse response, int courseId, String describle,
+			String starttimedetail, String endtimedetail, String imgpath) {
+		try {
+			PrintWriter out = response.getWriter();
+
+			courseService.updateCourse(courseId, describle, starttimedetail,
+					endtimedetail, imgpath);
+
+			String str = "{'sucess':'sucess'}";
+			out.write(str);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * 老师创建课程
 	 * 
 	 * @param request
 	 * @param name
@@ -197,11 +223,12 @@ public class CmsController extends BaseController {
 	@RequestMapping("/createcourse")
 	public void createcourse(HttpServletRequest request,
 			HttpServletResponse response, String name, String org,
-			String coursecode, String starttime,String category,String rank) {
+			String coursecode, String starttime, String category, String rank) {
 		try {
 			PrintWriter out = response.getWriter();
 			User user = getSessionUser(request);
-			courseService.createCourse(name, org, coursecode, starttime, user.getId(), Integer.parseInt(category), rank);
+			courseService.createCourse(name, org, coursecode, starttime,
+					user.getId(), Integer.parseInt(category), rank);
 
 			String str = "{'sucess':'sucess'}";
 			out.write(str);

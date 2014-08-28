@@ -41,6 +41,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="js/jquery-1.11.1.js"></script>
 	<script type="text/javascript" src="js/index.js"></script>
 	<script type="text/javascript" src="js/jquery-ui.js"></script> 
+	<script src="js/fineuploader.js"></script>
   <!-- dummy segment.io -->
 <script type="text/javascript">
   var course_location_analytics = "cetc/CS201/2014_T1";
@@ -388,17 +389,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <ol class="list-input">
             <li class="field text is-not-editable" id="field-course-organization">
               <label for="course-organization">组织</label>
-              <input title="该字段已禁用：信息不可修改。" type="text" class="long" id="course-organization" readonly="">
+              <input title="该字段已禁用：信息不可修改。" type="text" class="long" id="course-organization" readonly="" value="${course.org}">
             </li>
 
             <li class="field text is-not-editable" id="field-course-number">
               <label for="course-number">课程代码</label>
-              <input title="该字段已禁用：信息不可修改。" type="text" class="short" id="course-number" readonly="">
+              <input title="该字段已禁用：信息不可修改。" type="text" class="short" id="course-number" readonly="" value="${course.coursecode}">
             </li>
 
             <li class="field text is-not-editable" id="field-course-name">
               <label for="course-name">开课时间</label>
-              <input title="该字段已禁用：信息不可修改。" type="text" class="long" id="course-name" readonly="">
+              <input title="该字段已禁用：信息不可修改。" type="text" class="long" id="course-name" readonly="" value="${course.starttime}">
             </li>
           </ol>
 
@@ -418,29 +419,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <li class="field-group field-group-course-start" id="course-start">
               <div class="field date" id="field-course-start-date">
                 <label for="course-start-date">课程开始日期</label>
-                <input type="text" class="start-date date start datepicker hasDatepicker" id="course-start-date" placeholder="MM/DD/YYYY" autocomplete="off">
+                <input type="text" class="start-date date start datepicker hasDatepicker" id="starttimedetail" placeholder="YYYY-MM-DD" autocomplete="off" value="${course.starttimedetail}">
                 <span class="tip tip-stacked">课程开始的第一天</span>
               </div>
 
-              <div class="field time" id="field-course-start-time">
+<!--               <div class="field time" id="field-course-start-time">
                 <label for="course-start-time">课程开始时间</label>
                 <input type="text" class="time start timepicker ui-timepicker-input" id="course-start-time" value="" placeholder="HH:MM" autocomplete="off">
                 <span class="tip tip-stacked" id="timezone">(中国标准时间)</span>
-              </div>
+              </div> -->
             </li>
 
             <li class="field-group field-group-course-end" id="course-end">
               <div class="field date" id="field-course-end-date">
                 <label for="course-end-date">课程结束日期</label>
-                <input type="text" class="end-date date end hasDatepicker" id="course-end-date" placeholder="MM/DD/YYYY" autocomplete="off">
+                <input type="text" class="end-date date end hasDatepicker" id="endtimedetail" placeholder="YYYY-MM-DD" autocomplete="off" value="${course.endtimedetail}">
                 <span class="tip tip-stacked">您课程结束的最后一天</span>
               </div>
 
-              <div class="field time" id="field-course-end-time">
+<!--               <div class="field time" id="field-course-end-time">
                 <label for="course-end-time">课程结束时间</label>
                 <input type="text" class="time end ui-timepicker-input" id="course-end-time" value="" placeholder="HH:MM" autocomplete="off">
                 <span class="tip tip-stacked" id="timezone">(中国标准时间)</span>
-              </div>
+              </div> -->
             </li>
           </ol>
 
@@ -456,7 +457,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
               <ol class="list-input">
                 <li class="field text" id="field-course-short-description">
                   <label for="course-overview">课程简介</label>
-                  <textarea class="text" id="course-short-description"></textarea>
+                  <textarea class="text" id="describle">${course.describle}</textarea>
                   <span class="tip tip-stacked">将在学生浏览课程目录时出现。限制150个字符。</span>
                 </li>
 
@@ -484,13 +485,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                   </div>
                 </li>
 
-                
               </ol>
             </section>
 
             <hr class="divide">
 
-            <section class="group-settings requirements">
+<!--             <section class="group-settings requirements">
               <header>
                 <h2 class="title-2">要求</h2>
                 <span class="tip">对参加本门课程的学生的期望</span>
@@ -503,7 +503,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                   <span class="tip tip-inline">在整个课程上投入的时间</span>
                 </li>
               </ol>
-            </section>
+            </section> -->
+            <ul class="course-actions">
+				<li class="action"><a href="javascript:void(0);" rel="external" onclick="updateCourse(${courseId});"
+					class="button view-button view-live-button">保存</a></li>
+			</ul>
       </form>
     </article>
     <aside class="content-supplementary" role="complimentary">
@@ -594,6 +598,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <jsp:include page="tfooter.jsp"></jsp:include>
 
       <script type="text/javascript">
+      function updateCourse(courseId)
+		{
+			var describle = $("#describle").val();
+			var endtimedetail = $("#endtimedetail").val();
+			var starttimedetail = $("#starttimedetail").val();
+			var imgpath = $("#imgpath").val();
+			var data = {courseId:courseId,describle:describle,starttimedetail:starttimedetail,endtimedetail:endtimedetail,imgpath:imgpath};
+			$.ajax({
+				url:"cms/updatecourse.action",
+				type:"post",
+				data:data,
+				success:function(s){
+					var a=eval("("+s+")");	
+					if (a.sucess=="sucess")
+					{
+						alert("更新成功");
+					}
+				}
+			});
+		}
+      
 window.Tender = {
   hideToggle: true,
   title: '',

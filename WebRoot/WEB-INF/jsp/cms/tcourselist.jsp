@@ -157,7 +157,7 @@
 				<div class="courses">
 					<ul class="list-courses">
 						<c:forEach var="tcourse" items="${tcourselist}">
-							<li class="course-item"><a class="course-link" href="#">
+							<li class="course-item"><a class="course-link" href="cms/totcourse.action?courseId=${tcourse.course.id}">
 									<h3 class="course-title">${tcourse.course.name}</h3>
 
 									<div class="course-metadata">
