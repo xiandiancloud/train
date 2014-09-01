@@ -35,7 +35,7 @@ public class LoginFilter implements Filter {
 			FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		if (request != null && request.getAttribute(FILTERED_REQUEST) != null
-				|| httpRequest.getRequestURI().contains("cms")) {
+				|| httpRequest.getRequestURI().contains("cms")|| httpRequest.getRequestURI().contains("admin")) {
 			chain.doFilter(request, response);
 		} else {
 

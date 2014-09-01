@@ -10,7 +10,7 @@ public class CourseCategoryDao extends BaseDao<CourseCategory> {
 	
 	public Page getCourseByCategoryId(int categoryId,int pageNo,int pageSize)
 	{
-		String hql = "from CourseCategory where categoryId = "+categoryId;
+		String hql = "from CourseCategory where course.publish = 1 and category.id = "+categoryId;
 		return pagedQuery(hql, pageNo, pageSize);
 	}
 	

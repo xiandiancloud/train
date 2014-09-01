@@ -52,30 +52,3 @@
 		<!--/.nav-collapse -->
 	</div>
 </div>
-<!-- <div class="header-top"></div> -->
-<%-- <div class="blog-masthead">
-	<div class="container">
-		<nav class="blog-nav">
-			<div class="row">
-				<div class="col-sm-1">
-					<a class="blog-nav-item" href="#"><img src="images/logo.png" /></a>
-				</div>
-				<div class="col-sm-9 navh">
-					<a class="blog-nav-item h100" href="getAllCourse.action">课程</a> <!-- <a
-						class="blog-nav-item h100" href="#">院校</a> -->
-				</div>
-				<div class="col-sm-2 navh">
-					<button type="button" class="btn btn-default dropdown-toggle right"
-						data-toggle="dropdown">
-						${user.name} <span class="caret"></span>
-					</button>
-					<ul class="dropdown-menu" role="menu">
-						<li><a href="#">我的课程</a></li>
-						<li class="divider"></li>
-						<li><a href="#">退出</a></li>
-					</ul>
-				</div>
-			</div>
-		</nav>
-	</div>
-</div> --%>

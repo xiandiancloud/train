@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -34,7 +35,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 	<script type="text/javascript" src="js/jquery-1.11.1.js"></script>
 	<script type="text/javascript" src="js/index.js"></script>
-	<script type="text/javascript" src="js/jquery-ui.js"></script> 
+	<script type="text/javascript" src="js/outline.js"></script>
 	
  </head>
 
@@ -72,10 +73,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <span class="expand-all"><i class="icon-arrow-down"></i> <span class="label">Expand All Sections</span></span>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="//localhost:8000/courses/edX/Open_DemoX/edx_demo_course/jump_to/i4x://edX/Open_DemoX/course/edx_demo_course" rel="external" class="button view-button view-live-button"
+                <!-- <li class="nav-item">
+                    <a href="#" rel="external" class="button view-button view-live-button"
                        title="Click to open the courseware in the LMS in a new tab">在线查看</a>
-                </li>
+                </li> -->
+               	<c:choose>
+					<c:when test="${course.publish == 0}">
+						<li class="nav-item">
+                   		 <a href="javascript:void(0);" onclick="publish(${courseId},1,'发布成功');" rel="external" class="button view-button view-live-button"
+                       		title="Click to open the courseware in the LMS in a new tab">发布课程</a>
+                		</li>
+					</c:when>
+					<c:otherwise>
+						<li class="nav-item">
+                   		 <a href="javascript:void(0);" onclick="publish(${courseId},0,'取消成功');" rel="external" class="button view-button view-live-button"
+                       		title="Click to open the courseware in the LMS in a new tab">取消发布</a>
+                		</li>
+					</c:otherwise>
+				</c:choose>
             </ul>
         </nav>
     </header>
@@ -164,6 +179,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 												</div>
 											</div>
 											<div class="outline-content section-content">
+											<div id="test_subsection" style="display:none;">
 												<ol class="list-subsections is-sortable">
 													<li class="ui-splint ui-splint-indicator"><span
 														class="draggable-drop-indicator draggable-drop-indicator-initial"><i
@@ -270,18 +286,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 															class="icon-caret-right"></i>
 													</span></li>
 												</ol>
+												</div>
 												<div class="add-subsection add-item">
 													<a title="Click to add a new Subsection"
 														data-default-name="Subsection"
 														data-parent="i4x://edX/Open_DemoX/chapter/aec6f2fbbdf8472eb51f16d8340abc9b"
-														data-category="sequential" class="button button-new"
-														href="#"> <i class="icon icon-plus"></i>New Subsection</a>
+														data-category="sequential" class="button button-new button-new-subsection"
+														> <i class="icon icon-plus"></i>New Subsection</a>
 												</div>
 
 											</div> 
 												<span class="draggable-drop-indicator draggable-drop-indicator-after"><i class="icon-caret-right"></i>
 										       </span>
 										       </li>
+										       
 									</ol>
 
 
@@ -369,5 +387,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 
 <jsp:include page="tfooter.jsp"></jsp:include>
+
+<script>
+		$(function() {
+		});
+		
+		function publish(courseId,type,msg)
+		{
+			$.ajax({
+				url:"cms/publicCourse.action?courseId="+courseId+"&type="+type,
+				type:"post",
+				success:function(s){
+					var a=eval("("+s+")");	
+					if (a.sucess=="sucess")
+					{
+						location.reload();
+						alert(msg);
+					}
+				}
+			});
+		}
+	</script>
 </body>
 </html>

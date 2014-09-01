@@ -95,8 +95,8 @@
 					<c:forEach var="vt" items="${vertical}" varStatus="status">
 						<div class="" id="vt${vt.id}">
 							<c:forEach var="train" items="${vt.trainList}" varStatus="steps">
-								<c:if test="${train.preName!=null && train.preName!=''}">
-									<p>${steps.count}.&nbsp;${train.preName}</p>
+								<c:if test="${train.envname!=null && train.envname!=''}">
+									<p>${steps.count}.&nbsp;${train.envname}</p>
 									<p class="trainleft">${train.preContent}</p>
 									<p class="trainleft">
 										<button type="button" class="btn btn-primary"
@@ -118,7 +118,7 @@
 											</tr>
 											<tr class="danger">
 												<td><label id="${vt.id}preip${train.id}">&nbsp;</label></td>
-												<td><label id="${vt.id}prename${train.id}">&nbsp;</label></td>
+												<td><label id="${vt.id}envname${train.id}">&nbsp;</label></td>
 												<td><label id="${vt.id}prepwd${train.id}">&nbsp;</label></td>
 												<td><a id="${vt.id}preurl${train.id}" href=""
 													target="_blank">&nbsp;</a></td>
@@ -215,7 +215,7 @@
 						//alert("你已经创建虚拟机");
 						$("#"+vid+"prebutton"+id).attr("disabled",true); 
 						$("#"+vid+"preip"+id).html(a.hostname);
-						$("#"+vid+"prename"+id).html(a.username);
+						$("#"+vid+"envname"+id).html(a.username);
 						$("#"+vid+"prepwd"+id).html(a.password);
 						var url = "http://10.172.20.10/dashboard/admin/instances/"+a.url+"/detail";
 						$("#"+vid+"preurl"+id).html(a.url);
@@ -225,7 +225,7 @@
 					{
 						$("#"+vid+"prebutton"+id).attr("disabled",true); 
 						$("#"+vid+"preip"+id).html(a.hostname);
-						$("#"+vid+"prename"+id).html(a.username);
+						$("#"+vid+"envname"+id).html(a.username);
 						$("#"+vid+"prepwd"+id).html(a.password);
 						var url = "http://10.172.20.10/dashboard/admin/instances/"+a.url+"/detail";
 						$("#"+vid+"preurl"+id).html(a.url);

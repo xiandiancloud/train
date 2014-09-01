@@ -5,8 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.dhl.cons.CommonConstant;
 import com.dhl.dao.CategoryDao;
 import com.dhl.domain.Category;
+import com.dhl.domain.School;
 
 /**
  *
@@ -36,18 +38,34 @@ public class CategoryService {
 	}
 
 	/**
+	 * 保存分类
+	 * 
+	 * @param name
+	 */
+	public String saveCategory(String name) {
+		Category s = getCategoryByname(name);
+		if (s == null) {
+			Category school = new Category();
+			school.setName(name);
+			categoryDao.save(school);
+			return CommonConstant.ERROR_2;
+		} else {
+			return CommonConstant.ERROR_3;
+		}
+	}
+
+	/**
 	 * 根据id删除分类
+	 * 
 	 * @param id
 	 */
-	public void remove(int id)
-	{
+	public void remove(int id) {
 		Category c = categoryDao.get(id);
-		if (c != null)
-		{
+		if (c != null) {
 			categoryDao.remove(c);
 		}
 	}
-	
+
 	/**
 	 * 根据分类名字取得分类
 	 * 

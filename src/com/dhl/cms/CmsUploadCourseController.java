@@ -2,9 +2,13 @@ package com.dhl.cms;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Iterator;
@@ -18,7 +22,6 @@ import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.dom4j.io.OutputFormat;
-import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,7 +35,6 @@ import com.dhl.domain.Course;
 import com.dhl.domain.CourseCategory;
 import com.dhl.domain.Sequential;
 import com.dhl.domain.Train;
-import com.dhl.domain.User;
 import com.dhl.domain.Vertical;
 import com.dhl.domain.VerticalTrain;
 import com.dhl.service.CourseService;
@@ -62,6 +64,8 @@ public class CmsUploadCourseController extends BaseController {
 	public ModelAndView totcourselist(HttpServletRequest request, int courseId) {
 		ModelAndView view = new ModelAndView();
 		view.addObject("courseId", courseId);
+		Course course = courseService.get(courseId);
+		view.addObject("course", course);
 		view.setViewName("/cms/export");
 		return view;
 	}
@@ -76,10 +80,61 @@ public class CmsUploadCourseController extends BaseController {
 	public ModelAndView totimport(HttpServletRequest request, int courseId) {
 		ModelAndView view = new ModelAndView();
 		view.addObject("courseId", courseId);
+		Course course = courseService.get(courseId);
+		view.addObject("course", course);
 		view.setViewName("/cms/import");
 		return view;
 	}
 
+	/**
+	 * 上传更新课程的图片
+	 * 
+	 * @param request
+	 * @param response
+	 * @param file
+	 */
+	@RequestMapping("/importCourseimg")
+	public void importCourseimg(HttpServletRequest request,
+			HttpServletResponse response,
+			@RequestParam(value = "qqfile", required = true) MultipartFile file) {
+		response.setContentType("text/html");
+		PrintWriter out = null;
+		try {
+			out = response.getWriter();
+		} catch (IOException e1) {
+			// out.print("{\"success\": \"false\"}");
+		}
+		try {
+			if (!file.isEmpty()) {
+				byte[] bytes = file.getBytes();
+				String upath = request.getSession().getServletContext()
+						.getRealPath("/");
+				String uuid = UUID.randomUUID().toString();
+				String path = "upload/" + uuid + file.getOriginalFilename();
+				FileOutputStream fos = new FileOutputStream(upath + path);
+				fos.write(bytes);
+				fos.close();
+				out.print("{\"success\": \"true\",\"imgpath\":\"" + path
+						+ "\"}");
+				// out.write("<script>parent.callback('sucess')</script>");
+			} else {
+				// out.write("<script>parent.callback('fail')</script>");
+				out.print("{\"success\": \"false\"}");
+			}
+
+		} catch (Exception e) {
+			out.print("{\"success\": \"false\"}");
+		}
+	}
+
+	/**
+	 * 导入课程
+	 * 
+	 * @param request
+	 * @param response
+	 * @param file
+	 * @param courseId
+	 */
 	@RequestMapping("/importCourse")
 	public void importCourse(
 			HttpServletRequest request,
@@ -136,6 +191,7 @@ public class CmsUploadCourseController extends BaseController {
 			}
 
 		} catch (Exception e) {
+			e.printStackTrace();
 			out.print("{\"success\": \"false\"}");
 		}
 	}
@@ -173,8 +229,8 @@ public class CmsUploadCourseController extends BaseController {
 			// 打包生成tar.gz文件
 			File tarfile = new File(rootname + ".tar");
 			tarfile.createNewFile();
-			UtilTools.WriteToTarGzip(ctxPath + File.separator, c.getStarttime(),
-					c.getStarttime() + ".tar");
+			UtilTools.WriteToTarGzip(ctxPath + File.separator,
+					c.getStarttime(), c.getStarttime() + ".tar");
 
 			// 下载tar.gz文件
 			String downLoadPath = rootname + ".tar.gz";
@@ -237,6 +293,24 @@ public class CmsUploadCourseController extends BaseController {
 			e.printStackTrace();
 		}
 		createCourseXMl(path, coursepath, c.getStarttime() + ".xml", c);
+		createCourseAbout(coursepath, c.getDescrible());
+	}
+
+	private void createCourseAbout(String coursepath, String desc) {
+		try {
+			String tt = coursepath + File.separator + "about";
+			File filedir = new File(tt);
+			if (!filedir.exists())
+				filedir.mkdir();
+			File file = new File(tt + File.separator + "short_description.html");
+			if (!file.exists())
+				file.createNewFile();
+			BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+			writer.write(desc);
+			writer.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void createCourseXMl(String path, String coursepath, String xml,
@@ -246,7 +320,8 @@ public class CmsUploadCourseController extends BaseController {
 		// 定义根节点Element
 		Element rootGen = document.addElement("course");
 		String imgpath = c.getImgpath();
-		rootGen.addAttribute("course_image", c.getImgpath());
+		imgpath = imgpath.substring(imgpath.indexOf('/')+1);
+		rootGen.addAttribute("course_image", imgpath);
 		rootGen.addAttribute("display_name", c.getName());
 		rootGen.addAttribute("start", c.getStarttime());
 		rootGen.addAttribute("enrollment_start", c.getStarttimedetail());
@@ -255,8 +330,9 @@ public class CmsUploadCourseController extends BaseController {
 		File imgdir = new File(coursepath + File.separator + "static");
 		if (!imgdir.exists())
 			imgdir.mkdir();
-		UtilTools.copyFile(path + "upload" + File.separator + imgpath, coursepath + File.separator
-				+ "static" + File.separator + imgpath);
+		UtilTools.copyFile(path + "upload" + File.separator + imgpath,
+				coursepath + File.separator + "static" + File.separator
+						+ imgpath);
 
 		Set<Chapter> set = c.getChapters();
 		Iterator<Chapter> it = set.iterator();
@@ -452,8 +528,9 @@ public class CmsUploadCourseController extends BaseController {
 		File imgdir = new File(coursepath + File.separator + "shell");
 		if (!imgdir.exists())
 			imgdir.mkdir();
-		UtilTools.copyFile(path + "shell" + File.separator + shellpath, coursepath
-				+ File.separator + "shell" + File.separator + shellpath);
+		UtilTools.copyFile(path + "shell" + File.separator + shellpath,
+				coursepath + File.separator + "shell" + File.separator
+						+ shellpath);
 
 		OutputFormat format = null;
 		XMLWriter xmlwriter = null;

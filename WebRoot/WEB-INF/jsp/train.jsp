@@ -251,7 +251,6 @@
 	<script>
 		var currentPage;
 		$(function() {
-
 			$("#trainjoin").click(function() {
 				createServer();
 				timeservice(0);
@@ -403,7 +402,7 @@
 			$("#imgsubmit").show();
 			<c:forEach items="${tlist}" var="train" varStatus="status">
 			if ("${status.count}" == currentPage) {
-				var name = "${train.preName}";
+				var name = "${train.envname}";
 				var courseId = parseInt("${course.id}");
 				var path = "${train.conShell}";
 				var trainId = parseInt("${train.id}");
@@ -441,7 +440,7 @@
 			$("#imgenv").show();
 			<c:forEach items="${tlist}" var="train" varStatus="status">
 			if ("${status.count}" == currentPage) {
-				var name = "${train.preName}";
+				var name = "${train.envname}";
 				var courseId = parseInt("${course.id}");
 				var data = {
 					courseId : courseId,
@@ -474,7 +473,7 @@
 		function resetTrain(currentPage) {
 			<c:forEach items="${tlist}" var="train" varStatus="status">
 			if ("${status.count}" == currentPage) {
-				var name = "${train.preName}";
+				var name = "${train.envname}";
 				var courseId = parseInt("${course.id}");
 				var trainId = parseInt("${train.id}");
 				var data = {
@@ -521,7 +520,7 @@
 
 				$("#trainname").attr("value","${train.name}");//html("实验名称：${train.name}");
 				$("#traincode").attr("value","${train.codenum}");//html("实验名称：${train.name}");
-				$("#trainprename").attr("value","${train.preName}");//html("${train.preName}");
+				$("#trainprename").attr("value","${train.envname}");
 				//$("#trainjoin").attr("href", "");
 				$("#traincon").html("${train.conContent}");
 				//$("#trainanswer").html("${train.conAnswer}");

@@ -1,6 +1,7 @@
 package com.dhl.service;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
@@ -152,8 +153,8 @@ public class CourseService {
 	 * @param courseId
 	 * @param rootelement
 	 */
-	public void updateCourse(int courseId, String describle, String starttimedetail,
-			String endtimedetail, String imgpath) {
+	public void updateCourse(int courseId, String describle,
+			String starttimedetail, String endtimedetail, String imgpath) {
 		Course course = get(courseId);
 		// 更新课程
 		if (course != null) {
@@ -164,6 +165,7 @@ public class CourseService {
 			update(course);
 		}
 	}
+
 	/**
 	 * 导入课程的时候更新课程
 	 * 
@@ -206,16 +208,37 @@ public class CourseService {
 					String starttimedetail = rt
 							.attributeValue("enrollment_start");
 					String endtimedetail = rt.attributeValue("enrollment_end");
-					
 
 					course.setCoursecode(coursecode);
-					course.setImgpath("upload/"+endcourse_image);
+					course.setImgpath("upload/" + endcourse_image);
 					course.setName(display_name);
 					course.setOrg(org);
 					course.setStarttime(starttime);
 					course.setStarttimedetail(starttimedetail);
 					course.setEndtimedetail(endtimedetail);
 					course.setRank(rank);
+
+					String tt = rootelement + File.separator + "about";
+					File filedir = new File(tt);
+					if (filedir.exists()) {
+						File file = new File(tt + File.separator
+								+ "short_description.html");
+						if (file.exists()) {
+							Long fileLengthLong = file.length();
+							byte[] fileContent = new byte[fileLengthLong
+									.intValue()];
+							try {
+								FileInputStream inputStream = new FileInputStream(
+										file);
+								inputStream.read(fileContent);
+								inputStream.close();
+							} catch (Exception e) {
+							}
+							String describle = new String(fileContent);
+							course.setDescrible(describle);
+						}
+					}
+
 					// 删除课程下的章节
 					chapterDao.removeChapterByCourseId(courseId);
 					// 删除课程下的实验

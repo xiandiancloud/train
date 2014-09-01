@@ -66,6 +66,29 @@ public class CmsController extends BaseController {
 	 * @param request
 	 * @return
 	 */
+	@RequestMapping("/cms")
+	public ModelAndView cms(HttpServletRequest request) {
+		
+		User user = getSessionUser(request);
+		if (user == null)
+		{
+			String url = "redirect:/cms/totlogin.action";
+			return new ModelAndView(url);
+		}
+		ModelAndView view = new ModelAndView();
+		List<TeacherCourse> tcourselist = teacherCourseService
+				.getMyTCourse(user.getId());
+		view.addObject("tcourselist", tcourselist);
+		view.setViewName("/cms/tcourselist");
+		return view;
+	}
+	
+	/**
+	 * 跳转到老师课程页面
+	 * 
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping("/totcourselist")
 	public ModelAndView totcourselist(HttpServletRequest request) {
 		ModelAndView view = new ModelAndView();
@@ -113,6 +136,8 @@ public class CmsController extends BaseController {
 	public ModelAndView totcourse(HttpServletRequest request, int courseId) {
 		ModelAndView view = new ModelAndView();
 		view.addObject("courseId", courseId);
+		Course course = courseService.get(courseId);
+		view.addObject("course", course);
 		view.setViewName("/cms/temp");
 		return view;
 	}
@@ -127,6 +152,8 @@ public class CmsController extends BaseController {
 	public ModelAndView totupdate(HttpServletRequest request, int courseId) {
 		ModelAndView view = new ModelAndView();
 		view.addObject("courseId", courseId);
+		Course course = courseService.get(courseId);
+		view.addObject("course", course);
 		view.setViewName("/cms/update");
 		return view;
 	}
@@ -141,6 +168,8 @@ public class CmsController extends BaseController {
 	public ModelAndView totteam(HttpServletRequest request, int courseId) {
 		ModelAndView view = new ModelAndView();
 		view.addObject("courseId", courseId);
+		Course course = courseService.get(courseId);
+		view.addObject("course", course);
 		view.setViewName("/cms/team");
 		return view;
 	}
@@ -162,14 +191,14 @@ public class CmsController extends BaseController {
 	}
 
 	/**
-	 * 发布课程
+	 * 发布跟取消发布
 	 * 
 	 * @param request
 	 * @param response
 	 */
 	@RequestMapping("/publicCourse")
 	public void publicCourse(HttpServletRequest request,
-			HttpServletResponse response, int courseId) {
+			HttpServletResponse response, int courseId,int type) {
 
 		try {
 			PrintWriter out = response.getWriter();
@@ -180,7 +209,8 @@ public class CmsController extends BaseController {
 			// out.write(str);
 			// } else {
 			Course course = courseService.get(courseId);
-			course.setPublish(1);
+			course.setPublish(type);
+			courseService.update(course);
 			String str = "{'sucess':'sucess'}";
 			out.write(str);
 			// }

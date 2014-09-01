@@ -22,7 +22,7 @@ public class CommonConstant
     * 将登录前的URL放到Session中的键名称
     */
    public static final String LOGIN_TO_URL = "toUrl";
-   
+   public static final String ADMIN_LOGIN_TO_URL = "toaUrl";
    /**
     * 每页的记录数
     */
@@ -34,4 +34,10 @@ public class CommonConstant
    public static final String ROLE_T = "老师";
    public static final String ROLE_C = "裁判";
    public static final String ROLE_A = "管理员";
+   
+   //错误提示
+   public static final String ERROR_0 = "后台异常，请联系系统管理员";
+   public static final String ERROR_1 = "学校已经存在";
+   public static final String ERROR_2 = "保存成功";
+   public static final String ERROR_3 = "分类已经存在";
 }

@@ -15,6 +15,13 @@ public class CourseCategoryService {
 	@Autowired
 	private CourseCategoryDao courseCategoryDao;
 	
+	/**
+	 * 取得分类下的已经发布的课程
+	 * @param categoryId
+	 * @param pageNo
+	 * @param pageSize
+	 * @return
+	 */
 	public Page getCourseByCategoryId(int categoryId,int pageNo,int pageSize)
 	{
 		return courseCategoryDao.getCourseByCategoryId(categoryId, pageNo, pageSize);

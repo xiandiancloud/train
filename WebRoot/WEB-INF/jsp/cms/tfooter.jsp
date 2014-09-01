@@ -4,8 +4,7 @@
 	<footer class="primary" role="contentinfo">
 		<div class="colophon">
 			<p>
-				&copy; 2014 <a href="http://www.edx.org" rel="external">edX</a>.
-				保留所有权利。
+				Copyright © 2014 南京第五十五所技术开发有限公司
 			</p>
 		</div>
 

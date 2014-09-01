@@ -37,11 +37,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <link href="tcss/style-app.css" rel="stylesheet" type="text/css" />
     <link href="tcss/style-app-extend1.css" rel="stylesheet" type="text/css" />
     <link href="tcss/style-xmodule.css" rel="stylesheet" type="text/css" />
-
+	<link href="css/fineuploader.css" rel="stylesheet" type="text/css" />
 	<script type="text/javascript" src="js/jquery-1.11.1.js"></script>
 	<script type="text/javascript" src="js/index.js"></script>
 	<script type="text/javascript" src="js/jquery-ui.js"></script> 
 	<script src="js/fineuploader.js"></script>
+	<script src="js/common.js"></script>
   <!-- dummy segment.io -->
 <script type="text/javascript">
   var course_location_analytics = "cetc/CS201/2014_T1";
@@ -457,7 +458,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
               <ol class="list-input">
                 <li class="field text" id="field-course-short-description">
                   <label for="course-overview">课程简介</label>
-                  <textarea class="text" id="describle">${course.describle}</textarea>
+                  <textarea class="text" id="describle"></textarea>
                   <span class="tip tip-stacked">将在学生浏览课程目录时出现。限制150个字符。</span>
                 </li>
 
@@ -467,7 +468,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                   <label>课程图片</label>
                   <div class="current current-course-image">
                     <span class="wrapper-course-image">
-                      <img class="course-image" id="course-image" src="/c4x/cetc/CS201/asset/math.png" alt="课程图片">
+                      <img class="course-image" id="course-image" src="${course.imgpath}" alt="课程图片">
                     </span>
 
                     <span class="msg msg-help">
@@ -478,10 +479,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
                   <div class="wrapper-input">
                     <div class="input">
-                      <input type="text" class="long new-course-image-url" id="course-image-url" value="" placeholder="Your course image URL" autocomplete="off">
+                      <input type="text" class="long new-course-image-url" id="imgpath" value="" placeholder="Your course image URL" autocomplete="off">
                       <span class="tip tip-stacked">请为您的课程图片提供一个有效的路径和名字（注意：仅支持JPEG和PNG格式）</span>
                     </div>
-                    <button type="button" class="action action-upload-image">上传课程图片</button>
+                    <!-- <button type="button" class="action action-upload-image">上传课程图片</button> -->
+                    <div id="bootstrapped-fine-uploader"></div>
                   </div>
                 </li>
 
@@ -598,9 +600,52 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <jsp:include page="tfooter.jsp"></jsp:include>
 
       <script type="text/javascript">
+      $(document).ready(function(){
+    	    var desc = replaceTextarea2('${course.describle}');
+    	    $("#describle").html(desc);
+    		createUploader();
+    	});
+    	function createUploader() { 
+    		var uploader = new qq.FineUploader({ 
+    		element: document.getElementById('bootstrapped-fine-uploader'), 
+    		request: { 
+    		endpoint: 'cms/importCourseimg.action'
+    		}, 
+    		text: { 
+    		uploadButton: '<button class="btn btn-warning"><i class="icon-upload"></i>选择要导入的文件</button>' 
+    		}, 
+    		validation:{
+    			allowedExtensions: ['png','PNG','jpeg','JPEG']
+    		},
+    		template: 
+    		'<div class="qq-uploader">' + 
+    		'<pre class="qq-upload-drop-area"><span>{dragZoneText}</span></pre>' + 
+    		'<div class="qq-upload-button action action-upload-image" style="width: auto;">上传课程图片</div>' + 
+    		'<span class="qq-drop-processing"><span>{dropProcessingText}</span>'+ 
+    		'<span class="qq-drop-processing-spinner"></span></span>' + 
+    		'<ul class="qq-upload-list" style="margin-top: 10px; text-align: center;display:none"></ul>' + 
+    		'</div>', 
+    		classes: { 
+    		success: 'alert alert-success', 
+    		fail: 'alert alert-error' 
+    		}, 
+    		callbacks:{
+    			onComplete: function(id,  fileName,  responseJSON){		
+    				if (responseJSON.success == "true")
+    				{
+    					alert("上传成功");
+    					$("#imgpath").attr("value",responseJSON.imgpath);
+    					$("#course-image").attr("src",responseJSON.imgpath);
+    				}
+    			}
+    		},
+    		debug: true 
+    		}); 
+      }
       function updateCourse(courseId)
 		{
 			var describle = $("#describle").val();
+			describle = replaceTextarea1(describle);
 			var endtimedetail = $("#endtimedetail").val();
 			var starttimedetail = $("#starttimedetail").val();
 			var imgpath = $("#imgpath").val();

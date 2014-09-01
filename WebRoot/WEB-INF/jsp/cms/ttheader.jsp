@@ -4,14 +4,14 @@
   <header class="primary" role="banner">
 
     <div class="wrapper wrapper-l">
-      <h1 class="branding"><a href="/"><img src="" alt="edX Studio" /></a></h1>
+      <h1 class="branding"><a href="cms/totcourselist.action"><img src="" alt="edX Studio" /></a></h1>
 
       
       <h2 class="info-course">
         <span class="sr">当前课程</span>
-        <a class="course-link" href="/course/edX/Open_DemoX/edx_demo_course">
-          <span class="course-org">edX</span><span class="course-number">Open_DemoX</span>
-          <span class="course-title" title="edX Demonstration Course">edX Demonstration Course</span>
+        <a class="course-link" href="cms/totcourse.action?courseId=${courseId}">
+          <span class="course-org">${course.org}</span><span class="course-number">${course.coursecode}</span>
+          <span class="course-title" title="edX Demonstration Course">${course.name}</span>
         </a>
       </h2>
 
@@ -27,10 +27,10 @@
                   <li class="nav-item nav-course-courseware-outline">
                     <a href="cms/totcourse.action?courseId=${courseId}">大纲</a>
                   </li>
-                  <li class="nav-item nav-course-courseware-updates">
+                  <!--<li class="nav-item nav-course-courseware-updates">
                     <a href="cms/totupdate.action?courseId=${courseId}">更新</a>
                   </li>
-                  <!-- <li class="nav-item nav-course-courseware-pages">
+                   <li class="nav-item nav-course-courseware-pages">
                     <a href="/tabs/edX/Open_DemoX/edx_demo_course">页面</a>
                   </li>
                   <li class="nav-item nav-course-courseware-uploads">
@@ -55,10 +55,10 @@
                   </li>
                  <!--  <li class="nav-item nav-course-settings-grading">
                     <a href="/settings/grading/edX/Open_DemoX/edx_demo_course">评分</a>
-                  </li> -->
+                  </li> 
                   <li class="nav-item nav-course-settings-team">
                     <a href="cms/totteam.action?courseId=${courseId}">课程团队</a>
-                  </li>
+                  </li>-->
                 <!--   <li class="nav-item nav-course-settings-advanced">
                     <a href="/settings/advanced/edX/Open_DemoX/edx_demo_course">高级设置</a>
                   </li> -->

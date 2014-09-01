@@ -10,15 +10,25 @@
            http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	<!-- 自动扫描包下的@Controller标注的类控制器类 -->
 	<context:component-scan base-package="com.dhl.web" />
+	<context:component-scan base-package="com.dhl.lms" />
 	<context:component-scan base-package="com.dhl.cms" />
+	<context:component-scan base-package="com.dhl.admin" />
 	<!-- 启动Spring MVC的注解功能，完成请求和注解POJO的映射 -->
 	<mvc:annotation-driven/>
 
 	<mvc:interceptors>  
+	    <mvc:interceptor>  
+            <mvc:mapping path="/lms/*"/>  
+            <bean class="com.dhl.lms.LmsLoginInterceptor"></bean>  
+        </mvc:interceptor>  
         <mvc:interceptor>  
             <mvc:mapping path="/cms/*"/>  
-            <bean class="com.dhl.cms.LoginInterceptor"></bean>  
+            <bean class="com.dhl.cms.CmsLoginInterceptor"></bean>  
         </mvc:interceptor>  
+        <mvc:interceptor>  
+            <mvc:mapping path="/admin/*"/>  
+            <bean class="com.dhl.admin.AdminLoginInterceptor"></bean>  
+        </mvc:interceptor>
     </mvc:interceptors>  
     
 	<!-- 对模型视图名称的解析，在请求时模型视图名称添加前后缀 -->
