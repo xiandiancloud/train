@@ -123,7 +123,7 @@
 					var a=eval("("+s+")");	
 					if (a.sucess=="sucess")
 					{
-						location.href=a.toUrl;
+						location.href=a.tocUrl;
 					}
 					else
 					{

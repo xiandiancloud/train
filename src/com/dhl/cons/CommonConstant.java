@@ -22,6 +22,7 @@ public class CommonConstant
     * 将登录前的URL放到Session中的键名称
     */
    public static final String LOGIN_TO_URL = "toUrl";
+   public static final String CMS_LOGIN_TO_URL = "tocUrl";
    public static final String ADMIN_LOGIN_TO_URL = "toaUrl";
    /**
     * 每页的记录数

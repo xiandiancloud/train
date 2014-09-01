@@ -130,13 +130,13 @@ public class CmsUserController extends BaseController {
 				return;
 			}
 			setSessionUser(request, user);
-			String toUrl = (String)request.getSession().getAttribute(CommonConstant.LOGIN_TO_URL);
-			request.getSession().removeAttribute(CommonConstant.LOGIN_TO_URL);
+			String toUrl = (String)request.getSession().getAttribute(CommonConstant.CMS_LOGIN_TO_URL);
+			request.getSession().removeAttribute(CommonConstant.CMS_LOGIN_TO_URL);
 			//如果当前会话中没有保存登录之前的请求URL，则直接跳转到主页
 			if(StringUtils.isEmpty(toUrl)){
 				toUrl = "cms/totcourselist.action";
 			}
-			String result = "{'sucess':'sucess','toUrl':'"+toUrl+"'}";
+			String result = "{'sucess':'sucess','tocUrl':'"+toUrl+"'}";
 			out.write(result);
 		} catch (Exception e) {
 		}

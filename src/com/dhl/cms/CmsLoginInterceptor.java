@@ -23,7 +23,7 @@ public class CmsLoginInterceptor implements HandlerInterceptor {
 	@Autowired
 	private UserService userService;
 
-	private static final String FILTERED_REQUEST = "@@session_context_filtered_request";
+	private static final String CMS_FILTERED_REQUEST = "@cms@session_context_filtered_request";
 
 	private static final String[] INHERENT_ESCAPE_URIS = { "/totlogin.action",
 			"/tlogin.action", "/totregeister.action","tregeister.action", "/bbb.action" };
@@ -42,11 +42,11 @@ public class CmsLoginInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request,
 			HttpServletResponse response, Object arg2) throws Exception {
-		if (request != null && request.getAttribute(FILTERED_REQUEST) != null) {
+		if (request != null && request.getAttribute(CMS_FILTERED_REQUEST) != null) {
 			return true;
 		} else {
 
-			request.setAttribute(FILTERED_REQUEST, Boolean.TRUE);
+			request.setAttribute(CMS_FILTERED_REQUEST, Boolean.TRUE);
 			HttpServletRequest httpRequest = (HttpServletRequest) request;
 			User user = getSessionUser(httpRequest);
 			String contextPath = request.getContextPath();
@@ -58,7 +58,7 @@ public class CmsLoginInterceptor implements HandlerInterceptor {
 				}
 
 				httpRequest.getSession().setAttribute(
-						CommonConstant.LOGIN_TO_URL, toUrl);
+						CommonConstant.CMS_LOGIN_TO_URL, toUrl);
 
 				response.sendRedirect(contextPath + "/cms/totlogin.action");
 				return false;
@@ -74,7 +74,7 @@ public class CmsLoginInterceptor implements HandlerInterceptor {
 					}
 
 					httpRequest.getSession().setAttribute(
-							CommonConstant.LOGIN_TO_URL, toUrl);
+							CommonConstant.CMS_LOGIN_TO_URL, toUrl);
 					response.sendRedirect(contextPath + "/cms/totlogin.action");
 //					request.getRequestDispatcher(contextPath + "/cms/totlogin.action").forward(request, response);
 					return false;

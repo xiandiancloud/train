@@ -23,7 +23,7 @@ public class AdminLoginInterceptor implements HandlerInterceptor {
 	@Autowired
 	private UserService userService;
 
-	private static final String FILTERED_REQUEST = "@@session_context_filtered_request";
+	private static final String ADMIN_FILTERED_REQUEST = "@admin@session_context_filtered_request";
 
 	private static final String[] INHERENT_ESCAPE_URIS = { "/toalogin.action",
 			"/alogin.action", "/bbb.action" };
@@ -42,11 +42,11 @@ public class AdminLoginInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request,
 			HttpServletResponse response, Object arg2) throws Exception {
-		if (request != null && request.getAttribute(FILTERED_REQUEST) != null) {
+		if (request != null && request.getAttribute(ADMIN_FILTERED_REQUEST) != null) {
 			return true;
 		} else {
 
-			request.setAttribute(FILTERED_REQUEST, Boolean.TRUE);
+			request.setAttribute(ADMIN_FILTERED_REQUEST, Boolean.TRUE);
 			HttpServletRequest httpRequest = (HttpServletRequest) request;
 			User user = getSessionUser(httpRequest);
 			String contextPath = request.getContextPath();

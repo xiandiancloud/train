@@ -39,9 +39,24 @@ public class AdminUserController extends BaseController {
 	 */
 	@RequestMapping("/admin")
 	public ModelAndView admin(HttpServletRequest request) {
-		ModelAndView view = new ModelAndView();
-		view.setViewName("/admin/signin");
-		return view;
+		User user = getSessionUser(request);
+		if (user == null)
+		{
+			ModelAndView view = new ModelAndView();
+			view.setViewName("/admin/signin");
+			return view;
+		}
+		Role role = userService.getUserRoleByuserId(user.getId());
+		if (!CommonConstant.ROLE_A.equals(role.getRoleName())) {
+			ModelAndView view = new ModelAndView();
+			view.setViewName("/admin/signin");
+			return view;
+		}
+		String url = "redirect:/admin/school.action";
+		return new ModelAndView(url);
+//		ModelAndView view = new ModelAndView();
+//		view.setViewName("/admin/signin");
+//		return view;
 	}
 	
 	/**
@@ -51,9 +66,24 @@ public class AdminUserController extends BaseController {
 	 */
 	@RequestMapping("/toalogin")
 	public ModelAndView toalogin(HttpServletRequest request) {
-		ModelAndView view = new ModelAndView();
-		view.setViewName("/admin/signin");
-		return view;
+		User user = getSessionUser(request);
+		if (user == null)
+		{
+			ModelAndView view = new ModelAndView();
+			view.setViewName("/admin/signin");
+			return view;
+		}
+		Role role = userService.getUserRoleByuserId(user.getId());
+		if (!CommonConstant.ROLE_A.equals(role.getRoleName())) {
+			ModelAndView view = new ModelAndView();
+			view.setViewName("/admin/signin");
+			return view;
+		}
+		String url = "redirect:/admin/school.action";
+		return new ModelAndView(url);
+//		ModelAndView view = new ModelAndView();
+//		view.setViewName("/admin/signin");
+//		return view;
 	}
 	
 	/**

@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.dhl.cons.CommonConstant;
 import com.dhl.domain.Category;
 import com.dhl.domain.Chapter;
 import com.dhl.domain.Course;
+import com.dhl.domain.Role;
 import com.dhl.domain.Sequential;
 import com.dhl.domain.TeacherCourse;
 import com.dhl.domain.Train;
@@ -29,6 +31,7 @@ import com.dhl.service.CourseService;
 import com.dhl.service.SequentialService;
 import com.dhl.service.TeacherCourseService;
 import com.dhl.service.TrainService;
+import com.dhl.service.UserService;
 import com.dhl.service.VerticalService;
 import com.dhl.web.BaseController;
 
@@ -59,7 +62,9 @@ public class CmsController extends BaseController {
 	private TeacherCourseService teacherCourseService;
 	@Autowired
 	private CategoryService categoryService;
-
+	@Autowired
+	private UserService userService;
+	
 	/**
 	 * 跳转到老师课程页面
 	 * 
@@ -72,6 +77,11 @@ public class CmsController extends BaseController {
 		User user = getSessionUser(request);
 		if (user == null)
 		{
+			String url = "redirect:/cms/totlogin.action";
+			return new ModelAndView(url);
+		}
+		Role role = userService.getUserRoleByuserId(user.getId());
+		if (!CommonConstant.ROLE_T.equals(role.getRoleName())) {
 			String url = "redirect:/cms/totlogin.action";
 			return new ModelAndView(url);
 		}
