@@ -36,13 +36,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="js/jquery-1.11.1.js"></script>
 	<script type="text/javascript" src="js/index.js"></script>
 	<script type="text/javascript" src="js/outline.js"></script>
+	<script type="text/javascript">
+        function edit(input) {
+        alert(input);
+            //var input = this.$('.xblock-field-input');
+            input.$('.wrapper-xblock-field').addClass('is-editing');
+            input.focus().select();            
+        }
+        function completeEdit(){
+          	var currentValue=this.$('.xblock-field-input').val();
+        	if (currentValue === "单元") {
+                    this.$('.wrapper-xblock-field').removeClass('is-editing');
+                }
+            else{
+            		this.$('.wrapper-xblock-field').removeClass('is-editing');
+            		var oldvalue=document.getElementById("t11").innerHTML=currentValue;
+            }        	
+        } 
+    </script>
 	
  </head>
 
-  <body class="is-signedin course view-outline hide-wip lang_zh-cn">
-    <a class="nav-skip" href="#content">跳过本内容页</a>
-
-   
+<body class="is-signedin course view-outline hide-wip lang_zh-cn">
+  
     <!-- view -->
 <div class="wrapper wrapper-view">
         
@@ -80,14 +96,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                	<c:choose>
 					<c:when test="${course.publish == 0}">
 						<li class="nav-item">
-                   		 <a href="javascript:void(0);" onclick="publish(${courseId},1,'发布成功');" rel="external" class="button view-button view-live-button"
-                       		title="Click to open the courseware in the LMS in a new tab">发布课程</a>
+                   		 <a href="javascript:void(0);" onclick="publish(${courseId},1,'发布成功');" rel="external" class="button view-button view-live-button" title="Click to open the courseware in the LMS in a new tab">发布课程</a>
                 		</li>
 					</c:when>
 					<c:otherwise>
 						<li class="nav-item">
-                   		 <a href="javascript:void(0);" onclick="publish(${courseId},0,'取消成功');" rel="external" class="button view-button view-live-button"
-                       		title="Click to open the courseware in the LMS in a new tab">取消发布</a>
+                   		 <a href="javascript:void(0);" onclick="publish(${courseId},0,'取消成功');" rel="external" class="button view-button view-live-button" title="Click to open the courseware in the LMS in a new tab">取消发布</a>
                 		</li>
 					</c:otherwise>
 				</c:choose>
@@ -100,34 +114,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<section class="content">
 					<article role="main" class="content-primary">
 						<div class="wrapper-dnd">
-							<article data-course-key="edX/Open_DemoX/edx_demo_course"
-								data-locator="i4x://edX/Open_DemoX/course/edx_demo_course"
-								class="outline outline-course">
+							<article class="outline outline-course">
 								<div class="outline-content course-content">
 									<ol class="list-sections is-sortable">
-										<li class="ui-splint ui-splint-indicator"><span
-											class="draggable-drop-indicator draggable-drop-indicator-initial"><i
-												class="icon-caret-right"></i>
-										</span></li>
-										<li
-											data-locator="i4x://edX/Open_DemoX/chapter/aec6f2fbbdf8472eb51f16d8340abc9b"
-											data-parent="i4x://edX/Open_DemoX/course/edx_demo_course"
-											class="outline-item outline-section has-warnings is-draggable is-collapsible ">
-
-											<span
-											class="draggable-drop-indicator draggable-drop-indicator-before"><i
-												class="icon-caret-right"></i>
-										</span>
-
+										<li class="ui-splint ui-splint-indicator">
+											<span class="draggable-drop-indicator draggable-drop-indicator-initial">
+												<i class="icon-caret-right"></i>
+											</span>
+										</li>
+										<li class="outline-item outline-section has-warnings is-draggable is-collapsible ">
+											<span class="draggable-drop-indicator draggable-drop-indicator-before">
+												<i class="icon-caret-right"></i>
+											</span>
 											<div class="section-header">
-
-												<h3 title="Collapse/Expand this section"
-													class="section-header-details expand-collapse collapse ui-toggle-expansion">
+												<h3 title="Collapse/Expand this section" class="section-header-details expand-collapse collapse ui-toggle-expansion">
 													<i class="icon-caret-down icon"></i> 
 													<span data-field-display-name="Display Name" data-field="display_name" class="wrapper-section-title wrapper-xblock-field incontext-editor is-editable">
 														<span class="section-title item-title xblock-field-value incontext-editor-value">介绍</span>
 														<div class="incontext-editor-action-wrapper">
-															<a title="Edit the name" class="action-edit action-inline xblock-field-value-edit incontext-editor-open-action" href=""> 
+															<a title="Edit the name" class="action-edit action-inline xblock-field-value-edit incontext-editor-open-action" onclick="edit(this)"> 
 															 <i class="icon-pencil"></i>
 															 	<span class="sr">Edit</span> 
 															 	</a>
@@ -136,7 +141,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 															<form>
 																<label>
 																	<span class="sr">Edit Display Name (required)</span> 
-																		<input type="text" title="Edit the name" data-metadata-name="display_name" class="xblock-field-input incontext-editor-input" value="介绍"> 
+																		<input type="text" title="Edit the name" data-metadata-name="display_name" class="xblock-field-input incontext-editor-input" value="介绍" onblur="completeEdit()"> 
 																</label>
 																<button type="submit" name="submit" class="sr action action-primary">Save</button>
 																<button type="button" name="cancel" class="sr action action-secondary">取消</button>
@@ -167,17 +172,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 													</ul>
 												</div>
 											</div>
-											<div class="section-status">
-
-												<div class="status-release">
-													<p>
-														<span class="sr status-release-label">Release
-															Status:</span> <span class="status-release-value"> <i
-															class="icon icon-check-sign"></i> Released: 1970年01月01日
-															05:00 UTC </span>
-													</p>
-												</div>
-											</div>
 											<div class="outline-content section-content">
 											<div id="test_subsection" style="display:none;">
 												<ol class="list-subsections is-sortable">
@@ -185,20 +179,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 														class="draggable-drop-indicator draggable-drop-indicator-initial"><i
 															class="icon-caret-right"></i>
 													</span></li>
-													<li
-														data-locator="i4x://edX/Open_DemoX/sequential/bbffaf6118f54f038afa0a7256bf435e"
-														data-parent="i4x://edX/Open_DemoX/chapter/aec6f2fbbdf8472eb51f16d8340abc9b"
-														class="outline-item outline-subsection has-warnings is-draggable is-collapsible is-collapsed">
-
-														<span
-														class="draggable-drop-indicator draggable-drop-indicator-before"><i
-															class="icon-caret-right"></i>
-													</span>
-
+													<li class="outline-item outline-subsection has-warnings is-draggable is-collapsible is-collapsed">
+														<span class="draggable-drop-indicator draggable-drop-indicator-before">
+															<i class="icon-caret-right"></i>
+														</span>
 														<div class="subsection-header">
-
-															<h3 title="Collapse/Expand this subsection"
-																class="subsection-header-details expand-collapse expand ui-toggle-expansion">
+															<h3 title="Collapse/Expand this subsection" class="subsection-header-details expand-collapse expand ui-toggle-expansion" onclick="subsection_drag_or_drop()">
 																<i class="icon-caret-down icon"></i> <span
 																	data-field-display-name="Display Name"
 																	data-field="display_name"
@@ -207,10 +193,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 																	class="subsection-title item-title xblock-field-value incontext-editor-value">Subsection</span>
 
 																	<div class="incontext-editor-action-wrapper">
-																		<a title="Edit the name"
-																			class="action-edit action-inline xblock-field-value-edit incontext-editor-open-action"
-																			href=""> <i class="icon-pencil"></i><span
-																			class="sr"> Edit</span> </a>
+																		<a title="Edit the name" class="action-edit action-inline xblock-field-value-edit incontext-editor-open-action" onclick="edit(this)"> 
+																			<i class="icon-pencil"></i>
+																			<span class="sr"> Edit</span> 
+																		</a>
 																	</div>
 
 																	<div class="xblock-string-field-editor incontext-editor-form">
@@ -249,20 +235,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 																			class="sr">Drag to reorder</span> </span></li>
 																</ul>
 															</div>
-														</div>
-														<div class="subsection-status">
-
-															<div class="status-release">
-																<p>
-																	<span class="sr status-release-label">Release
-																		Status:</span> <span class="status-release-value"> <i
-																		class="icon icon-check-sign"></i> Released:
-
-
-																		1970年01月01日 05:00 UTC </span>
-																</p>
-															</div>
-
 														</div>
 
 														<div class="outline-content subsection-content">
