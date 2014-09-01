@@ -201,6 +201,22 @@ public class CmsController extends BaseController {
 	}
 
 	/**
+	 * 跳转到老师新建实验页面
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/tottrain")
+	public ModelAndView tottrain(HttpServletRequest request, int courseId) {
+		ModelAndView view = new ModelAndView();
+		view.addObject("courseId", courseId);
+		Course course = courseService.get(courseId);
+		view.addObject("course", course);
+		view.setViewName("/cms/unit");
+		return view;
+	}
+	
+	/**
 	 * 发布跟取消发布
 	 * 
 	 * @param request
