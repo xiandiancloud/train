@@ -47,34 +47,35 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div>
     
     		<!-- 定义实验 -->
-    		<div class='col-sm-4'>
+    		<div class='col-sm-4' >
                   <div class='box bordered-box blue-border box-nomargin'>
                     <div class='box-header blue-background'>
                       <div class='title'>
                        	 实验定义
                       </div>
                     </div>
+                    <div class='box-content' style="height:100px;">
+                    <div>
+	                  <div style="float:left;text-align:right;margin-right:5px;width:20%;border:1px;font-size:14px;font-weight:bold;margin-top:2%;">名称</div>
+	                  <div style="float:left;width:70%;margin-left:5px;"><input id="input_1" type="text" value="" style="width:100%;height:40px;margin-top:1.5%;"></div>
+	                </div>
+	                <div>
+	                  <div style="float:left;text-align:right;margin-right:5px;width:20%;border:1px;font-size:14px;font-weight:bold;margin-top:2%;">编号</div>
+	                  <div style="margin-bottom:1%;float:left;width:70%;margin-left:5px;"><input id="input_2" type="text" value="" style="width:100%;height:40px;margin-top:1.5%;"/></div>
+	                </div>
+                    </div>
                   </div>
-                  <div>
-                  <div style="float:left;text-align:right;margin-right:5px;width:20%;border:1px;font-size:14px;font-weight:bold;margin-top:2%;">名称</div>
-                  <div style="float:left;width:70%;margin-left:5px;"><input id="input_1" type="text" value="" style="width:100%;height:40px;margin-top:1.5%;"/></div>
-                  </div>
-                  <div>
-                  <div style="float:left;text-align:right;margin-right:5px;width:20%;border:1px;font-size:14px;font-weight:bold;margin-top:2%;">编号</div>
-                  <div style="margin-bottom:1%;float:left;width:70%;margin-left:5px;"><input id="input_2" type="text" value="" style="width:100%;height:40px;margin-top:1.5%;"/></div>
-                  </div>               
                   </div>
                   <!-- 环境 -->
-    		<div class='col-sm-4'style="clear:left;">
+    		<div class='col-sm-4'style="clear:left;padding-top:15px;">
                   <div class='box bordered-box blue-border box-nomargin'>
                     <div class='box-header green-background'>
                       <div class='title'>
                        	 环境
                       </div>
                     </div>
-                  </div>
-                  
-                  <div>
+                    <div class='box-content' style="height:50px;">
+                    <div>
                   <div style="float:left;text-align:right;margin-right:5px;width:20%;border:1px;font-size:14px;font-weight:bold;margin-top:2%;">模板</div>
                   <div style="margin-bottom:1%;float:left;width:70%;margin-left:5px;">
                   	<select id="select" style="width:100%;height:40px;margin-top:1.5%;">
@@ -82,34 +83,41 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                  	<option value="2">2</option>
 	                  	<option value="3">3</option>
                   	</select>
+                  	
                   </div>
                   </div>
+                  	</div>
+                  </div>
+                  
+                  
                   </div>
     		<!-- 题目文本输入开头 -->
-  				  <div class='col-sm-4'style="clear:left;">
+  				  <div class='col-sm-4'style="clear:left;padding-top:15px;">
                   <div class='box bordered-box blue-border box-nomargin'>
                     <div class='box-header red-background'>
                       <div class='title'>
                        	 题目
                       </div>
                     </div>
-                  </div>
-                  <div>
+                    <div class='box-content' style="height:400px;">
+                    <div>
                   <div style="float:left;text-align:right;margin-right:5px;width:20%;border:1px;font-size:14px;font-weight:bold;margin-top:2%;">内容</div>
                   <div style="float:left;width:70%;margin-bottom:2%;margin-top:1.5%;margin-left:5px;"><iframe width="100%" scrolling="no" height="372" frameborder="0"   src="input.html" ></iframe></div>
                   </div> 
+                    </div>
+                  </div>
+                  
                 </div>
                <!-- 结果 -->
-    		<div class='col-sm-4'style="clear:left;">
+    		<div class='col-sm-4'style="clear:left;padding-top:15px;">
                   <div class='box bordered-box blue-border box-nomargin'>
                     <div class='box-header orange-background'>
                       <div class='title'>
                        	 结果
                       </div>
                     </div>
-                  </div>
-                  
-                  <div>
+                    <div class='box-content' style="height:130px;">
+                    <div>
                   <div style="float:left;text-align:right;margin-right:5px;width:20%;border:1px;font-size:14px;font-weight:bold;margin-top:5%;">验证脚本</div>
                   
                   <div style="float:left;width:70%;margin-bottom:2%;margin-left:5px;">
@@ -118,19 +126,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                   </div>
                   </div>
                   </div>
+                    </div>
+                  </div>
+                  
+                  
                   </div>
                   
                   <!-- 成绩 -->
-    			<div class='col-sm-4'style="clear:left;">
+    			<div class='col-sm-4'style="clear:left;padding-top:15px;">
                   <div class='box bordered-box blue-border box-nomargin'>
                     <div class='box-header purple-background'>
                       <div class='title'>
                        	 成绩
                       </div>
                     </div>
-                  </div>
-                  
-                  <div>
+                    <div class='box-content' style="height:285px;">
+                    <div>
                   <div style="float:left;text-align:right;margin-right:5px;width:20%;border:1px;font-size:14px;font-weight:bold;margin-top:2%;">分值</div>
                   <div style="float:left;width:70%;margin-left:5px;"><input id="input_1" type="text" value="" style="margin-bottom:1%; width:8%;height:35px;margin-top:1.5%;"/></div>
                   </div>
@@ -159,23 +170,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                   </div>
                   </div>
                   </div>
+                    </div>
+                  </div>
+                  
+                  
                   </div>
                   <!-- 答案 -->
-    			 <div class='col-sm-4'style="clear:left;">
+    			 <div class='col-sm-4'style="clear:left;padding-top:15px;">
                   <div class='box bordered-box blue-border box-nomargin'>
                     <div class='box-header black-background'>
                       <div class='title'>
                        	 答案
                       </div>
                     </div>
-                  </div>
-                  <div class="l">
+                    <div class='box-content' style="height:400px;">
+                    <div class="l">
                   <div style="float:left;text-align:right;margin-right:5px;width:20%;border:1px;font-size:14px;font-weight:bold;margin-top:2%;">内容</div>
                   <div style="float:left;width:70%;margin-bottom:2%;margin-top:1.5%;margin-left:5px;"><iframe width="100%" height="372" scrolling="no"  frameborder="0"   src="input.html" ></iframe></div>
                   </div>
+                    </div>
+                  </div>
+                  
                 </div>
                 
-                <div class="col-sm-4" style="margin-bottom:40px;clear:left;">
+                <div class="col-sm-4" style="margin-bottom:40px;clear:left;padding-top:15px;">
                 
                 <div>
                   <div style="float:left;text-align:right;margin-right:5px;width:50%;border:1px;font-size:14px;font-weight:bold;">
