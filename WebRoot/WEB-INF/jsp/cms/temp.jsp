@@ -87,13 +87,18 @@
 									<i class="icon-plus"></i>添加新章节
 								</a>
 							</li>
-							<li class="nav-item"><a href="#"
-								class="button button-toggle button-toggle-expand-collapse collapse-all is-hidden">
-									<span class="collapse-all"><i class="icon-arrow-up"></i>
-										<span class="label">折叠所有章节</span></span> <span class="expand-all"><i
-										class="icon-arrow-down"></i> <span class="label">Expand
-											All Sections</span></span>
-							</a></li>
+							<li class="nav-item">
+								<a class="button button-toggle button-toggle-expand-collapse collapse-all">
+									<span class="collapse-all">
+										<i class="icon-arrow-up"></i>
+										<span class="label">折叠所有章节</span>
+									</span> 
+<!-- 									<span class="expand-all">
+										<i class="icon-arrow-down"></i> 
+										<span class="label">展开所有章节</span>
+									</span> -->
+								</a>
+							</li>
 							<!-- <li class="nav-item">
                     <a href="#" rel="external" class="button view-button view-live-button"
                        title="Click to open the courseware in the LMS in a new tab">在线查看</a>
