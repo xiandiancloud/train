@@ -19,17 +19,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!-- Custom styles for this template -->
 <!-- <link href="tcss/train.css" rel="stylesheet"> -->
 
-<link href="tcss/experiment-style.css" rel="stylesheet">
+
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
-	<link href="tcss/prettify.css" rel="stylesheet">
 	<link href="tcss/inputtext/font-awesome.css" rel="stylesheet">
-	<link href="tcss/bootstrap-combined.no-icons.min.css" rel="stylesheet">
-    
+    <link href="tcss/experiment-style.css" rel="stylesheet">
     <script src="tjs/prettify.js"></script>
 	<script src="tjs/js.js"></script>
 	<script src="tjs/jquery/jquery.min.js" type="text/javascript"></script>
@@ -63,7 +61,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                   </div>
                   <div>
                   <div style="float:left;text-align:right;margin-right:5px;width:20%;border:1px;font-size:14px;font-weight:bold;margin-top:2%;">编号</div>
-                  <div style="float:left;width:70%;margin-left:5px;"><input id="input_2" type="text" value="" style="width:100%;height:40px;margin-top:1.5%;"/></div>
+                  <div style="margin-bottom:1%;float:left;width:70%;margin-left:5px;"><input id="input_2" type="text" value="" style="width:100%;height:40px;margin-top:1.5%;"/></div>
                   </div>               
                   </div>
                   <!-- 环境 -->
@@ -78,7 +76,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                   
                   <div>
                   <div style="float:left;text-align:right;margin-right:5px;width:20%;border:1px;font-size:14px;font-weight:bold;margin-top:2%;">模板</div>
-                  <div style="float:left;width:70%;margin-left:5px;">
+                  <div style="margin-bottom:1%;float:left;width:70%;margin-left:5px;">
                   	<select id="select" style="width:100%;height:40px;margin-top:1.5%;">
 	                  	<option value="1">1</option>
 	                  	<option value="2">2</option>
@@ -134,7 +132,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                   
                   <div>
                   <div style="float:left;text-align:right;margin-right:5px;width:20%;border:1px;font-size:14px;font-weight:bold;margin-top:2%;">分值</div>
-                  <div style="float:left;width:70%;margin-left:5px;"><input id="input_1" type="text" value="" style="width:8%;height:40px;margin-top:1.5%;"/></div>
+                  <div style="float:left;width:70%;margin-left:5px;"><input id="input_1" type="text" value="" style="margin-bottom:1%; width:8%;height:35px;margin-top:1.5%;"/></div>
                   </div>
                   
                   <div>
@@ -177,16 +175,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                   </div>
                 </div>
                 
-                <div class="col-sm-4" style="margin-top:20px;margin-bottom:40px;clear:left;">
+                <div class="col-sm-4" style="margin-bottom:40px;clear:left;">
                 
                 <div>
-                  <div style="float:left;text-align:right;margin-right:5px;width:50%;border:1px;font-size:14px;font-weight:bold;margin-top:2%;margin-bottom:2%;">
+                  <div style="float:left;text-align:right;margin-right:5px;width:50%;border:1px;font-size:14px;font-weight:bold;">
                   	<button class="btn btn-primary" type="submit" style="margin-right:20px;">
                         <i class="icon-save"></i>
                               Save
                     </button>
                   </div>
-                  <div style="float:left;text-align:left;margin-right:5px;width:40%;border:1px;font-size:14px;font-weight:bold;margin-top:2%;margin-bottom:2%;">
+                  <div style="float:left;text-align:left;margin-right:5px;width:40%;border:1px;font-size:14px;font-weight:bold;">
                   <button class="btn" type="submit" style="">Cancel</button>
                   </div>
                  </div>
