@@ -39,9 +39,10 @@
 
 
 <script type="text/javascript" src="js/jquery-1.11.1.js"></script>
+<script type="text/javascript" src="js/draggabilly.pkgd.min.js"></script>
 <script type="text/javascript" src="js/index.js"></script>
 <script type="text/javascript" src="js/outline.js"></script>
-<script type="text/javascript">
+<!-- <script type="text/javascript">
         function edit() {
             var input = $('.xblock-field-input');
             input.$('.wrapper-xblock-field').addClass('is-editing');
@@ -57,7 +58,7 @@
             		var oldvalue=document.getElementById("t11").innerHTML=currentValue;
             }        	
         } 
-    </script>
+    </script> -->
 
 </head>
 
@@ -81,12 +82,11 @@
 					<nav class="nav-actions">
 						<h3 class="sr">页面操作</h3>
 						<ul>
-							<li class="nav-item"><a href="#" class="button button-new"
-								data-category="chapter"
-								data-parent="i4x://edX/Open_DemoX/course/edx_demo_course"
-								data-default-name="Section" title="Click to add a new section">
+							<li class="nav-item">
+								<a class="button button-new button-new-section" data-category="chapter" data-default-name="Section" title="Click to add a new section">
 									<i class="icon-plus"></i>添加新章节
-							</a></li>
+								</a>
+							</li>
 							<li class="nav-item"><a href="#"
 								class="button button-toggle button-toggle-expand-collapse collapse-all is-hidden">
 									<span class="collapse-all"><i class="icon-arrow-up"></i>
@@ -143,18 +143,23 @@
 													</h3>
 													<div class="section-header-actions">
 														<ul class="actions-list">
-															<li class="action-item action-configure"><a
-																class="configure-button action-button"
-																data-tooltip="Configure" href="#"> <i
-																	class="icon-gear"></i> <span
-																	class="sr action-button-text">Configure</span>
-															</a></li>
-															<li class="action-item action-delete"><a
-																class="delete-button action-button"
-																data-tooltip="Delete" href="#"> <i
-																	class="icon icon-trash"></i> <span
-																	class="sr action-button-text">Delete</span>
-															</a></li>
+															<li class="action-item action-configure">
+																<a class="configure-button action-button" data-tooltip="Configure" href="#"> 
+																	<i class="icon-gear"></i> 
+																	<span class="sr action-button-text">Configure</span>
+																</a>
+															</li>
+															<li class="action-item action-delete">
+																<a class="delete-button action-button" data-tooltip="Delete" href="#"> 
+																	<i class="icon icon-trash"></i> 
+																	<span class="sr action-button-text">Delete</span>
+																</a>
+															</li>																		
+															<li class="action-item action-drag">
+                    											<span class="drag-handle section-drag-handle action" data-tooltip="Drag to reorder">
+                        											<span class="sr">Drag to reorder</span>
+                    											</span>
+                											</li>
 														</ul>
 													</div>
 												</div>
@@ -163,8 +168,7 @@
 													<!-- 小节 -->
 													<c:forEach var="sequential" items="${chapter.sequentials}">
 														<ol class="list-subsections is-sortable">
-															<li
-																class="outline-item outline-subsection has-warnings is-draggable is-collapsible is-collapsed">
+															<li class="outline-item outline-subsection has-warnings is-draggable is-collapsible is-collapsed">
 																<div class="subsection-header">
 																	<h3 title="Collapse/Expand this subsection"
 																		class="subsection-header-details expand-collapse expand ui-toggle-expansion"
@@ -180,28 +184,30 @@
 
 																	<div class="subsection-header-actions">
 																		<ul class="actions-list">
-
-																			<li class="action-item action-configure"><a
-																				class="configure-button action-button"
-																				data-tooltip="Configure" href="#"> <i
-																					class="icon-gear"></i> <span
-																					class="sr action-button-text">Configure</span>
-																			</a></li>
-
-																			<li class="action-item action-delete"><a
-																				class="delete-button action-button"
-																				data-tooltip="Delete" href="#"> <i
-																					class="icon icon-trash"></i> <span
-																					class="sr action-button-text">Delete</span>
-																			</a></li>
+																			<li class="action-item action-configure">
+																				<a class="configure-button action-button" data-tooltip="Configure" href="#"> 
+																					<i class="icon-gear"></i> 
+																					<span class="sr action-button-text">Configure</span>
+																				</a>
+																			</li>
+																			<li class="action-item action-delete">
+																				<a class="delete-button action-button" data-tooltip="Delete" href="#"> 
+																					<i class="icon icon-trash"></i> 
+																					<span class="sr action-button-text">Delete</span>
+																				</a>
+																			</li>																		
+																			<li class="action-item action-drag">
+                    															<span class="drag-handle section-drag-handle action" data-tooltip="Drag to reorder">
+                        															<span class="sr">Drag to reorder</span>
+                    															</span>
+                															</li>
 																		</ul>
 																	</div>
 																</div>
 
 																<div class="outline-content subsection-content">
 																	<!-- 单元  -->
-																	<c:forEach var="vertical"
-																		items="${sequential.verticals}">
+																	<c:forEach var="vertical" items="${sequential.verticals}">
 																		<ol class="list-units is-sortable">
 																			<li class="outline-item outline-unit  is-draggable  ">
 																				<div class="unit-header">
@@ -213,26 +219,36 @@
 
 																					<div class="unit-header-actions">
 																						<ul class="actions-list">
-																							<li class="action-item action-delete"><a
-																								class="delete-button action-button"
-																								data-tooltip="Delete" href="#"> <i
-																									class="icon icon-trash"></i> <span
-																									class="sr action-button-text">Delete</span>
-																							</a></li>
+																							<li class="action-item action-configure">
+																								<a class="configure-button action-button" data-tooltip="Configure" href="#"> 
+																									<i class="icon-gear"></i> 
+																									<span class="sr action-button-text">Configure</span>
+																								</a>
+																							</li>
+																							<li class="action-item action-delete">
+																								<a class="delete-button action-button" data-tooltip="Delete" href="#"> 
+																									<i class="icon icon-trash"></i> 
+																									<span class="sr action-button-text">Delete</span>
+																								</a>
+																							</li>																		
+																							<li class="action-item action-drag">
+                    																			<span class="drag-handle section-drag-handle action" data-tooltip="Drag to reorder">
+                        																			<span class="sr">Drag to reorder</span>
+                    																			</span>
+                																			</li>
 																						</ul>
 																					</div>
 																				</div>
 																			</li>
 																		</ol>
 																	</c:forEach>
-
 																	<!-- 单元结束  -->
 
 																	<div class="add-unit add-item">
 																		<a title="Click to add a new 单元"
 																			data-default-name="单元" data-parent=""
 																			data-category="vertical" class="button button-new"
-																			href="#"> <i class="icon icon-plus"></i>新的单元
+																			href="#"> <i class="icon icon-plus"></i>新建单元
 																		</a>
 																	</div>
 																</div>
@@ -240,41 +256,154 @@
 														</ol>
 													</c:forEach>
 													<!-- 小节结束 -->
+													<ol class="list-subsections is-sortable is-hidden new-subsection" >
+														<li class="outline-item outline-subsection has-warnings is-draggable is-collapsible is-collapsed">
+															<div class="subsection-header">
+																<h3 onclick="subsection_drag_or_drop()" class="subsection-header-details expand-collapse expand ui-toggle-expansion" title="Collapse/Expand this subsection">
+																	<i class="icon-caret-down icon"></i> <span class="wrapper-subsection-title wrapper-xblock-field incontext-editor is-editable" data-field="display_name" data-field-display-name="Display Name">
+																			<span class="subsection-title item-title xblock-field-value incontext-editor-value">新建小节</span>
+																	</span>
+																</h3>
+																<div class="subsection-header-actions">
+																	<ul class="actions-list">
+																		<li class="action-item action-configure">
+																			<a href="#" data-tooltip="Configure" class="configure-button action-button"> 
+																				<i class="icon-gear"></i> 
+																				<span class="sr action-button-text">Configure</span>
+																			</a>
+																		</li>
+																		<li class="action-item action-delete">
+																			<a href="#" data-tooltip="Delete" class="delete-button action-button"> 
+																				<i class="icon icon-trash"></i> 
+																				<span class="sr action-button-text">Delete</span>
+																			</a>
+																		</li>																		
+																		<li class="action-item action-drag">
+                    														<span data-tooltip="Drag to reorder" class="drag-handle section-drag-handle action">
+                        														<span class="sr">Drag to reorder</span>
+                    														</span>
+                														</li>
+																	</ul>
+																</div>
+															</div>
+															<div class="outline-content subsection-content">
+																<div class="add-unit add-item">
+																	<a href="#" class="button button-new" data-category="vertical" data-parent="" data-default-name="单元" title="Click to add a new 单元"> 
+																		<i class="icon icon-plus"></i>新建单元
+																	</a>
+																</div>
+															</div>
+														</li>
+													</ol>
 												</div>
 												<div class="outline-content section-content">
 													<div class="add-subsection add-item">
-														<a title="Click to add a new Subsection"
-															data-default-name="Subsection" data-parent=""
-															data-category="sequential"
-															class="button button-new button-new-subsection"> <i
-															class="icon icon-plus"></i>添加新的小节
+														<a title="Click to add a new Subsection" data-default-name="Subsection" data-parent="" data-category="sequential" class="button button-new button-new-subsection"> 
+															<i class="icon icon-plus"></i>添加新的小节
 														</a>
 													</div>
-												</div> <span
-												class="draggable-drop-indicator draggable-drop-indicator-after"><i
-													class="icon-caret-right"></i> </span>
+												</div> 
+												<span class="draggable-drop-indicator draggable-drop-indicator-after">
+													<i class="icon-caret-right"></i> 
+												</span>
 											</li>
 										</ol>
 									</c:forEach>
 									<!-- 章节结束 -->
 
+									<ol class="list-sections is-sortable is-hidden new-section" >
+											<li class="outline-item outline-section has-warnings is-draggable is-collapsible is-collapsed">
+												<div class="section-header">
+													<h3 class="section-header-details expand-collapse collapse ui-toggle-expansion" title="Collapse/Expand this section">
+														<i class="icon-caret-down icon"></i> <span class="wrapper-section-title wrapper-xblock-field incontext-editor is-editable" data-field="display_name" data-field-display-name="Display Name">
+															<span class="section-title item-title xblock-field-value incontext-editor-value">新建章节</span>
+														</span>
+													</h3>
+													<div class="section-header-actions">
+														<ul class="actions-list">
+															<li class="action-item action-configure">
+																<a href="#" data-tooltip="Configure" class="configure-button action-button"> 
+																	<i class="icon-gear"></i> 
+																	<span class="sr action-button-text">Configure</span>
+																</a>
+															</li>
+															<li class="action-item action-delete">
+																<a href="#" data-tooltip="Delete" class="delete-button action-button"> 
+																	<i class="icon icon-trash"></i> 
+																	<span class="sr action-button-text">Delete</span>
+																</a>
+															</li>																		
+															<li class="action-item action-drag">
+                    											<span data-tooltip="Drag to reorder" class="drag-handle section-drag-handle action">
+                        											<span class="sr">Drag to reorder</span>
+                    											</span>
+                											</li>
+														</ul>
+													</div>
+												</div>
 
+												<div class="outline-content section-content">
+
+													<ol style="display:none" class="list-subsections is-sortable new-subsection">
+														<li class="outline-item outline-subsection has-warnings is-draggable is-collapsible is-collapsed">
+															<div class="subsection-header">
+																<h3 title="Collapse/Expand this subsection" class="subsection-header-details expand-collapse expand ui-toggle-expansion" onclick="subsection_drag_or_drop()">
+																	<i class="icon-caret-down icon"></i> <span data-field-display-name="Display Name" data-field="display_name" class="wrapper-subsection-title wrapper-xblock-field incontext-editor is-editable">
+																			<span class="subsection-title item-title xblock-field-value incontext-editor-value">新建小节</span>
+																	</span>
+																</h3>
+																<div class="subsection-header-actions">
+																	<ul class="actions-list">
+																		<li class="action-item action-configure">
+																			<a class="configure-button action-button" data-tooltip="Configure" href="#"> 
+																				<i class="icon-gear"></i> 
+																				<span class="sr action-button-text">Configure</span>
+																			</a>
+																		</li>
+																		<li class="action-item action-delete">
+																			<a class="delete-button action-button" data-tooltip="Delete" href="#"> 
+																				<i class="icon icon-trash"></i> 
+																				<span class="sr action-button-text">Delete</span>
+																			</a>
+																		</li>																		
+																		<li class="action-item action-drag">
+                    														<span class="drag-handle section-drag-handle action" data-tooltip="Drag to reorder">
+                        														<span class="sr">Drag to reorder</span>
+                    														</span>
+                														</li>
+																	</ul>
+																</div>
+															</div>
+															<div class="outline-content subsection-content">
+																<div class="add-unit add-item">
+																	<a title="Click to add a new 单元" data-default-name="单元" data-parent="" data-category="vertical" class="button button-new" href="#"> 
+																		<i class="icon icon-plus"></i>新建单元
+																	</a>
+																</div>
+															</div>
+														</li>
+													</ol>
+												</div>
+												<div class="outline-content section-content">
+													<div class="add-subsection add-item">
+														<a class="button button-new button-new-subsection" data-category="sequential" data-parent="" data-default-name="Subsection" title="Click to add a new Subsection"> 
+															<i class="icon icon-plus"></i>添加新的小节
+														</a>
+													</div>
+												</div> 
+												<span class="draggable-drop-indicator draggable-drop-indicator-after">
+													<i class="icon-caret-right"></i> 
+												</span>
+											</li>
+									</ol>
 									<div class="add-section add-item">
-										<a title="Click to add a new Section"
-											data-default-name="Section" data-parent=""
-											data-category="chapter" class="button button-new" href="#">
+										<a title="Click to add a new Section" data-default-name="Section" data-parent="" data-category="chapter" class="button button-new button-new-section">
 											<i class="icon icon-plus"></i>添加新章节
 										</a>
 									</div>
 
 								</div>
 							</article>
-						</div>
-						<div class="ui-loading is-hidden">
-							<p>
-								<span class="spin"><i class="icon-refresh"></i> </span> <span
-									class="copy">载入中...</span>
-							</p>
 						</div>
 					</article>
 					<aside role="complimentary" class="content-supplementary">
