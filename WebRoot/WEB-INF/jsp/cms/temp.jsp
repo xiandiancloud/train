@@ -62,8 +62,7 @@
 
 </head>
 
-<body class="is-signedin course view-outline hide-wip lang_zh-cn">
-
+<body class="view-signin is-signedin course view-outline hide-wip lang_zh-cn">
 	<!-- view -->
 	<div class="wrapper wrapper-view">
 
@@ -125,11 +124,44 @@
 			</div>
 
 			<div class="wrapper-content wrapper">
+			  <section class="content is-hidden new-section">
+					<article class="content-primary" role="main">
+						<form id="login_form">
+							<table>
+							<tr><td width="380">
+							<fieldset>
+								<ol class="list-input">
+									<li class="field text required" id="field-email"><input id="coursename" type="text"
+										name="coursename" placeholder="课程名称" /></li>
+								</ol>
+							</fieldset>
+							</td>
+							<td width="20"></td>
+							<td width="50">
+							<div class="form-actions">
+								<button type="button" class="action action-primary" onclick="savechapter(${courseId});">保存</button>
+							</div>
+							</td></tr>
+							</table>
+							
+							
+						</form>
+					</article>
+				</section>
+				<div style="height:10px;"></div>
 				<section class="content">
 					<article role="main" class="content-primary">
 						<div class="wrapper-dnd">
 							<article class="outline outline-course">
 								<div class="outline-content course-content">
+<!-- 								<ol class="list-sections is-sortable is-hidden new-section" >
+											<li class="outline-item outline-section has-warnings is-draggable is-collapsible is-collapsed">
+												<div class="section-header">
+													
+												</div>
+											</li>
+									</ol> -->
+									
 									<!-- 章节 -->
 									<c:forEach var="chapter" items="${course.chapters}">
 										<ol class="list-sections is-sortable">
@@ -260,46 +292,23 @@
 															</li>
 														</ol>
 													</c:forEach>
+													<div style="height:10px;"></div>
+													 <section class="content is-hidden new-subsection">
+														<article class="content-primary" role="main">
+															<form id="login_form">
+																<fieldset>
+																	<ol class="list-input">
+																		<li class="field text required" id="field-email"><input id="chapter${chapter.id}seqname" type="text"
+																			name="seqname" placeholder="小节名称" /></li>
+																	</ol>
+																</fieldset>
+																<div class="form-actions">
+																	<button type="button" class="action action-primary" onclick="saveseq(${chapter.id});">保存小节</button>
+																</div>
+															</form>
+														</article>
+													</section>
 													<!-- 小节结束 -->
-													<ol class="list-subsections is-sortable is-hidden new-subsection" >
-														<li class="outline-item outline-subsection has-warnings is-draggable is-collapsible is-collapsed">
-															<div class="subsection-header">
-																<h3 onclick="subsection_drag_or_drop()" class="subsection-header-details expand-collapse expand ui-toggle-expansion" title="Collapse/Expand this subsection">
-																	<i class="icon-caret-down icon"></i> <span class="wrapper-subsection-title wrapper-xblock-field incontext-editor is-editable" data-field="display_name" data-field-display-name="Display Name">
-																			<span class="subsection-title item-title xblock-field-value incontext-editor-value">新建小节</span>
-																	</span>
-																</h3>
-																<div class="subsection-header-actions">
-																	<ul class="actions-list">
-																		<li class="action-item action-configure">
-																			<a href="#" data-tooltip="Configure" class="configure-button action-button"> 
-																				<i class="icon-gear"></i> 
-																				<span class="sr action-button-text">Configure</span>
-																			</a>
-																		</li>
-																		<li class="action-item action-delete">
-																			<a href="#" data-tooltip="Delete" class="delete-button action-button"> 
-																				<i class="icon icon-trash"></i> 
-																				<span class="sr action-button-text">Delete</span>
-																			</a>
-																		</li>																		
-																		<li class="action-item action-drag">
-                    														<span data-tooltip="Drag to reorder" class="drag-handle section-drag-handle action">
-                        														<span class="sr">Drag to reorder</span>
-                    														</span>
-                														</li>
-																	</ul>
-																</div>
-															</div>
-															<div class="outline-content subsection-content">
-																<div class="add-unit add-item">
-																	<a href="#" class="button button-new" data-category="vertical" data-parent="" data-default-name="单元" title="Click to add a new 单元"> 
-																		<i class="icon icon-plus"></i>新建单元
-																	</a>
-																</div>
-															</div>
-														</li>
-													</ol>
 												</div>
 												<div class="outline-content section-content">
 													<div class="add-subsection add-item">
@@ -315,98 +324,6 @@
 										</ol>
 									</c:forEach>
 									<!-- 章节结束 -->
-
-									<ol class="list-sections is-sortable is-hidden new-section" >
-											<li class="outline-item outline-section has-warnings is-draggable is-collapsible is-collapsed">
-												<div class="section-header">
-													<h3 class="section-header-details expand-collapse collapse ui-toggle-expansion" title="Collapse/Expand this section">
-														<i class="icon-caret-down icon"></i> <span class="wrapper-section-title wrapper-xblock-field incontext-editor is-editable" data-field="display_name" data-field-display-name="Display Name">
-															<span class="section-title item-title xblock-field-value incontext-editor-value">新建章节</span>
-														</span>
-													</h3>
-													<div class="section-header-actions">
-														<ul class="actions-list">
-															<li class="action-item action-configure">
-																<a href="#" data-tooltip="Configure" class="configure-button action-button"> 
-																	<i class="icon-gear"></i> 
-																	<span class="sr action-button-text">Configure</span>
-																</a>
-															</li>
-															<li class="action-item action-delete">
-																<a href="#" data-tooltip="Delete" class="delete-button action-button"> 
-																	<i class="icon icon-trash"></i> 
-																	<span class="sr action-button-text">Delete</span>
-																</a>
-															</li>																		
-															<li class="action-item action-drag">
-                    											<span data-tooltip="Drag to reorder" class="drag-handle section-drag-handle action">
-                        											<span class="sr">Drag to reorder</span>
-                    											</span>
-                											</li>
-														</ul>
-													</div>
-												</div>
-
-												<div class="outline-content section-content">
-
-													<ol style="display:none" class="list-subsections is-sortable new-subsection">
-														<li class="outline-item outline-subsection has-warnings is-draggable is-collapsible is-collapsed">
-															<div class="subsection-header">
-																<h3 title="Collapse/Expand this subsection" class="subsection-header-details expand-collapse expand ui-toggle-expansion" onclick="subsection_drag_or_drop()">
-																	<i class="icon-caret-down icon"></i> <span data-field-display-name="Display Name" data-field="display_name" class="wrapper-subsection-title wrapper-xblock-field incontext-editor is-editable">
-																			<span class="subsection-title item-title xblock-field-value incontext-editor-value">新建小节</span>
-																	</span>
-																</h3>
-																<div class="subsection-header-actions">
-																	<ul class="actions-list">
-																		<li class="action-item action-configure">
-																			<a class="configure-button action-button" data-tooltip="Configure" href="#"> 
-																				<i class="icon-gear"></i> 
-																				<span class="sr action-button-text">Configure</span>
-																			</a>
-																		</li>
-																		<li class="action-item action-delete">
-																			<a class="delete-button action-button" data-tooltip="Delete" href="#"> 
-																				<i class="icon icon-trash"></i> 
-																				<span class="sr action-button-text">Delete</span>
-																			</a>
-																		</li>																		
-																		<li class="action-item action-drag">
-                    														<span class="drag-handle section-drag-handle action" data-tooltip="Drag to reorder">
-                        														<span class="sr">Drag to reorder</span>
-                    														</span>
-                														</li>
-																	</ul>
-																</div>
-															</div>
-															<div class="outline-content subsection-content">
-																<div class="add-unit add-item">
-																	<a title="Click to add a new 单元" data-default-name="单元" data-parent="" data-category="vertical" class="button button-new" href="#"> 
-																		<i class="icon icon-plus"></i>新建单元
-																	</a>
-																</div>
-															</div>
-														</li>
-													</ol>
-												</div>
-												<div class="outline-content section-content">
-													<div class="add-subsection add-item">
-														<a class="button button-new button-new-subsection" data-category="sequential" data-parent="" data-default-name="Subsection" title="Click to add a new Subsection"> 
-															<i class="icon icon-plus"></i>添加新的小节
-														</a>
-													</div>
-												</div> 
-												<span class="draggable-drop-indicator draggable-drop-indicator-after">
-													<i class="icon-caret-right"></i> 
-												</span>
-											</li>
-									</ol>
-									<div class="add-section add-item">
-										<a title="Click to add a new Section" data-default-name="Section" data-parent="" data-category="chapter" class="button button-new button-new-section">
-											<i class="icon icon-plus"></i>添加新章节
-										</a>
-									</div>
-
 								</div>
 							</article>
 						</div>
@@ -499,6 +416,41 @@
 					{
 						location.reload();
 						alert(msg);
+					}
+				}
+			});
+		}
+		function savechapter(courseId)
+		{
+			var name = $("#coursename").val();
+			var data = {courseId:courseId,name:name};
+			$.ajax({
+				url:"cms/createchapter.action",
+				type:"post",
+				data:data,
+				success:function(s){
+					var a=eval("("+s+")");	
+					if (a.sucess=="sucess")
+					{
+						location.reload();
+					}
+				}
+			});
+		}
+		function saveseq(chapterId)
+		{
+			var id = "#chapter"+chapterId+"seqname";
+			var name = $(id).val();
+			var data = {chapterId:chapterId,name:name};
+			$.ajax({
+				url:"cms/createSequential.action",
+				type:"post",
+				data:data,
+				success:function(s){
+					var a=eval("("+s+")");	
+					if (a.sucess=="sucess")
+					{
+						location.reload();
 					}
 				}
 			});
