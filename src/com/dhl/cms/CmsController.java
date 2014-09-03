@@ -207,11 +207,15 @@ public class CmsController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping("/tottrain")
-	public ModelAndView tottrain(HttpServletRequest request, int courseId) {
+	public ModelAndView tottrain(HttpServletRequest request, int courseId,int sequentialId,int verticalId) {
 		ModelAndView view = new ModelAndView();
 		view.addObject("courseId", courseId);
-		Course course = courseService.get(courseId);
-		view.addObject("course", course);
+		view.addObject("sequentialId", sequentialId);
+		view.addObject("verticalId", verticalId);
+		/*Course course = courseService.get(courseId);
+		view.addObject("course", course);*/
+		Vertical vertical = verticalService.get(verticalId);
+		view.addObject("vertical", vertical);
 		view.setViewName("/cms/unit");
 		return view;
 	}
@@ -354,31 +358,32 @@ public class CmsController extends BaseController {
 	}
 
 	/**
-	 * 创建单元
+	 * 创建单元或者更新单元
 	 * 
 	 * @param request
 	 * @param response
 	 */
 	@RequestMapping("/createVertical")
 	public void createVertical(HttpServletRequest request,
-			HttpServletResponse response, int sequenticalId, String name) {
-
+			HttpServletResponse response, int sequenticalId,int verticalId, String name) {
 		try {
 			PrintWriter out = response.getWriter();
-			// User user = getSessionUser(request);
-			// if (user == null) {
-			// String str = "{'sucess':'fail'}";
-			//
-			// out.write(str);
-			// } else {
-
-			Vertical v = new Vertical();
-			v.setName(name);
-			v.setSequential(sequentialService.get(sequenticalId));
-			verticalService.save(v);
-			String str = "{'sucess':'sucess'}";
+			Vertical v;
+			if (verticalId == -1)
+			{
+				v = new Vertical();
+				v.setName(name);
+				v.setSequential(sequentialService.get(sequenticalId));
+				verticalService.save(v);
+			}
+			else
+			{
+				v = verticalService.get(verticalId);
+				v.setName(name);
+				verticalService.update(v);
+			}
+			String str = "{'sucess':'sucess','verticalId':"+v.getId()+"}";
 			out.write(str);
-			// }
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

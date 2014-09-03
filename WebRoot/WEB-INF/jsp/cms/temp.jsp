@@ -249,8 +249,14 @@
 																			<li class="outline-item outline-unit  is-draggable  ">
 																				<div class="unit-header">
 																					<h3 class="unit-header-details">
-																						<span class="unit-title item-title"> <a
-																							href="cms/tottrain.action?courseId=${courseId}">${vertical.name}</a>
+																						<span class="unit-title item-title">
+ 																						 <a	href="cms/tottrain.action?courseId=${courseId}&sequentialId=${sequential.id}&verticalId=${vertical.id}">${vertical.name}</a>
+																							<%-- <form id="vertical${vertical.id}" name='form1' action="cms/tottrain.action" method="post">
+																							    <input type="hidden" value="${courseId}" name="courseId" />
+																								<input type="hidden" value="${sequential.id}" name="sequentialId" />
+																								<input type="hidden" value="${vertical.id}" name="verticalId" />
+																								<a href='javascript:document.getElementById("vertical${vertical.id}").submit();'>${vertical.name}</a>  
+																							</form> --%>
 																						</span>
 																					</h3>
 
@@ -285,7 +291,7 @@
 																		<a title="Click to add a new 单元"
 																			data-default-name="单元" data-parent=""
 																			data-category="vertical" class="button button-new"
-																			href="#"> <i class="icon icon-plus"></i>新建单元
+																			href="cms/tottrain.action?courseId=${courseId}&sequentialId=${sequential.id}&verticalId=-1"> <i class="icon icon-plus"></i>新建单元
 																		</a>
 																	</div>
 																</div>

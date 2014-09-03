@@ -19,6 +19,11 @@ public class VerticalService {
 //	@Autowired
 //	private SequentialDao sequentialDao;
 	
+	public Vertical get(int id)
+	{
+		return verticalDao.get(id);
+	}
+	
 	public List<Vertical> getAllVertical(int sequentialId)
 	{
 		return verticalDao.getAllVertical(sequentialId);
@@ -36,6 +41,15 @@ public class VerticalService {
 //		c.setName(name);
 //		c.setSequential(sequentialDao.get(sequentialId));
 		verticalDao.save(c);
+		return c;
+	}
+	
+	public Vertical update(Vertical c)
+	{
+//		Vertical c = new Vertical();
+//		c.setName(name);
+//		c.setSequential(sequentialDao.get(sequentialId));
+		verticalDao.update(c);
 		return c;
 	}
 }

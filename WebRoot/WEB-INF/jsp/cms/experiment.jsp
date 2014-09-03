@@ -11,7 +11,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <meta charset="utf-8">
     
     
-    <title>My JSP 'experiment.jsp' starting page</title>
+    <title>定义实验</title>
     <!-- Bootstrap core CSS -->
 <!-- <link href="css/bootstrap.min.css" rel="stylesheet"> -->
 
@@ -57,11 +57,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <div class='box-content' style="height:100px;">
                     <div>
 	                  <div style="float:left;text-align:right;margin-right:5px;width:20%;border:1px;font-size:14px;font-weight:bold;margin-top:2%;">名称</div>
-	                  <div style="float:left;width:70%;margin-left:5px;"><input id="input_1" type="text" value="" style="width:100%;height:40px;margin-top:1.5%;"></div>
+	                  <div style="float:left;width:70%;margin-left:5px;"><input id="trainname" type="text" value="" style="width:100%;height:40px;margin-top:1.5%;"></div>
 	                </div>
 	                <div>
 	                  <div style="float:left;text-align:right;margin-right:5px;width:20%;border:1px;font-size:14px;font-weight:bold;margin-top:2%;">编号</div>
-	                  <div style="margin-bottom:1%;float:left;width:70%;margin-left:5px;"><input id="input_2" type="text" value="" style="width:100%;height:40px;margin-top:1.5%;"/></div>
+	                  <div style="margin-bottom:1%;float:left;width:70%;margin-left:5px;"><input id="codenum" type="text" value="" style="width:100%;height:40px;margin-top:1.5%;"/></div>
 	                </div>
                     </div>
                   </div>
@@ -78,18 +78,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <div>
                   <div style="float:left;text-align:right;margin-right:5px;width:20%;border:1px;font-size:14px;font-weight:bold;margin-top:2%;">模板</div>
                   <div style="margin-bottom:1%;float:left;width:70%;margin-left:5px;">
-                  	<select id="select" style="width:100%;height:40px;margin-top:1.5%;">
+                  	<select id="envname" style="width:100%;height:40px;margin-top:1.5%;">
 	                  	<option value="1">1</option>
 	                  	<option value="2">2</option>
 	                  	<option value="3">3</option>
                   	</select>
-                  	
                   </div>
                   </div>
                   	</div>
                   </div>
-                  
-                  
                   </div>
     		<!-- 题目文本输入开头 -->
   				  <div class='col-sm-4'style="clear:left;padding-top:15px;">

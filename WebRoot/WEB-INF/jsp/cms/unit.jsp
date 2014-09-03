@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -39,9 +40,55 @@
 
 <!-- end dummy segment.io -->
 <script>
+$(function() {
+	//新建verticalId
+	if ("${verticalId}" == -1)
+	{
+	   edit();
+	}
+	
+});
+
 function showtrain(){
     document.getElementById('traindiv').style.display='block'; 
 }
+
+function edit() {
+    var input = this.$('.xblock-field-input');
+    this.$('.wrapper-xblock-field').addClass('is-editing');
+    input.focus().select();            
+}
+function completeEdit(){
+  	var name=this.$('.xblock-field-input').val();
+  	this.$('.wrapper-xblock-field').removeClass('is-editing');
+  	savever(name);
+	/*if (currentValue === "单元") {
+            this.$('.wrapper-xblock-field').removeClass('is-editing');
+        }
+    else{
+    		this.$('.wrapper-xblock-field').removeClass('is-editing');
+    		document.getElementById("t11").innerHTML=currentValue;
+    }*/
+} 
+function savever(name)
+{
+	var sequenticalId = parseInt("${sequentialId}");
+	var verticalId = parseInt("${verticalId}");
+	var courseId = parseInt("${courseId}");
+	var data = {sequenticalId:sequenticalId,verticalId:verticalId,name:name};
+	$.ajax({
+		url:"cms/createVertical.action",
+		type:"post",
+		data:data,
+		success:function(s){
+			var a=eval("("+s+")");	
+			if (a.sucess=="sucess")
+			{
+				location.href = "cms/tottrain.action?courseId="+courseId+"&sequentialId="+sequenticalId+"&verticalId="+a.verticalId;
+			}
+		}
+	});
+} 
 </script>
 <script>
 
@@ -1501,10 +1548,6 @@ img.MathJax_strut {
     };
     </script>
 	<script type="text/javascript" src="tjs/require.js"></script>
-
-
-
-
 	<script type="text/javascript">
         require(['js/models/course'], function(Course) {
             window.course = new Course({
@@ -1517,58 +1560,42 @@ img.MathJax_strut {
             });
         });
         </script>
-
 	<!-- view -->
 	<div class="wrapper wrapper-view">
-
 		<jsp:include page="ttheader.jsp"></jsp:include>
 		<div id="page-alert"></div>
-
 		<div id="content">
-
-
-
 			<div class="wrapper-mast wrapper">
 				<header class="mast has-actions has-navigation has-subtitle">
 					<div class="page-header">
 						<small class="navigation navigation-parents subtitle"> <a
-							href="/course/Cetc55/Iaas-001/2014-01-01?show=i4x%3A//Cetc55/Iaas-001/chapter/153179c50dc0412ab165e03aaab49cb0"
-							class="navigation-item navigation-link navigation-parent">Section1</a>
-
-							<a
-							href="/course/Cetc55/Iaas-001/2014-01-01?show=i4x%3A//Cetc55/Iaas-001/sequential/73d9ad89218a4cbd9351deecc2754f27"
-							class="navigation-item navigation-link navigation-parent">小节</a>
+							
+							class="navigation-item navigation-link navigation-parent">单元名</a>
+							<!-- <a
+							href="#"
+							class="navigation-item navigation-link navigation-parent">小节</a> -->
 						</small>
-						<div class="wrapper-xblock-field incontext-editor is-editable"
-							data-field="display_name" data-field-display-name="Display Name">
-							<h1
-								class="page-header-title xblock-field-value incontext-editor-value">
-								<span class="title-value">单元</span>
+						<div data-field-display-name="Display Name" data-field="display_name" class="wrapper-xblock-field incontext-editor is-editable">
+							<h1 id="t11" class="page-header-title xblock-field-value incontext-editor-value">
+								<c:out value="${vertical.name}" default="单元"></c:out> 
 							</h1>
-
 							<div class="incontext-editor-action-wrapper">
-								<a href=""
-									class="action-edit action-inline xblock-field-value-edit incontext-editor-open-action"
-									title="Edit the name"> <i class="icon-pencil"></i><span
-									class="sr"> Edit</span>
+								<a title="Edit the name" class="action-edit action-inline xblock-field-value-edit incontext-editor-open-action" onclick="edit()"> 
+									<i class="icon-pencil"> </i>
+										<span class="sr">Edit</span> 
 								</a>
 							</div>
 
 							<div class="xblock-string-field-editor incontext-editor-form">
 								<form>
-
-									<label><span class="sr">Edit Display Name
-											(required)</span> <input type="text" value="单元"
-										class="xblock-field-input incontext-editor-input"
-										data-metadata-name="display_name" title="Edit the name">
+									<label>
+										<span class="sr">Edit Display Name	(required)</span> 
+										<input type="text" title="Edit the name" data-metadata-name="display_name" class="xblock-field-input incontext-editor-input" value="<c:out value='${vertical.name}' default='单元'></c:out>" onblur="completeEdit()"/>
 									</label>
-									<button class="sr action action-primary" name="submit"
-										type="submit">Save</button>
-									<button class="sr action action-secondary" name="cancel"
-										type="button">Cancel</button>
+									<button type="submit" name="submit" class="sr action action-primary">Save</button>
+									<button type="button" name="cancel" class="sr action action-secondary">取消</button>
 								</form>
 							</div>
-
 						</div>
 					</div>
 
@@ -1576,14 +1603,14 @@ img.MathJax_strut {
 						<h3 class="sr">Page Actions</h3>
 						<ul>
 							<li class="action-item action-view nav-item"><a
-								href="//localhost:8000/courses/Cetc55/Iaas-001/2014-01-01/jump_to/i4x://Cetc55/Iaas-001/vertical/aeeb4518311e496b8348d04b32cfe693"
+								href="#"
 								class="button button-view action-button" rel="external"
 								title="This link will open in a new browser window/tab"
 								target="_blank"> <span class="action-button-text">View
 										Live Version</span>
 							</a></li>
 							<li class="action-item action-preview nav-item"><a
-								href="//preview.localhost:8000/courses/Cetc55/Iaas-001/2014-01-01/courseware/153179c50dc0412ab165e03aaab49cb0/73d9ad89218a4cbd9351deecc2754f27/1"
+								href="#"
 								class="button button-preview action-button" rel="external"
 								title="This link will open in a new browser window/tab"
 								target="_blank"> <span class="action-button-text">Preview
@@ -1601,12 +1628,8 @@ img.MathJax_strut {
 						<article class="content-primary">
 							<div class="container-message wrapper-message"></div>
 							<section class="wrapper-xblock level-page studio-xblock-wrapper"
-								data-locator="i4x://Cetc55/Iaas-001/vertical/aeeb4518311e496b8348d04b32cfe693"
+								data-locator="#"
 								data-course-key="Cetc55/Iaas-001/2014-01-01">
-
-
-
-
 								<header class="xblock-header xblock-header-vertical">
 									<div class="xblock-header-primary">
 										<div class="header-details">
@@ -1623,7 +1646,7 @@ img.MathJax_strut {
 										class="xblock xblock-author_view xmodule_display xmodule_VerticalModule xblock-initialized"
 										data-runtime-class="PreviewRuntime"
 										data-init="XBlockToXModuleShim" data-runtime-version="1"
-										data-usage-id="i4x://Cetc55/Iaas-001/vertical/aeeb4518311e496b8348d04b32cfe693"
+										data-usage-id="#"
 										data-type="None" data-block-type="vertical">
 										<ol class="reorderable-container ui-sortable" style="">
 										</ol>
@@ -1719,39 +1742,17 @@ img.MathJax_strut {
 								</div>
 
 							</div>
-
-
-
-
-
-
-
-
-
 							</ol>
 				</div>
-
-
 				</li>
 				</ol>
-
 			</div>
-
-
 			</li>
 			</ol>
-
 		</div>
-
-
-
 	</div>
 	</ol>
-
 	</div>
-
-
-
 	</div>
 	</div>
 	</div>
@@ -1765,9 +1766,6 @@ img.MathJax_strut {
 	<script type="text/javascript">
         require(['js/sock']);
       </script>
-
-
-
 	<div class="wrapper-sock wrapper">
 		<ul class="list-actions list-cta">
 			<li class="action-item"><a href="#sock"
