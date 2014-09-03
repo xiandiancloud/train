@@ -9,17 +9,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
   <base href="<%=basePath%>">
   <meta charset="utf-8">
-    
-    
     <title>定义实验</title>
     <!-- Bootstrap core CSS -->
 <!-- <link href="css/bootstrap.min.css" rel="stylesheet"> -->
-
-
 <!-- Custom styles for this template -->
 <!-- <link href="tcss/train.css" rel="stylesheet"> -->
-
-
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -40,12 +34,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
-
+	<script src="js/common.js"></script>
   </head>
-  
   <body>
 	<div>
-    
     		<!-- 定义实验 -->
     		<div class='col-sm-4' >
                   <div class='box bordered-box blue-border box-nomargin'>
@@ -99,7 +91,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <div class='box-content' style="height:400px;">
                     <div>
                   <div style="float:left;text-align:right;margin-right:5px;width:20%;border:1px;font-size:14px;font-weight:bold;margin-top:2%;">内容</div>
-                  <div style="float:left;width:70%;margin-bottom:2%;margin-top:1.5%;margin-left:5px;"><iframe width="100%" scrolling="no" height="372" frameborder="0"   src="input.html" ></iframe></div>
+                  <div style="float:left;width:70%;margin-bottom:2%;margin-top:1.5%;margin-left:5px;"><iframe width="100%" scrolling="no" height="372" frameborder="0" id="conContent" src="input.html" ></iframe></div>
                   </div> 
                     </div>
                   </div>
@@ -140,7 +132,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <div class='box-content' style="height:285px;">
                     <div>
                   <div style="float:left;text-align:right;margin-right:5px;width:20%;border:1px;font-size:14px;font-weight:bold;margin-top:2%;">分值</div>
-                  <div style="float:left;width:70%;margin-left:5px;"><input id="input_1" type="text" value="" style="margin-bottom:1%; width:8%;height:35px;margin-top:1.5%;"/></div>
+                  <div style="float:left;width:70%;margin-left:5px;"><input id="score" type="text" value="" style="margin-bottom:1%; width:8%;height:35px;margin-top:1.5%;"/></div>
                   </div>
                   
                   <div>
@@ -169,8 +161,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                   </div>
                     </div>
                   </div>
-                  
-                  
                   </div>
                   <!-- 答案 -->
     			 <div class='col-sm-4'style="clear:left;padding-top:15px;">
@@ -183,29 +173,80 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <div class='box-content' style="height:400px;">
                     <div class="l">
                   <div style="float:left;text-align:right;margin-right:5px;width:20%;border:1px;font-size:14px;font-weight:bold;margin-top:2%;">内容</div>
-                  <div style="float:left;width:70%;margin-bottom:2%;margin-top:1.5%;margin-left:5px;"><iframe width="100%" height="372" scrolling="no"  frameborder="0"   src="input.html" ></iframe></div>
+                  <div style="float:left;width:70%;margin-bottom:2%;margin-top:1.5%;margin-left:5px;"><iframe width="100%" height="372" scrolling="no"  frameborder="0" id="conAnswer" src="input.html" ></iframe></div>
                   </div>
                     </div>
                   </div>
-                  
                 </div>
-                
                 <div class="col-sm-4" style="margin-bottom:40px;clear:left;padding-top:15px;">
-                
                 <div>
                   <div style="float:left;text-align:right;margin-right:5px;width:50%;border:1px;font-size:14px;font-weight:bold;">
-                  	<button class="btn btn-primary" type="submit" style="margin-right:20px;">
-                        <i class="icon-save"></i>
-                              Save
+                  	<button class="btn btn-primary" type="submit" style="margin-right:20px;" onclick="savetrain();">
+                        <i class="icon-save"></i>保存
                     </button>
                   </div>
                   <div style="float:left;text-align:left;margin-right:5px;width:40%;border:1px;font-size:14px;font-weight:bold;">
-                  <button class="btn" type="submit" style="">Cancel</button>
+                  <button class="btn" type="submit" style="" onclick="hidetrain();">取消</button>
                   </div>
                  </div>
                  </div>
-                 
          </div>    
-    
+         <script>
+    	$(function() {
+		    /*init template ,   data  */
+		});
+		
+    	function savetrain()
+    	{
+    		var sequenticalId = parseInt("${sequentialId}");
+			var verticalId = parseInt("${verticalId}");
+			var courseId = parseInt("${courseId}");
+			
+			var name = $("#trainname").val();
+			var codenum = $("#codenum").val();
+			if (isNull(name))	
+			{
+				alert("名称不能为空");
+				return ;
+			}
+			if (isNull(codenum))	
+			{
+				alert("编号不能为空");
+				return ;
+			}
+			var envname = $("#envname").val();
+			var conContent = $("#conContent").contents().find("#editor").html();
+			var conShell = "";
+			var conAnswer = $("#conAnswer").contents().find("#editor").html();
+			
+			var temp = $("#score").val();
+			if (!isInteger(temp))
+			{
+				alert("分值必须是数字");
+				return ;
+			}
+			var score = parseInt(temp);
+			var scoretag = "";
+			//alert("name --- "+name+" , "+codenum+"  ,  "+envname);
+			//$('#editor').wysiwyg();
+			var data = {name:name,codenum:codenum,envname:envname,conContent:conContent,conShell:conShell,conAnswer:conAnswer,score:score,scoretag:scoretag,courseId:courseId,verticalId:verticalId};
+			$.ajax({
+				url:"cms/createTrain.action",
+				type:"post",
+				data:data,
+				success:function(s){
+					var a=eval("("+s+")");	
+					if (a.sucess=="sucess")
+					{
+						location.href = "cms/tottrain.action?courseId="+courseId+"&sequentialId="+sequenticalId+"&verticalId="+verticalId;
+					}
+					else
+					{
+						alert(a.msg);
+					}
+				}
+			});
+    	}
+	</script>
   </body>
 </html>

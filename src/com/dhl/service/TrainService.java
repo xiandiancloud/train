@@ -3,8 +3,13 @@ package com.dhl.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.dhl.cons.CommonConstant;
+import com.dhl.dao.CourseDao;
 import com.dhl.dao.TrainDao;
+import com.dhl.dao.VerticalDao;
+import com.dhl.dao.VerticalTrainDao;
 import com.dhl.domain.Train;
+import com.dhl.domain.VerticalTrain;
 
 /**
  *
@@ -14,16 +19,22 @@ public class TrainService {
 
 	@Autowired
 	private TrainDao trainDao;
-
+	@Autowired
+	private VerticalTrainDao verticalTrainDao;
+	@Autowired
+	private CourseDao courseDao;
+	@Autowired
+	private VerticalDao verticalDao;
+	
 	/**
 	 * 根据编码取得实验
+	 * 
 	 * @return
 	 */
-	public Train getTrainByCodenum(String codenum)
-	{
-		return getTrainByCodenum(codenum);
+	public Train getTrainByCodenum(String codenum) {
+		return trainDao.getTrainByCodenum(codenum);
 	}
-	
+
 	/**
 	 * 保存实验
 	 * 
@@ -34,4 +45,31 @@ public class TrainService {
 		return t;
 	}
 
+	public String save(String name, String codenum, String envname,
+			String conContent, String conShell, String conAnswer, int score,
+			String scoretag, int courseId, int verticalId) {
+
+		Train tt = getTrainByCodenum(codenum);
+		if (tt != null)
+		{
+			return CommonConstant.ERROR_4;
+		}
+		Train t = new Train();
+		t.setName(name);
+		t.setCodenum(codenum);
+		t.setEnvname(envname);
+		t.setConContent(conContent);
+		t.setConShell(conShell);
+		t.setConAnswer(conAnswer);
+		t.setScore(score);
+		t.setScoretag(scoretag);
+		save(t);
+		
+		VerticalTrain vt = new VerticalTrain();
+		vt.setCourse(courseDao.get(courseId));
+		vt.setVertical(verticalDao.get(verticalId));
+		vt.setTrain(t);
+		verticalTrainDao.save(vt);
+		return null;
+	}
 }

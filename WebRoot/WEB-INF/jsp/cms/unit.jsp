@@ -49,8 +49,13 @@ $(function() {
 	
 });
 
+function hidetrain()
+{
+	$("#traindiv").hide();
+}
 function showtrain(){
-    document.getElementById('traindiv').style.display='block'; 
+    //document.getElementById('traindiv').style.display='block'; 
+	$("#traindiv").show();
 }
 
 function edit() {
@@ -1648,8 +1653,42 @@ img.MathJax_strut {
 										data-init="XBlockToXModuleShim" data-runtime-version="1"
 										data-usage-id="#"
 										data-type="None" data-block-type="vertical">
+										<c:forEach var="vt" items="${vtlist}">
 										<ol class="reorderable-container ui-sortable" style="">
+										 <li class="studio-xblock-wrapper is-draggable" data-locator="#" data-course-key="">
+
+										    <section class="wrapper-xblock level-element ">
+										<header class="xblock-header xblock-header-problem">
+										    <div class="xblock-header-primary">
+										        <div class="header-details">
+										            <span class="xblock-display-name">实验名：${vt.train.name}</span>
+										        </div>
+										        <div class="header-actions">
+										            <ul class="actions-list">
+									                        <li class="action-item action-edit">
+									                            <a href="#" class="edit-button action-button">
+									                                <i class="icon-pencil"></i>
+									                                <span class="action-button-text">编辑</span>
+									                            </a>
+									                        </li>
+										                    <li class="action-item action-delete">
+										                        <a href="#" data-tooltip="删除" class="delete-button action-button">
+										                        <i class="icon-trash"></i>
+										                        <span class="sr">删除</span>
+										                        </a>
+										                    </li>
+										            </ul>
+										        </div>
+										    </div>
+										 </header>
+										    <article class="xblock-render">
+										    实验题目：</br>${vt.train.conContent}
+										    </article>
+										
+										    </section>
+										        </li>
 										</ol>
+										</c:forEach>
 										<div id="traindiv" style="display:none;">
 										<!-- <iframe width="100%" scrolling="no" height="1729" frameborder="0"   src="experiment.jsp" ></iframe> -->
 										<jsp:include page="experiment.jsp"></jsp:include>

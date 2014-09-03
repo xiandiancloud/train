@@ -25,6 +25,7 @@ import com.dhl.domain.TeacherCourse;
 import com.dhl.domain.Train;
 import com.dhl.domain.User;
 import com.dhl.domain.Vertical;
+import com.dhl.domain.VerticalTrain;
 import com.dhl.service.CategoryService;
 import com.dhl.service.ChapterService;
 import com.dhl.service.CourseService;
@@ -33,6 +34,7 @@ import com.dhl.service.TeacherCourseService;
 import com.dhl.service.TrainService;
 import com.dhl.service.UserService;
 import com.dhl.service.VerticalService;
+import com.dhl.service.VerticalTrainService;
 import com.dhl.web.BaseController;
 
 /**
@@ -57,6 +59,8 @@ public class CmsController extends BaseController {
 	@Autowired
 	private VerticalService verticalService;
 	@Autowired
+	private VerticalTrainService verticalTrainService;
+	@Autowired
 	private TrainService trainService;
 	@Autowired
 	private TeacherCourseService teacherCourseService;
@@ -64,7 +68,7 @@ public class CmsController extends BaseController {
 	private CategoryService categoryService;
 	@Autowired
 	private UserService userService;
-	
+
 	/**
 	 * 跳转到老师课程页面
 	 * 
@@ -73,10 +77,9 @@ public class CmsController extends BaseController {
 	 */
 	@RequestMapping("/cms")
 	public ModelAndView cms(HttpServletRequest request) {
-		
+
 		User user = getSessionUser(request);
-		if (user == null)
-		{
+		if (user == null) {
 			String url = "redirect:/cms/totlogin.action";
 			return new ModelAndView(url);
 		}
@@ -92,7 +95,7 @@ public class CmsController extends BaseController {
 		view.setViewName("/cms/tcourselist");
 		return view;
 	}
-	
+
 	/**
 	 * 跳转到老师课程页面
 	 * 
@@ -207,19 +210,24 @@ public class CmsController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping("/tottrain")
-	public ModelAndView tottrain(HttpServletRequest request, int courseId,int sequentialId,int verticalId) {
+	public ModelAndView tottrain(HttpServletRequest request, int courseId,
+			int sequentialId, int verticalId) {
 		ModelAndView view = new ModelAndView();
 		view.addObject("courseId", courseId);
 		view.addObject("sequentialId", sequentialId);
 		view.addObject("verticalId", verticalId);
-		/*Course course = courseService.get(courseId);
-		view.addObject("course", course);*/
+		/*
+		 * Course course = courseService.get(courseId); view.addObject("course",
+		 * course);
+		 */
+		List<VerticalTrain> vt = verticalTrainService.getAllTrainByCourseId(courseId);
+		view.addObject("vtlist", vt);
 		Vertical vertical = verticalService.get(verticalId);
 		view.addObject("vertical", vertical);
 		view.setViewName("/cms/unit");
 		return view;
 	}
-	
+
 	/**
 	 * 发布跟取消发布
 	 * 
@@ -228,7 +236,7 @@ public class CmsController extends BaseController {
 	 */
 	@RequestMapping("/publicCourse")
 	public void publicCourse(HttpServletRequest request,
-			HttpServletResponse response, int courseId,int type) {
+			HttpServletResponse response, int courseId, int type) {
 
 		try {
 			PrintWriter out = response.getWriter();
@@ -365,24 +373,22 @@ public class CmsController extends BaseController {
 	 */
 	@RequestMapping("/createVertical")
 	public void createVertical(HttpServletRequest request,
-			HttpServletResponse response, int sequenticalId,int verticalId, String name) {
+			HttpServletResponse response, int sequenticalId, int verticalId,
+			String name) {
 		try {
 			PrintWriter out = response.getWriter();
 			Vertical v;
-			if (verticalId == -1)
-			{
+			if (verticalId == -1) {
 				v = new Vertical();
 				v.setName(name);
 				v.setSequential(sequentialService.get(sequenticalId));
 				verticalService.save(v);
-			}
-			else
-			{
+			} else {
 				v = verticalService.get(verticalId);
 				v.setName(name);
 				verticalService.update(v);
 			}
-			String str = "{'sucess':'sucess','verticalId':"+v.getId()+"}";
+			String str = "{'sucess':'sucess','verticalId':" + v.getId() + "}";
 			out.write(str);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -399,30 +405,21 @@ public class CmsController extends BaseController {
 	public void createTrain(HttpServletRequest request,
 			HttpServletResponse response, String name, String codenum,
 			String envname, String conContent, String conShell,
-			String conAnswer, int score, String scoretag) {
+			String conAnswer, int score, String scoretag, int courseId,
+			int verticalId) {
 
 		try {
 			PrintWriter out = response.getWriter();
-			// User user = getSessionUser(request);
-			// if (user == null) {
-			// String str = "{'sucess':'fail'}";
-			//
-			// out.write(str);
-			// } else {
+			String msg = trainService.save(name, codenum, envname, conContent,
+					conShell, conAnswer, score, scoretag, courseId, verticalId);
+			if (msg != null) {
+				String str = "{'sucess':'fail','msg':'" + msg + "'}";
+				out.write(str);
 
-			Train t = new Train();
-			t.setName(name);
-			t.setCodenum(codenum);
-			t.setEnvname(envname);
-			t.setConContent(conContent);
-			t.setConShell(conShell);
-			t.setConAnswer(conAnswer);
-			t.setScore(score);
-			t.setScoretag(scoretag);
-			trainService.save(t);
-			String str = "{'sucess':'sucess'}";
-			out.write(str);
-			// }
+			} else {
+				String str = "{'sucess':'sucess'}";
+				out.write(str);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

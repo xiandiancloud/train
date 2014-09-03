@@ -41,4 +41,6 @@ public class CommonConstant
    public static final String ERROR_1 = "学校已经存在";
    public static final String ERROR_2 = "保存成功";
    public static final String ERROR_3 = "分类已经存在";
+   public static final String ERROR_4 = "实验已经存在";
+   
 }
