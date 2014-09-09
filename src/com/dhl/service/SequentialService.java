@@ -33,11 +33,25 @@ public class SequentialService {
 	 */
 	public Sequential save(Sequential c)
 	{
-//		Sequential c = new Sequential();
-//		c.setName(name);
-//		c.setChapter(chapterDao.get(chapterId));
 		sequentialDao.save(c);
 		return c;
 	}
 	
+	/**
+	 * 更新小节
+	 * @return
+	 */
+	public void update(Sequential c)
+	{
+		sequentialDao.update(c);
+	}
+	
+	/**
+	 * 刪除小节
+	 * @return
+	 */
+	public void remove(Sequential c)
+	{
+		sequentialDao.remove(c);
+	}
 }

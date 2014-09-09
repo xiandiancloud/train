@@ -38,14 +38,24 @@ public class ChapterService {
 		chapterDao.save(c);
 		return c;
 	}
-//	
-//	public Chapter save(String name,int courseId)
-//	{
-//		Chapter c = new Chapter();
-//		c.setName(name);
-//		c.setCourse(courseDao.get(courseId));
-//		chapterDao.save(c);
-//		return c;
-//	}
+
+	/**
+	 * 更新章节
+	 * @param name
+	 * @return
+	 */
+	public void update(Chapter c)
+	{
+		chapterDao.update(c);
+	}
 	
+	/**
+	 * 更新章节
+	 * @param name
+	 * @return
+	 */
+	public void remove(Chapter c)
+	{
+		chapterDao.remove(c);
+	}
 }

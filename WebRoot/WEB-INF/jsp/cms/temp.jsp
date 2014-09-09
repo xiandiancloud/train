@@ -142,29 +142,6 @@
 			</div>
 
 			<div class="wrapper-content wrapper">
-			  <!-- <section class="content is-hidden new-section">
-					<article class="content-primary" role="main">
-						<form id="login_form">
-							<table>
-							<tr><td width="380">
-							<fieldset>
-								<ol class="list-input">
-									<li class="field text required" id="field-email"><input id="coursename" type="text"
-										name="coursename" placeholder="课程名称" /></li>
-								</ol>
-							</fieldset>
-							</td>
-							<td width="20"></td>
-							<td width="50">
-							<div class="form-actions">
-								<button type="button" class="action action-primary" onclick="savechapter(${courseId});">保存</button>
-							</div>
-							</td></tr>
-							</table>						
-						</form>
-					</article>
-				</section>
-				<div style="height:10px;"></div> -->
 				<section class="content">
 					<article role="main" class="content-primary">
 						<div class="wrapper-dnd">
@@ -172,15 +149,13 @@
 								<div class="outline-content course-content" id="sections">
 									<ol class="list-sections is-sortable is-hidden new-section" >
 										<li class="outline-item outline-section has-warnings is-draggable is-collapsible is-collapsed">
-				 							<div class="item-details">
           										<h3 class="section-name is_editable">
             										<form class="section-name-form">
-              											<input type="text" class="new-section-name" value="新章节的名字">
-              											<input type="submit" value="保存" class="new-section-name-save">
+              											<input type="text" class="new-section-name" value="新章节的名字" id="coursename">
+              											<input type="button" value="保存" class="new-section-name-save" onclick="savechapter(${courseId});">
               											<input type="button" value="取消" class="new-section-name-cancel">
             										</form>
           										</h3>
-        									</div>
         								</li>
     								</ol>									
 									<!-- 章节 -->
@@ -201,13 +176,13 @@
 													<div class="section-header-actions">
 														<ul class="actions-list">
 															<li class="action-item action-configure">
-																<a class="configure-button action-button" data-tooltip="Configure"> 
+																<a href="javascript:void(0)" class="configure-button action-button" data-tooltip="Configure" onclick="update(1,'${chapter.id}','${chapter.name}');"> 
 																	<i class="icon-gear"></i> 
 																	<span class="sr action-button-text">Configure</span>
 																</a>
 															</li>
 															<li class="action-item action-delete">
-																<a class="delete-button action-button" data-tooltip="Delete" href="#"> 
+																<a class="delete-button action-button" data-tooltip="Delete" href="javascript:void(0)" onclick="realdelete(1,'${chapter.id}');"> 
 																	<i class="icon icon-trash"></i> 
 																	<span class="sr action-button-text">Delete</span>
 																</a>
@@ -242,13 +217,13 @@
 																	<div class="subsection-header-actions">
 																		<ul class="actions-list">
 																			<li class="action-item action-configure">
-																				<a class="configure-button action-button" data-tooltip="Configure" > 
+																				<a href="javascript:void(0)" class="configure-button action-button" data-tooltip="Configure"  onclick="update(2,'${sequential.id}','${sequential.name}');"> 
 																					<i class="icon-gear"></i> 
 																					<span class="sr action-button-text">Configure</span>
 																				</a>
 																			</li>
 																			<li class="action-item action-delete">
-																				<a class="delete-button action-button" data-tooltip="Delete" href="#"> 
+																				<a class="delete-button action-button" data-tooltip="Delete" href="javascript:void(0)"  onclick="realdelete(2,'${sequential.id}');"> 
 																					<i class="icon icon-trash"></i> 
 																					<span class="sr action-button-text">Delete</span>
 																				</a>
@@ -270,20 +245,20 @@
 																				<div class="unit-header">
 																					<h3 class="unit-header-details">
 																						<span class="unit-title item-title"> <a
-																							href="cms/tottrain.action?courseId=${courseId}">${vertical.name}</a>
+																							href="cms/tottrain.action?courseId=${courseId}&sequentialId=${sequential.id}&verticalId=${vertical.id}">${vertical.name}</a>
 																						</span>
 																					</h3>
 
 																					<div class="unit-header-actions">
 																						<ul class="actions-list">
 																							<li class="action-item action-configure">
-																								<a class="configure-button action-button" data-tooltip="Configure" > 
+																								<a href="javascript:void(0)" class="configure-button action-button" data-tooltip="Configure"   onclick="update(3,'${vertical.id}','${vertical.name}');"> 
 																									<i class="icon-gear"></i> 
 																									<span class="sr action-button-text">Configure</span>
 																								</a>
 																							</li>
 																							<li class="action-item action-delete">
-																								<a class="delete-button action-button" data-tooltip="Delete" href="#"> 
+																								<a class="delete-button action-button" data-tooltip="Delete" href="javascript:void(0)"  onclick="realdelete(3,'${vertical.id}');"> 
 																									<i class="icon icon-trash"></i> 
 																									<span class="sr action-button-text">Delete</span>
 																								</a>
@@ -305,7 +280,7 @@
 																		<a title="Click to add a new 单元"
 																			data-default-name="单元" data-parent=""
 																			data-category="vertical" class="button button-new"
-																			href="#"> <i class="icon icon-plus"></i>新建单元
+																			href="cms/tottrain.action?courseId=${courseId}&sequentialId=${sequential.id}&verticalId=-1"> <i class="icon icon-plus"></i>新建单元
 																		</a>
 																	</div>
 																</div>
@@ -318,9 +293,9 @@
 															<div class="section-item editing">
       															<form class="new-subsection-form">
         															<span class="subsection-name">
-          																<input type="text" value="添加新的小节" class="new-subsection-name-input" />
+          																<input type="text" value="添加新的小节" class="new-subsection-name-input" id="chapter${chapter.id}seqname"/>
         															</span>
-        															<input type="submit" value="保存" class="new-subsection-name-save" />
+        															<input type="button" value="保存" class="new-subsection-name-save" onclick="saveseq(${chapter.id});"/>
         															<input type="button" value="取消" class="new-subsection-name-cancel" />
       															</form>
     														</div>
@@ -433,23 +408,21 @@
         	<div class="modal-content">
          		<ul class="list-input picker datepair">
             		<li class="field field-start-date">
-              			<label for="start_date">发布日期</label>
-              			<input type="text" autocomplete="off" size="15" placeholder="MM/DD/YYYY" value="" name="start_date" class="start-date date hasDatepicker" id="dp1409727220581">
-            		</li>
-            		<li class="field field-start-time">
-              			<label for="start_time">发布时间 in <abbr title="世界标准时间">UTC</abbr></label>
-              			<input type="text" autocomplete="off" size="10" placeholder="HH:MM" value="" name="start_time" class="start-time time ui-timepicker-input">
+              			<label for="start_date">名称</label>
+              			<input type="text" autocomplete="off" size="15" value="" name="start_date" class="start-date date hasDatepicker" id="dialogtext">
             		</li>
           		</ul>
         	</div>
         	<div class="actions modal-actions">
           		<h3 class="sr">表格操作</h3>
+          		<input type="hidden" id="dialogid"/>
+          		<input type="hidden" id="dialogindex"/>
           		<ul>
             		<li class="action-item">
-              			<a class="button action-primary action-save" >保存</a>
+              			<a href="javascript:void(0)" class="button action-primary action-save" onclick="realupdate();">保存</a>
             		</li>
             		<li class="action-item">
-              			<a class="button action-primary action-cancel" onclick="cancel()">取消</a>
+              			<a href="javascript:void(0)" class="button action-primary action-cancel" onclick="cancel()">取消</a>
             		</li>
           		</ul>
         	</div>
@@ -491,6 +464,132 @@
 					}
 				}
 			});
+		}
+		function showDialog()
+		{
+			$("#contain").css("height",$(document).height());  
+	        $("#contain").css("width",$(document).width());  
+	        $("#contain").show();
+			var win = $("#dialog");
+			var left=($(window).width() - win.width())/2 + $(document).scrollLeft();
+			var top=($(window).height() - win.height())/2 + $(document).scrollTop();
+			win.css("left",left).css("top",top);
+			win.show();
+		}
+		function update(index,chapterId,name)
+		{
+			$("#dialogindex").attr("value",index);
+			$("#dialogid").attr("value",chapterId);
+			$("#dialogtext").attr("value",name);
+			showDialog();
+		}
+		function realupdate()
+		{
+			var index = $("#dialogindex").val();
+			var name = $("#dialogtext").val();
+			if (index == 1)
+			{
+				var chapterId = $("#dialogid").val();
+				var data = {chapterId:chapterId,name:name};
+				$.ajax({
+					url:"cms/updatechapter.action",
+					type:"post",
+					data:data,
+					success:function(s){
+						var a=eval("("+s+")");	
+						if (a.sucess=="sucess")
+						{
+							location.reload();
+						}
+					}
+				});
+			}
+			else if (index == 2)
+			{
+				var sequentialId = $("#dialogid").val();
+				var data = {sequentialId:sequentialId,name:name};
+				$.ajax({
+					url:"cms/updateSequential.action",
+					type:"post",
+					data:data,
+					success:function(s){
+						var a=eval("("+s+")");	
+						if (a.sucess=="sucess")
+						{
+							location.reload();
+						}
+					}
+				});
+			}
+			else if (index == 3)
+			{
+				var sequenticalId = parseInt("-1");
+				var verticalId = $("#dialogid").val();
+				var data = {sequenticalId:sequenticalId,verticalId:verticalId,name:name};
+				$.ajax({
+					url:"cms/createVertical.action",
+					type:"post",
+					data:data,
+					success:function(s){
+						var a=eval("("+s+")");	
+						if (a.sucess=="sucess")
+						{
+							location.reload();
+						}
+					}
+				});
+			}
+		}
+		function realdelete(index,id)
+		{
+			if (index == 1)
+			{
+				var data = {chapterId:id};
+				$.ajax({
+					url:"cms/delchapter.action",
+					type:"post",
+					data:data,
+					success:function(s){
+						var a=eval("("+s+")");	
+						if (a.sucess=="sucess")
+						{
+							location.reload();
+						}
+					}
+				});
+			}
+			else if (index == 2)
+			{
+				var data = {sequentialId:id};
+				$.ajax({
+					url:"cms/delSequential.action",
+					type:"post",
+					data:data,
+					success:function(s){
+						var a=eval("("+s+")");	
+						if (a.sucess=="sucess")
+						{
+							location.reload();
+						}
+					}
+				});
+			}
+			else if (index == 3)
+			{
+				var data = {verticalId:id};
+				$.ajax({
+					url:"cms/delVertical.action",
+					type:"post",
+					data:data,
+					success:function(s){
+						var a=eval("("+s+")");	
+						if (a.sucess=="sucess")
+						{
+							location.reload();
+						}
+					}
+				});
+			}
 		}
 		function saveseq(chapterId)
 		{

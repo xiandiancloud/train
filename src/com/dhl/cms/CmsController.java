@@ -368,24 +368,102 @@ public class CmsController extends BaseController {
 
 		try {
 			PrintWriter out = response.getWriter();
-			// User user = getSessionUser(request);
-			// if (user == null) {
-			// String str = "{'sucess':'fail'}";
-			//
-			// out.write(str);
-			// } else {
 			Chapter c = new Chapter();
 			c.setName(name);
 			c.setCourse(courseService.get(courseId));
 			chapterService.save(c);
 			String str = "{'sucess':'sucess'}";
 			out.write(str);
-			// }
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
+	/**
+	 * 更新章节
+	 * 
+	 * @param request
+	 * @param response
+	 */
+	@RequestMapping("/updatechapter")
+	public void updatechapter(HttpServletRequest request,
+			HttpServletResponse response, int chapterId, String name) {
+
+		try {
+			PrintWriter out = response.getWriter();
+			Chapter c = chapterService.get(chapterId);
+			c.setName(name);
+			chapterService.update(c);
+			String str = "{'sucess':'sucess'}";
+			out.write(str);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * 刪除章节
+	 * 
+	 * @param request
+	 * @param response
+	 */
+	@RequestMapping("/delchapter")
+	public void delchapter(HttpServletRequest request,
+			HttpServletResponse response, int chapterId) {
+
+		try {
+			PrintWriter out = response.getWriter();
+			Chapter c = chapterService.get(chapterId);
+			chapterService.remove(c);
+			String str = "{'sucess':'sucess'}";
+			out.write(str);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * 刪除小节
+	 * 
+	 * @param request
+	 * @param response
+	 */
+	@RequestMapping("/delSequential")
+	public void delSequential(HttpServletRequest request,
+			HttpServletResponse response, int sequentialId) {
+
+		try {
+			PrintWriter out = response.getWriter();
+			Sequential s = sequentialService.get(sequentialId);
+			sequentialService.remove(s);
+			String str = "{'sucess':'sucess'}";
+			out.write(str);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * 刪除單元
+	 * 
+	 * @param request
+	 * @param response
+	 */
+	@RequestMapping("/delVertical")
+	public void delVertical(HttpServletRequest request,
+			HttpServletResponse response, int verticalId) {
+
+		try {
+			PrintWriter out = response.getWriter();
+			Vertical s = verticalService.get(verticalId);
+			verticalService.remove(s);
+			String str = "{'sucess':'sucess'}";
+			out.write(str);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	/**
 	 * 创建小节
 	 * 
@@ -398,24 +476,38 @@ public class CmsController extends BaseController {
 
 		try {
 			PrintWriter out = response.getWriter();
-			// User user = getSessionUser(request);
-			// if (user == null) {
-			// String str = "{'sucess':'fail'}";
-			//
-			// out.write(str);
-			// } else {
 			Sequential s = new Sequential();
 			s.setName(name);
 			s.setChapter(chapterService.get(chapterId));
 			sequentialService.save(s);
 			String str = "{'sucess':'sucess'}";
 			out.write(str);
-			// }
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
+	/**
+	 * 更新小节
+	 * 
+	 * @param request
+	 * @param response
+	 */
+	@RequestMapping("/updateSequential")
+	public void updateSequential(HttpServletRequest request,
+			HttpServletResponse response, int sequentialId, String name) {
+
+		try {
+			PrintWriter out = response.getWriter();
+			Sequential s = sequentialService.get(sequentialId);
+			s.setName(name);
+			sequentialService.update(s);
+			String str = "{'sucess':'sucess'}";
+			out.write(str);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	/**
 	 * 创建单元或者更新单元
 	 * 

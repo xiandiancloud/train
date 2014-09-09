@@ -67,7 +67,7 @@ $(document).ready(function() {
 		};
 			
 		//this.addButtonActions($('#content'));
-		$('.configure-button').bind('click', show_div);
+		//$('.configure-button').bind('click', show_div);
 		$('.new-section-name-cancel').bind('click', hide);
 		$('.new-subsection-name-cancel').bind('click', hide);
 		$('.button-new-section').bind('click', new_section);

@@ -37,19 +37,28 @@ public class VerticalService {
 	 */
 	public Vertical save(Vertical c)
 	{
-//		Vertical c = new Vertical();
-//		c.setName(name);
-//		c.setSequential(sequentialDao.get(sequentialId));
 		verticalDao.save(c);
 		return c;
 	}
 	
+	/**
+	 * 更新单元
+	 * @param c
+	 * @return
+	 */
 	public Vertical update(Vertical c)
 	{
-//		Vertical c = new Vertical();
-//		c.setName(name);
-//		c.setSequential(sequentialDao.get(sequentialId));
 		verticalDao.update(c);
 		return c;
+	}
+	
+	/**
+	 * 刪除单元
+	 * @param c
+	 * @return
+	 */
+	public void remove(Vertical c)
+	{
+		verticalDao.remove(c);
 	}
 }
