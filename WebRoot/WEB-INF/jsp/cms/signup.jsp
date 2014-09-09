@@ -281,7 +281,7 @@
 	<script>
 		$(function() {
 			$.ajax({
-				url : "getAllSchool.action",
+				url : "cms/getAllSchool.action",
 				type : "post",
 				success : function(s) {
 					var a = eval("(" + s + ")");

@@ -53,9 +53,15 @@ public class Test {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		File file = new File("D:\\work\\apache-tomcat-6.0.20\\webapps\\train\\export\\2014-07-15\\static");
-		if (!file.exists())
-			file.mkdir();
+		String aaa = "shell/fsafasfaaa.sh";
+		String[] strs = aaa.split("/");
+		System.out.println(strs[1]);
+		
+		int[] value = null;
+		System.out.println("int[] ----------"+value);
+//		File file = new File("D:\\work\\apache-tomcat-6.0.20\\webapps\\train\\export\\2014-07-15\\static");
+//		if (!file.exists())
+//			file.mkdir();
 		
 //		Keystone keystone = new Keystone(ExamplesConfiguration.KEYSTONE_AUTH_URL);
 //		Access access = keystone.tokens().authenticate(new UsernamePassword(ExamplesConfiguration.KEYSTONE_USERNAME, ExamplesConfiguration.KEYSTONE_PASSWORD))

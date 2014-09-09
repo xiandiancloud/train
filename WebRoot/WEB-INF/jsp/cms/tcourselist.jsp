@@ -356,6 +356,7 @@
 			}
 		} */
 		$(function() {
+			
 			$.ajax({
 				url:"cms/tgetAllCategory.action",
 				type:"post",

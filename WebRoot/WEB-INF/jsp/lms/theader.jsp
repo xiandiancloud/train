@@ -14,6 +14,10 @@
 				<li class=""><a href="lms/mycourse.action">我的云课堂</a></li>
         </ul>
         <ul class='nav'>
+	        <li class=''>
+	           <a href="javascript:gotouppage();"><span
+											class="glyphicon glyphicon-arrow-left">${course.name}</span></a>
+			</li>
             <li class=''>
 		            <a  href='javascript:pasueClock();'>
 		              <i class='glyphicon glyphicon-pause'>暂停</i>

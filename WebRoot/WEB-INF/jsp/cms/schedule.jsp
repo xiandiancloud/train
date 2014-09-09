@@ -615,7 +615,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		uploadButton: '<button class="btn btn-warning"><i class="icon-upload"></i>选择要导入的文件</button>' 
     		}, 
     		validation:{
-    			allowedExtensions: ['png','PNG','jpeg','JPEG']
+    			allowedExtensions: ['png','PNG','jpeg','JPEG','jpg','JPG']
     		},
     		template: 
     		'<div class="qq-uploader">' + 

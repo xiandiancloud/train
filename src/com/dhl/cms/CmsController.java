@@ -20,15 +20,16 @@ import com.dhl.domain.Category;
 import com.dhl.domain.Chapter;
 import com.dhl.domain.Course;
 import com.dhl.domain.Role;
+import com.dhl.domain.School;
 import com.dhl.domain.Sequential;
 import com.dhl.domain.TeacherCourse;
-import com.dhl.domain.Train;
 import com.dhl.domain.User;
 import com.dhl.domain.Vertical;
 import com.dhl.domain.VerticalTrain;
 import com.dhl.service.CategoryService;
 import com.dhl.service.ChapterService;
 import com.dhl.service.CourseService;
+import com.dhl.service.SchoolService;
 import com.dhl.service.SequentialService;
 import com.dhl.service.TeacherCourseService;
 import com.dhl.service.TrainService;
@@ -68,7 +69,57 @@ public class CmsController extends BaseController {
 	private CategoryService categoryService;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private SchoolService schoolService;
 
+	
+	
+	/**
+	 * 所有学校
+	 * 
+	 * @param request
+	 * @param index
+	 * @return
+	 */
+	@RequestMapping("/getAllSchool")
+	public void getAllSchool(HttpServletRequest request,HttpServletResponse response) {
+		
+		try {
+			PrintWriter out = response.getWriter();
+			List<School> school = schoolService.getAllSchool();
+			String str = getSchoolStr(school);
+			out.write(str);
+			// }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private String getSchoolStr(List<School> list) {
+		StringBuffer buffer = new StringBuffer();
+		int count = list.size();
+		buffer.append("{\"total\":" + count + ",\"rows\":[");
+		for (int i = 0; i < count; i++) {
+			School p = list.get(i);
+			buffer.append("{");
+			buffer.append("\"id\":");
+			buffer.append("\"" + p.getId() + "\"");
+			buffer.append(",\"name\":");
+			buffer.append("\"" + p.getSchool_name() + "\"");
+			buffer.append("},");
+		}
+		if (count > 0) {
+			String str = buffer.substring(0, buffer.length() - 1) + "]}";
+			str = str.replaceAll("null", "");
+			return str;
+		} else {
+			String str = buffer.toString() + "]}";
+			str = str.replaceAll("null", "");
+			return str;
+		}
+	}
+	
+	
 	/**
 	 * 跳转到老师课程页面
 	 * 
@@ -220,7 +271,7 @@ public class CmsController extends BaseController {
 		 * Course course = courseService.get(courseId); view.addObject("course",
 		 * course);
 		 */
-		List<VerticalTrain> vt = verticalTrainService.getAllTrainByCourseId(courseId);
+		List<VerticalTrain> vt = verticalTrainService.getVerticalTrainList(verticalId);
 		view.addObject("vtlist", vt);
 		Vertical vertical = verticalService.get(verticalId);
 		view.addObject("vertical", vertical);

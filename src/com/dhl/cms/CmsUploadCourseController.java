@@ -128,6 +128,45 @@ public class CmsUploadCourseController extends BaseController {
 	}
 
 	/**
+	 * 上传实验自动验证脚本
+	 * @param request
+	 * @param response
+	 * @param file
+	 */
+	@RequestMapping("/uploadtrain")
+	public void uploadtrain(HttpServletRequest request,
+			HttpServletResponse response,
+			@RequestParam(value = "qqfile", required = true) MultipartFile file) {
+		response.setContentType("text/html");
+		PrintWriter out = null;
+		try {
+			out = response.getWriter();
+		} catch (IOException e1) {
+			// out.print("{\"success\": \"false\"}");
+		}
+		try {
+			if (!file.isEmpty()) {
+				byte[] bytes = file.getBytes();
+				String upath = request.getSession().getServletContext()
+						.getRealPath("/");
+				String uuid = UUID.randomUUID().toString();
+				String path = "shell/" + uuid + file.getOriginalFilename();
+				FileOutputStream fos = new FileOutputStream(upath + path);
+				fos.write(bytes);
+				fos.close();
+				out.print("{\"success\": \"true\",\"shell\":\"" + path + "\"}");
+				// out.write("<script>parent.callback('sucess')</script>");
+			} else {
+				// out.write("<script>parent.callback('fail')</script>");
+				out.print("{\"success\": \"false\"}");
+			}
+
+		} catch (Exception e) {
+			out.print("{\"success\": \"false\"}");
+		}
+	}
+	
+	/**
 	 * 导入课程
 	 * 
 	 * @param request
@@ -521,16 +560,21 @@ public class CmsUploadCourseController extends BaseController {
 		rootGen.addAttribute("content", train.getConContent());
 		rootGen.addAttribute("answer", train.getConAnswer());
 		String shellpath = train.getConShell();
-		rootGen.addAttribute("shell", shellpath);
+		String[] strs = shellpath.split("/");
+		String shellname = "";
+		if (strs.length > 1)
+		{
+			shellname = strs[1];
+		}
+		rootGen.addAttribute("shell", shellname);
 		rootGen.addAttribute("score", train.getScore() + "");
 		rootGen.addAttribute("scoretag", train.getScoretag());
 
 		File imgdir = new File(coursepath + File.separator + "shell");
 		if (!imgdir.exists())
 			imgdir.mkdir();
-		UtilTools.copyFile(path + "shell" + File.separator + shellpath,
-				coursepath + File.separator + "shell" + File.separator
-						+ shellpath);
+		UtilTools.copyFile(path + shellpath,
+				coursepath + File.separator + shellpath);
 
 		OutputFormat format = null;
 		XMLWriter xmlwriter = null;

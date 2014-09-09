@@ -36,29 +36,12 @@
 <link type="text/css" rel="stylesheet" href="tcss/style-app-extend1.css">
 <link type="text/css" rel="stylesheet" href="tcss/style-xmodule.css">
 <link rel="stylesheet" type="text/css" href="tcss/jquery.timepicker.css" />
-<!-- <link href="tcss/cms-style-app-extend1.4cdfc7f218d9.css" rel="stylesheet" type="text/css" /> -->
-<style type="text/css">  
-    .mask {    
-            position: absolute; top: 0px; filter: alpha(opacity=60); background-color: #777;  
-            z-index: 1001; left: 0px;  
-            opacity:0.5; -moz-opacity:0.5;  
-        }  
-</style>   
 
 
 <script type="text/javascript" src="js/jquery-1.11.1.js"></script>
-<script type="text/javascript" src="js/jquery-ui.js"></script>
+<script type="text/javascript" src="js/draggabilly.pkgd.min.js"></script>
 <script type="text/javascript" src="js/index.js"></script>
 <script type="text/javascript" src="js/outline.js"></script>
-<script type="text/javascript" src="js/drag_drop.js"></script>
-
-
-<script type="text/javascript">
-        function cancel() {
-            $("#dialog").hide();
-            $("#contain").hide();            
-        }        	
-</script>
 <!-- <script type="text/javascript">
         function edit() {
             var input = $('.xblock-field-input');
@@ -81,7 +64,6 @@
 
 <body class="view-signin is-signedin course view-outline hide-wip lang_zh-cn">
 	<!-- view -->
-	<div id="contain" class="mask"></div>
 	<div class="wrapper wrapper-view">
 
 		<jsp:include page="ttheader.jsp"></jsp:include>
@@ -142,7 +124,7 @@
 			</div>
 
 			<div class="wrapper-content wrapper">
-			  <!-- <section class="content is-hidden new-section">
+			  <section class="content is-hidden new-section">
 					<article class="content-primary" role="main">
 						<form id="login_form">
 							<table>
@@ -160,33 +142,31 @@
 								<button type="button" class="action action-primary" onclick="savechapter(${courseId});">保存</button>
 							</div>
 							</td></tr>
-							</table>						
+							</table>
+							
+							
 						</form>
 					</article>
 				</section>
-				<div style="height:10px;"></div> -->
+				<div style="height:10px;"></div>
 				<section class="content">
 					<article role="main" class="content-primary">
 						<div class="wrapper-dnd">
 							<article class="outline outline-course">
-								<div class="outline-content course-content" id="sections">
-									<ol class="list-sections is-sortable is-hidden new-section" >
-										<li class="outline-item outline-section has-warnings is-draggable is-collapsible is-collapsed">
-				 							<div class="item-details">
-          										<h3 class="section-name is_editable">
-            										<form class="section-name-form">
-              											<input type="text" class="new-section-name" value="新章节的名字">
-              											<input type="submit" value="保存" class="new-section-name-save">
-              											<input type="button" value="取消" class="new-section-name-cancel">
-            										</form>
-          										</h3>
-        									</div>
-        								</li>
-    								</ol>									
+								<div class="outline-content course-content">
+<!-- 								<ol class="list-sections is-sortable is-hidden new-section" >
+											<li class="outline-item outline-section has-warnings is-draggable is-collapsible is-collapsed">
+												<div class="section-header">
+													
+												</div>
+											</li>
+									</ol> -->
+									
 									<!-- 章节 -->
 									<c:forEach var="chapter" items="${course.chapters}">
 										<ol class="list-sections is-sortable">
-											<li class="outline-item outline-section has-warnings is-draggable is-collapsible ">
+											<li
+												class="outline-item outline-section has-warnings is-draggable is-collapsible ">
 												<div class="section-header">
 													<h3 title="Collapse/Expand this section"
 														class="section-header-details expand-collapse collapse ui-toggle-expansion">
@@ -201,7 +181,7 @@
 													<div class="section-header-actions">
 														<ul class="actions-list">
 															<li class="action-item action-configure">
-																<a class="configure-button action-button" data-tooltip="Configure"> 
+																<a class="configure-button action-button" data-tooltip="Configure" href="#"> 
 																	<i class="icon-gear"></i> 
 																	<span class="sr action-button-text">Configure</span>
 																</a>
@@ -242,7 +222,7 @@
 																	<div class="subsection-header-actions">
 																		<ul class="actions-list">
 																			<li class="action-item action-configure">
-																				<a class="configure-button action-button" data-tooltip="Configure" > 
+																				<a class="configure-button action-button" data-tooltip="Configure" href="#"> 
 																					<i class="icon-gear"></i> 
 																					<span class="sr action-button-text">Configure</span>
 																				</a>
@@ -254,7 +234,7 @@
 																				</a>
 																			</li>																		
 																			<li class="action-item action-drag">
-                    															<span class="drag-handle subsection-drag-handle action" data-tooltip="Drag to reorder">
+                    															<span class="drag-handle section-drag-handle action" data-tooltip="Drag to reorder">
                         															<span class="sr">Drag to reorder</span>
                     															</span>
                 															</li>
@@ -269,15 +249,21 @@
 																			<li class="outline-item outline-unit  is-draggable  ">
 																				<div class="unit-header">
 																					<h3 class="unit-header-details">
-																						<span class="unit-title item-title"> <a
-																							href="cms/tottrain.action?courseId=${courseId}">${vertical.name}</a>
+																						<span class="unit-title item-title">
+ 																						 <a	href="cms/tottrain.action?courseId=${courseId}&sequentialId=${sequential.id}&verticalId=${vertical.id}">${vertical.name}</a>
+																							<%-- <form id="vertical${vertical.id}" name='form1' action="cms/tottrain.action" method="post">
+																							    <input type="hidden" value="${courseId}" name="courseId" />
+																								<input type="hidden" value="${sequential.id}" name="sequentialId" />
+																								<input type="hidden" value="${vertical.id}" name="verticalId" />
+																								<a href='javascript:document.getElementById("vertical${vertical.id}").submit();'>${vertical.name}</a>  
+																							</form> --%>
 																						</span>
 																					</h3>
 
 																					<div class="unit-header-actions">
 																						<ul class="actions-list">
 																							<li class="action-item action-configure">
-																								<a class="configure-button action-button" data-tooltip="Configure" > 
+																								<a class="configure-button action-button" data-tooltip="Configure" href="#"> 
 																									<i class="icon-gear"></i> 
 																									<span class="sr action-button-text">Configure</span>
 																								</a>
@@ -289,7 +275,7 @@
 																								</a>
 																							</li>																		
 																							<li class="action-item action-drag">
-                    																			<span class="drag-handle unit-drag-handle action" data-tooltip="Drag to reorder">
+                    																			<span class="drag-handle section-drag-handle action" data-tooltip="Drag to reorder">
                         																			<span class="sr">Drag to reorder</span>
                     																			</span>
                 																			</li>
@@ -305,34 +291,29 @@
 																		<a title="Click to add a new 单元"
 																			data-default-name="单元" data-parent=""
 																			data-category="vertical" class="button button-new"
-																			href="#"> <i class="icon icon-plus"></i>新建单元
+																			href="cms/tottrain.action?courseId=${courseId}&sequentialId=${sequential.id}&verticalId=-1"> <i class="icon icon-plus"></i>新建单元
 																		</a>
 																	</div>
 																</div>
 															</li>
 														</ol>
 													</c:forEach>
-
-													<ol class="list-subsections is-sortable is-hidden new-subsection" >
-														<li class="outline-item outline-subsection has-warnings is-draggable is-collapsible is-collapsed">
-															<div class="section-item editing">
-      															<form class="new-subsection-form">
-        															<span class="subsection-name">
-          																<input type="text" value="添加新的小节" class="new-subsection-name-input" />
-        															</span>
-        															<input type="submit" value="保存" class="new-subsection-name-save" />
-        															<input type="button" value="取消" class="new-subsection-name-cancel" />
-      															</form>
-    														</div>
-															<div class="outline-content subsection-content">
-																<div class="add-unit add-item">
-																	<a href="#" class="button button-new" data-category="vertical" data-parent="" data-default-name="单元" title="Click to add a new 单元"> 
-																		<i class="icon icon-plus"></i>新建单元
-																	</a>
+													<div style="height:10px;"></div>
+													 <section class="content is-hidden new-subsection">
+														<article class="content-primary" role="main">
+															<form id="login_form">
+																<fieldset>
+																	<ol class="list-input">
+																		<li class="field text required" id="field-email"><input id="chapter${chapter.id}seqname" type="text"
+																			name="seqname" placeholder="小节名称" /></li>
+																	</ol>
+																</fieldset>
+																<div class="form-actions">
+																	<button type="button" class="action action-primary" onclick="saveseq(${chapter.id});">保存小节</button>
 																</div>
-															</div>
-														</li>
-													</ol>
+															</form>
+														</article>
+													</section>
 													<!-- 小节结束 -->
 												</div>
 												<div class="outline-content section-content">
@@ -425,37 +406,7 @@
 		</div>
 
 		<jsp:include page="tfooter.jsp"></jsp:include>
-	</div>
-	
-	
-	<div id="dialog" class="modal-window modal-med confirm is-hidden" style="z-index:1003;position: absolute;">
-      	<form action="#" class="edit-sectionrelease-dialog">
-        	<div class="modal-content">
-         		<ul class="list-input picker datepair">
-            		<li class="field field-start-date">
-              			<label for="start_date">发布日期</label>
-              			<input type="text" autocomplete="off" size="15" placeholder="MM/DD/YYYY" value="" name="start_date" class="start-date date hasDatepicker" id="dp1409727220581">
-            		</li>
-            		<li class="field field-start-time">
-              			<label for="start_time">发布时间 in <abbr title="世界标准时间">UTC</abbr></label>
-              			<input type="text" autocomplete="off" size="10" placeholder="HH:MM" value="" name="start_time" class="start-time time ui-timepicker-input">
-            		</li>
-          		</ul>
-        	</div>
-        	<div class="actions modal-actions">
-          		<h3 class="sr">表格操作</h3>
-          		<ul>
-            		<li class="action-item">
-              			<a class="button action-primary action-save" >保存</a>
-            		</li>
-            		<li class="action-item">
-              			<a class="button action-primary action-cancel" onclick="cancel()">取消</a>
-            		</li>
-          		</ul>
-        	</div>
-      	</form>
-    </div>
-	
+
 		<script>
 		$(function() {
 		});

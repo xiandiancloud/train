@@ -54,27 +54,6 @@
 					<div class="panel" id="leftpanel">
 						<div class="panel-body">
 							<div id="pagination" class="center"></div>
-							<!-- <div class="panel panel-default cmargin5">
-							  <div class="h30 l1back hfont">
-							    <div class="lmargin5">实验定义</div>
-							  </div>
-							  <div class="panel-body">
-								<form class="form-horizontal" role="form">
-								  <div class="form-group">
-								    <label for="trainname" class="col-sm-2 control-label"><div class="h2font">名称</div></label>
-								    <div class="col-sm-10">
-								      <input type="text" class="form-control" id="trainname" disabled="disabled">
-								    </div>
-								  </div>
-								  <div class="form-group">
-								    <label for="traincode" class="col-sm-2 control-label"><div class="h2font">编号</div></label>
-								    <div class="col-sm-10">
-								      <input type="text" class="form-control" id="traincode" disabled="disabled">
-								    </div>
-								  </div>
-								</form>
-							  </div>
-							</div> -->
 							<div class='box box-bordered blue-border box-nomargin cmargin5'>
 						                    <div class='box-header box-header-small blue-background'>
 						                      <div class='title'>实验定义</div>
@@ -253,8 +232,8 @@
 				                    <div class='box-content'>
 					                    <form role="form">
 										  <div class="form-group">
-										    <label for="trainanswer"><div class="h2font">内容</div></label>
-										    <textarea class="form-control" rows="6" id="trainanswer"></textarea>
+										    <label for="trainresult"><div class="h2font">内容</div></label>
+										    <textarea class="form-control" rows="6" id="trainresult"></textarea>
 										  </div>
 										</form>
 										<a href="javascript:void(0);" id="trainsubmit">
@@ -306,6 +285,7 @@
 				                      </div>
 				                    </div>
 				                    <div class='box-content'>
+				                    <h6 id="trainanswer"></h6>
 				                    </div>
 						    </div>
 						</div>
@@ -378,7 +358,6 @@
 			myshell();
 			timeservice(0);
 		});
-
 		initClock();
 		//var mainheight = $("#leftpanel").height();
 		//$("#iframe").height(mainheight);
@@ -541,9 +520,9 @@
 					if (a.sucess == "sucess") {
 						var reg = new RegExp("</br>", "g"); //创建正则RegExp对象 
 						var newstr = a.result.replace(reg, "\r\n");
-						var newstr2 = a.revalue.replace(reg, "\r\n");
+						//var newstr2 = a.revalue.replace(reg, "\r\n");
 						$("#trainresult").html(newstr);
-						$("#trainanswer").html(newstr2);
+						//$("#trainanswer").html(newstr2);
 						$("#trainbutton").html("再来一遍");
 					}
 					else
@@ -623,26 +602,25 @@
 					{
 						var reg = new RegExp("</br>", "g"); //创建正则RegExp对象 
 						var newstr = a.result.replace(reg, "\r\n");
-						var newstr2 = a.revalue.replace(reg, "\r\n");
+						//var newstr2 = a.revalue.replace(reg, "\r\n");
 						$("#trainresult").html(newstr);
-						$("#trainanswer").html(newstr2);
+						//$("#trainanswer").html(newstr2);
 						$("#trainbutton").html("再来一遍");
 					}
 					else
 					{
 						$("#trainresult").html("");
-						$("#trainanswer").html("");
+						//$("#trainanswer").html("");
 						$("#trainbutton").html("提交");
 					}
 				}
 			});
-
 			$("#trainname").attr("value","${train.name}");//html("实验名称：${train.name}");
 			$("#traincode").attr("value","${train.codenum}");//html("实验名称：${train.name}");
 			$("#trainprename").attr("value","${train.envname}");
 			//$("#trainjoin").attr("href", "");
 			$("#traincon").html("${train.conContent}");
-			//$("#trainanswer").html("${train.conAnswer}");
+			$("#trainanswer").html("${train.conAnswer}");
 		}
 		</c:forEach>
 	}

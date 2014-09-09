@@ -410,7 +410,7 @@ public class CourseService {
 					train.setCodenum(codenum);
 					train.setConAnswer(conAnswer);
 					train.setConContent(conContent);
-					train.setConShell(endshell);
+					train.setConShell("shell"+ File.separator + endshell);
 					train.setEnvname(envname);
 					train.setName(display_name);
 					train.setScore(Integer.parseInt(score));

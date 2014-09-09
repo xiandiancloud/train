@@ -8,10 +8,10 @@ import com.dhl.domain.VerticalTrain;
 @Repository
 public class VerticalTrainDao extends BaseDao<VerticalTrain> {
 	
-	/*public List<VerticalTrain> getVerticalTrainList(int verticalId){
+	public List<VerticalTrain> getVerticalTrainList(int verticalId){
 		String hql = "from VerticalTrain where verticalId = "+verticalId;
     	return find(hql);
-    }*/
+    }
 	
 	public List<VerticalTrain> getAllTrainByCourseId(int courseId)
 	{

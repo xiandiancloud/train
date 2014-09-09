@@ -11,7 +11,7 @@
 	<link href="tcss/bootstrap-combined.no-icons.min.css" rel="stylesheet">
   </head>
   <body >
-                      <form action='//jquery-file-upload.appspot.com/' enctype='multipart/form-data' id='fileupload' method='POST'>
+                      <form action='cms/uploadtrain.action' enctype='multipart/form-data' id='fileupload' method='POST'>
                         
                             <span class='btn btn-success fileinput-button'style="">
                               <i class='icon-plus icon-white'></i>
@@ -24,7 +24,7 @@
                         </table>
                       </form>
               <script id="template-upload" type="text/x-tmpl">
-                {% for (var i=0, file; file=o.files[i]; i++) { %}
+               {% for (var i=0, file; file=o.files[i]; i++) { %}
                 <tr class="template-upload fade">
                   <td class="preview"><span class="fade"></span></td>
                   <td class="name"><span>{%=file.name%}</span></td>
@@ -32,12 +32,22 @@
                   {% if (file.error) { %}
                   <td class="error" colspan="2"><span class="label label-important">Error</span> {%=file.error%}</td>
                   {% } else if (o.files.valid && !i) { %}
+                  <td>
+                    <div class="progress progress-success progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="bar" style="width:0%;"></div></div>
+                  </td>
+                  <td>{% if (!o.options.autoUpload) { %}
+                    <button class="btn btn-primary start">
+                      <i class="icon-upload icon-white"></i>
+                      <span>Start</span>
+                    </button>
+                    {% } %}</td>
                   {% } else { %}
+                  <td colspan="2"></td>
                   {% } %}
                   <td>{% if (!i) { %}
-                    <button class="btn btn-danger cancel">
-                      <i class="icon-trash icon-white"></i>
-                      <span>delete</span>
+                    <button class="btn btn-warning cancel">
+                      <i class="icon-ban-circle icon-white"></i>
+                      <span>Cancel</span>
                     </button>
                     {% } %}</td>
                 </tr>
@@ -48,11 +58,13 @@
                 {% for (var i=0, file; file=o.files[i]; i++) { %}
                 <tr class="template-download fade">
                   {% if (file.error) { %}
+ {%alert("11111---- "+file.name+"   ,   "+file.size);%}
                   <td></td>
                   <td class="name"><span>{%=file.name%}</span></td>
                   <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
                   <td class="error" colspan="2"><span class="label label-important">Error</span> {%=file.error%}</td>
                   {% } else { %}
+ {%alert("2222---- "+file.name);%}
                   <td class="preview">{% if (file.thumbnail_url) { %}
                     <a href="{%=file.url%}" title="{%=file.name%}" data-gallery="gallery" download="{%=file.name%}"><img src="{%=file.thumbnail_url%}"></a>
                     {% } %}</td>

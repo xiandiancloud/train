@@ -48,8 +48,28 @@ $(document).ready(function() {
 			else
 				ele.removeClass("is-collapsed");
 		};
+		
+		var hide=function(){
+			//var ele=$(".new-subsection");
+			var ele=$(this).parent().parent().parent().parent();
+			ele.hide();
+		};
+				
+		var show_div=function(){
+			$("#contain").css("height",$(document).height());  
+	        $("#contain").css("width",$(document).width());  
+	        $("#contain").show();
+			var win = $("#dialog");
+			var left=($(window).width() - win.width())/2 + $(document).scrollLeft();
+			var top=($(window).height() - win.height())/2 + $(document).scrollTop();
+			win.css("left",left).css("top",top);
+			win.show();
+		};
 			
-		//this.addButtonActions($('#content'));		
+		//this.addButtonActions($('#content'));
+		$('.configure-button').bind('click', show_div);
+		$('.new-section-name-cancel').bind('click', hide);
+		$('.new-subsection-name-cancel').bind('click', hide);
 		$('.button-new-section').bind('click', new_section);
 		$('.button-new-subsection').bind('click', new_subsection);
 		$('.section-header-details').bind('click', section_drag_or_drop);

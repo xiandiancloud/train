@@ -139,6 +139,7 @@ public class CmsUserController extends BaseController {
 			String result = "{'sucess':'sucess','tocUrl':'"+toUrl+"'}";
 			out.write(result);
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 	

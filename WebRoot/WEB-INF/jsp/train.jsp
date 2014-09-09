@@ -55,15 +55,15 @@
 			</button>
 		</div>
 		<div class="navbar-collapse collapse">
-					<div class="row topback">
-			<div class="col-sm-3 topback left margin5">
+					<div class="row">
+			<%-- <div class="col-sm-3 topback left margin5">
 				<a href="javascript:gotouppage();"><span
 					class="glyphicon glyphicon-arrow-left">${course.name}</span></a>
 			</div>
-			<div class="col-sm-7 topback text-center margin5">操作控制台</div>
+			<div class="col-sm-7 topback text-center margin5">操作控制台</div> --%>
 			<div class="col-sm-1 topback text-center margin5">
 				<a href="javascript:pasueClock();"><span
-					class="glyphicon glyphicon-pause">暂停</span></a>
+					class="glyphicon glyphicon-pause">1111暂停</span></a>
 			</div>
 			<div class="col-sm-1 topback text-center margin5">
 				<a><span class="glyphicon glyphicon-time" id="clock"></span></a>
@@ -91,9 +91,16 @@
 		</div> --%>
 		<div class="row topback">
 			<div class="col-sm-4 nospace theight">
-
 				<div class="panel" id="leftpanel">
 					<div class="panel-body">
+								aaaaaaaaaaaaaaaaaaaaaa
+				<div >
+					<div class="topback left margin5">
+						<a href="javascript:gotouppage();"><span
+							class="glyphicon glyphicon-arrow-left">1111111</span></a>
+					</div>
+					<div class="topback text-center margin5">操作控制台</div>
+				</div>
 						<div id="pagination" class="center"></div>
 						<div class="panel panel-default cmargin5">
 						  <div class="h30 l1back hfont">

@@ -34,6 +34,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
+	<link href="css/bootfineuploader.css" rel="stylesheet" type="text/css" />
+	<script src="js/fineuploader.js"></script>
 	<script src="js/common.js"></script>
   </head>
   <body>
@@ -71,9 +73,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                   <div style="float:left;text-align:right;margin-right:5px;width:20%;border:1px;font-size:14px;font-weight:bold;margin-top:2%;">模板</div>
                   <div style="margin-bottom:1%;float:left;width:70%;margin-left:5px;">
                   	<select id="envname" style="width:100%;height:40px;margin-top:1.5%;">
-	                  	<option value="1">1</option>
-	                  	<option value="2">2</option>
-	                  	<option value="3">3</option>
+	                  	<option value="创建虚拟机">创建虚拟机</option>
+	                  	<option value="创建虚拟机2">创建虚拟机2</option>
+	                  	<option value="创建虚拟机3">创建虚拟机3</option>
                   	</select>
                   </div>
                   </div>
@@ -107,13 +109,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     </div>
                     <div class='box-content' style="height:130px;">
                     <div>
-                  <div style="float:left;text-align:right;margin-right:5px;width:20%;border:1px;font-size:14px;font-weight:bold;margin-top:5%;">验证脚本</div>
-                  
-                  <div style="float:left;width:70%;margin-bottom:2%;margin-left:5px;">
-                  <div class="box-content"style="display:inline-talbe;float:left;width:100%;margin-top:2%;">
-                  <iframe width="100%" scrolling="yes"  frameborder="0"   src="fileupload.html" onload="this.height=84;var fdh=(this.Document?this.Document.body.scrollHeight:this.contentDocument.body.offsetHeight);this.height=(fdh>84?fdh:84)"></iframe>
-                  </div>
-                  </div>
+	                  <div style="float:left;text-align:right;margin-right:5px;width:20%;border:1px;font-size:14px;font-weight:bold;margin-top:5%;">验证脚本</div>
+	                  
+	                  <div style="float:left;width:70%;margin-bottom:2%;margin-left:5px;">
+	                  <div class="box-content"style="display:inline-talbe;float:left;width:100%;margin-top:2%;">
+	                  <!-- <iframe width="100%" scrolling="yes"  frameborder="0"   src="fileupload.html" onload="this.height=84;var fdh=(this.Document?this.Document.body.scrollHeight:this.contentDocument.body.offsetHeight);this.height=(fdh>84?fdh:84)"></iframe> -->
+	                  <div id="result-uploader"></div>
+	                  <input type="hidden" id="conShell"/>
+	                  </div>
+	                  
+	                  </div>
                   </div>
                     </div>
                   </div>
@@ -193,9 +198,45 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
          </div>    
          <script>
     	$(function() {
-		    /*init template ,   data  */
+    		createUploader();
+    		
 		});
-		
+    	function createUploader() { 
+    		var uploader = new qq.FineUploader({ 
+    	    	element: document.getElementById('result-uploader'), 
+    	    	request: { 
+    	    	endpoint: 'cms/uploadtrain.action' 
+    	    	}, 
+    	    	text: { 
+    	    	uploadButton: '<button class="btn btn-warning"><i class="icon-upload"></i>上传</button>' 
+    	    	},   
+    	    	validation:{
+        			allowedExtensions: ['sh']
+        		},
+    	    	template: 
+    	    		 '<div class="qq-uploader">' +
+    	    		  '<pre class="qq-upload-drop-area"><span>{dragZoneText}</span></pre>' +
+    	    		  '<div class="qq-upload-button btn btn-success" style="width: auto;">{uploadButtonText}</div>' +
+    	    		  '<span class="qq-drop-processing" style="display:none"><span>{dropProcessingText}</span>'+
+    	    		  '<span class="qq-drop-processing-spinner"></span></span>' +
+    	    		  '<ul class="qq-upload-list" style="margin-top: 10px; text-align: center;"></ul>' +
+    	    		  '</div>', 
+    	    	classes: { 
+    	    	success: 'alert alert-success', 
+    	    	fail: 'alert alert-error' 
+    	    	}, 
+    	    	callbacks:{
+    	    		onComplete: function(id,  fileName,  responseJSON){		
+    	    			if (responseJSON.success == "true")
+    	    			{
+    	    				//alert(responseJSON.imgpath);
+    	    				$("#conShell").attr("value",responseJSON.shell);
+    	    			}
+    	    		}
+    	    	},
+    	    	debug: true 
+    	    	}); 
+    	}
     	function savetrain()
     	{
     		var sequenticalId = parseInt("${sequentialId}");
@@ -216,9 +257,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}
 			var envname = $("#envname").val();
 			var conContent = $("#conContent").contents().find("#editor").html();
-			var conShell = "";
+			conContent = replaceTextarea1(conContent);
+			var conShell = $("#conShell").val();
 			var conAnswer = $("#conAnswer").contents().find("#editor").html();
-			
+			conAnswer = replaceTextarea1(conAnswer);
 			var temp = $("#score").val();
 			if (!isInteger(temp))
 			{
