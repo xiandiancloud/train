@@ -66,11 +66,11 @@
 			<div class="col-sm-3">
 				<div class="list-group">
 					<a href="lms/setting.action?index=1"
-						class="list-group-item list-group-item-primary <c:if test='${setindex == 1}'>active</c:if>">
+						class="list-group-item list-group-item-success <c:if test='${setindex == 1}'>active</c:if>">
 						个人 设置 </a> <a href="lms/setting.action?index=2"
-						class="list-group-item list-group-item-primary <c:if test='${setindex == 2}'>active</c:if>">我的云平台</a>
+						class="list-group-item list-group-item-success <c:if test='${setindex == 2}'>active</c:if>">我的云平台</a>
 					<a href="lms/setting.action?index=3"
-						class="list-group-item list-group-item-primary <c:if test='${setindex == 3}'>active</c:if>">我的实验</a>
+						class="list-group-item list-group-item-success <c:if test='${setindex == 3}'>active</c:if>">我的实验</a>
 				</div>
 			</div>
 			<c:if test="${setindex == 1}">
@@ -255,7 +255,7 @@
 								<textarea class="form-control" rows="3"></textarea>
 								<div class="clear"></div>
 								<div class="clear"></div>
-								<button type="button" class="btn btn-primary btn-lg btn-block"
+								<button type="button" class="btn btn-success btn-lg btn-block"
 									onclick="">修改</button>
 							</div>
 						</form>
@@ -269,7 +269,7 @@
 						<table class="table table-bordered table-hover h5">
 							<caption></caption>
 							<thead>
-								<tr class="setback">
+								<tr class="success">
 									<th>名称</th>
 									<th>创建时间</th>
 									<th></th>

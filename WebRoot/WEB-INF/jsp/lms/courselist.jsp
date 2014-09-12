@@ -61,7 +61,7 @@
 	<jsp:include page="header.jsp"></jsp:include>
 	<div id='wrapper'>
 		<section id=''>
-			<div class="tback">
+			<!-- <div class="tback">
 				<div class="container">
 					<div class="row nospace">
 						<div class="clear"></div>
@@ -70,10 +70,8 @@
 						</div>
 					</div>
 				</div>
-			</div>
+			</div> -->
 			<div class="container">
-				<div class="clear"></div>
-				<div class="clear"></div>
 				<div class="row none" id="myrecentlycourse">
 					<div class="col-xs-12 center">
 						<h3>欢迎回来</h3>
@@ -106,7 +104,7 @@
 					<div class="col-xs-12 clear"></div>
 					<div class="col-xs-12 center">
 						<a href="#" id="hrefcourse">
-							<button type="button" class="btn btn-primary btn-lg">继续学习</button>
+							<button type="button" class="btn btn-success btn-lg">继续学习</button>
 						</a>
 					</div>
 					<div class="col-xs-12 center">
@@ -114,16 +112,17 @@
 					</div>
 
 				</div>
-				<div class="clear"></div>
 				<c:forEach var="category" items="${category}">
 					<div class="row">
-						<div class="col-xs-12 center">
-							<h3>${category.name}</h3>
+						<div class="col-xs-12 left nospace">
+							<h1>${category.name}</h1>
 						</div>
 						<%-- <div class="col-xs-12 center">
 							<h4>${category.describle}</h4>
 						</div> --%>
-						<div id="category${category.id}"></div>
+						<div class="col-xs-12 clear"></div>
+						<div id="category${category.id}"></div>	
+						<div class="col-xs-12 clear"></div>
 						<div class="col-xs-12 center" id="nav${category.id}"></div>
 					</div>
 					<div class="clear"></div>
@@ -169,6 +168,23 @@
 	<script src="js/common.js" type="text/javascript"></script>
 	<script src="js/holder.js"></script>
 	<script>
+	
+/* 	var turn = function(target,time,opts){
+		target.find('a').hover(function(){
+			$(this).find('img').stop().animate(opts[0],time,function(){
+				$(this).hide().next().show();
+				$(this).next().animate(opts[1],time);
+			});
+		},function(){
+			$(this).find('.info').animate(opts[0],time,function(){
+				$(this).hide().prev().show();
+				$(this).prev().animate(opts[1],time);
+			});
+		});
+	}
+	var verticalOpts = [{'width':0},{'width':'100%'}];
+	turn($('#vertical'),100,verticalOpts); */
+	
 		$(function() {
 			<c:forEach items="${category}" var="category">
 			loadCourse("${category.id}", 1);
@@ -177,15 +193,39 @@
 		});
 
 		function addimgmove() {
-			$('.boxgrid').hover(function() {
-				//$(".cover", this).stop().animate({top:'-150px'},{queue:false,duration:300});
+			$('.vertical a').hover(function(){
+				$(this).find('img').stop().animate({'width':0},100,function(){
+					$(this).hide().next().show();
+					$(this).next().animate({'width':'100%'},100);
+				});
+			},function(){
+				$(this).find('.info').animate({'width':0},100,function(){
+					$(this).hide().prev().show();
+					$(this).prev().animate({'width':'100%'},100);
+				});
+			});
+			/* $('.boxgrid a').hover(function() {
+				$(this).find('img').stop(true).animate({'height':0,'top':'35px'},80,function(){
+					$(this).hide().next().show();
+					console.info($(this).hide().next());
+					$(this).next().animate({
+						'height':'70px',
+						'top':'0'
+					},80);
+				});
 				$(".cover", this).hide();
 				$(".desc", this).show();
 			}, function() {
 				$(".cover", this).show();
 				$(".desc", this).hide();
-				//$(".cover", this).stop().animate({top:'0px'},{queue:false,duration:300});
-			});
+				$(".desc", this).animate({'height':0,'top':'35px'},80,function(){
+					$(this).hide().prev().show();
+					$(this).prev().animate({
+						'height':'70px',
+						'top':'0'
+					},80);
+				});
+			}); */
 		}
 		function loadmyCourse() {
 			$.ajax({
@@ -230,7 +270,7 @@
 								var name = course.name;
 								var desc = course.desc;
 								var imgpath = course.imgpath;
-								tmp += '<div class="col-sm-3 boxgrid">'
+								/* tmp += '<div class="col-sm-3 boxgrid">'
 										+ '<a href="lms/getCourse.action?courseId='
 										+ id
 										+ '" class="">'
@@ -239,7 +279,12 @@
 										+ '" alt="..." width="100%"	height="150px;" class="img-rounded cover">'
 										+ '<div class="desc none">' + desc
 										+ '</div>' + '<h3>' + name + '</h3>'
-										+ '</a>' + '</div>';
+										+ '</a>' + '</div>'; */
+								
+							
+								tmp +='<div class="brand vertical col-sm-3">'+
+									'<a href="lms/getCourse.action?courseId='+id+'"><img src="'+imgpath+'" /><div class="info">'+desc+'</div><h3>'+name+'</h3></a>'+
+								'</div>';
 							}
 							tmp += '</div>';
 							$("#category" + categoryId).html(tmp);

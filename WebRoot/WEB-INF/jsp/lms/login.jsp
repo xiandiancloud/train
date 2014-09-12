@@ -61,8 +61,8 @@
 	<jsp:include page="header.jsp"></jsp:include>
 	<div id='wrapper'>
 		<section id=''>
-			<div class="container cpading">
-				<div class="row  wback nospace">
+			<div class="container">
+				<div class="row">
 					<div class="col-sm-12 hptop">
 						</br>
 						<h3>
@@ -71,15 +71,14 @@
 							</p>
 							<p class="left40">来访问你的实验</p>
 						</h3>
-		
 					</div>
 				</div>
-				<div class="row  wback nospace">
+				<div class="row">
 					<div class="col-sm-12">
 					<hr>
 					</div>
 					<div class="clear"></div>
-					<div class="col-sm-8">
+					<div class="col-sm-7">
 						<form role="form">
 							<div class="form-group">
 								<a>电子邮件&nbsp;*</a>
@@ -91,12 +90,12 @@
 								<input type="password" class="form-control" id="password" placeholder="文本输入">
 								<div class="clear"></div>
 								<div class="clear"></div>
-								<button type="button" class="btn btn-primary btn-lg btn-block" onclick="login();">
+								<button type="button" class="btn btn-success btn-lg btn-block" onclick="login();">
 									登陆+进入我的实验</button>
 							</div>
 						</form>
 					</div>
-					<div class="col-sm-4">
+					<div class="col-sm-5">
 					<a>尚未注册？</a></br>
 					<div class="clear"></div>
 					<p>
@@ -113,6 +112,7 @@
 			</div>
 		</section>
 	</div>
+	<div class="h40"></div>
 	<jsp:include page="footer.jsp"></jsp:include>
 	<!-- / jquery [required] -->
 	<script src="assets/javascripts/jquery/jquery.min.js"

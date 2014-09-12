@@ -63,8 +63,7 @@
 		<section id=''>
 		<div class="container">
 			<div class="row  wback nospace">
-				<div class="clear"></div>
-				<div class="col-sm-3">
+				<div class="col-sm-3 nospace">
 					<a href="lms/getAllCategory.action" class="thumbnail"> <img
 						src="images/addcourse.png" alt="添加我的课程">
 					</a>
@@ -73,11 +72,10 @@
 					<img src="images/addct.png" alt="添加我的课程">
 				</div>
 			</div>
-			<div class="row center wback nospace"><h3>进行中的课程</h3></div>
+			<div class="clear"></div>
+			<div class="row center nospace"><h3>进行中的课程</h3></div>
 			<c:forEach var="ucourse" items="${having}">
 				<div class="row wback nospace">
-					<hr>
-					<div class="clear"></div>
 					<div class="col-sm-3 courseh">
 						<a> <img src="${ucourse.course.imgpath}" alt="..." width="100%"
 							height="150px;" class="img-rounded">
@@ -94,13 +92,13 @@
 						</p>
 					</div>
 					<div class="col-sm-2">
-	
+						<div class="clear"></div>
 						<div class="wrap">
 							<div class="subwrap">
 								<div class="content">
 									<p>
 										<a href="lms/getCourse.action?courseId=${ucourse.course.id}"><button
-												type="button" class="btn btn-primary">进入学习</button> </a>
+												type="button" class="btn btn-success">进入学习</button> </a>
 	
 									</p>
 								</div>
@@ -109,9 +107,9 @@
 	
 					</div>
 				</div>
+				<div class="clear"></div>
 			</c:forEach>
-			<div class="h10 wback nospace"></div>
-			<div class="row center wback nospace"><h3>完成的课程</h3></div>
+			<div class="row center nospace"><h3>完成的课程</h3></div>
 			<c:forEach var="ucourse" items="${finish}">
 				<div class="row wback nospace">
 					<hr>
@@ -138,7 +136,7 @@
 								<div class="content">
 									<p>
 										<a href="lms/getCourse.action?courseId=${ucourse.course.id}"><button
-												type="button" class="btn btn-primary">继续学习</button> </a>
+												type="button" class="btn btn-success">继续学习</button> </a>
 	
 									</p>
 								</div>
