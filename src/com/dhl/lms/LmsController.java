@@ -540,6 +540,11 @@ public class LmsController extends BaseController {
 		}
 	}
 
+	/**
+	 * 我的课程
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping("/mycourse")
 	public ModelAndView mycourse(HttpServletRequest request) {
 		ModelAndView view = new ModelAndView();
@@ -561,6 +566,32 @@ public class LmsController extends BaseController {
 		return view;
 	}
 
+	/**
+	 * 课程列表
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/courselist")
+	public ModelAndView courselist(HttpServletRequest request) {
+		ModelAndView view = new ModelAndView();
+//		User user = getSessionUser(request);
+//		// if (user == null) {
+//		// String url = "redirect:/tologin.action";
+//		// return new ModelAndView(url);
+//		// }
+//		// List<UserCourse> mycourses = userCourseService.getMyAllCourse(user
+//		// .getId());
+//		List<UserCourse> mycourses = userCourseService.getMyHavingCourse(user
+//				.getId());
+//		view.addObject("having", mycourses);
+//		List<UserCourse> mycourses2 = userCourseService.getMyFinishCourse(user
+//				.getId());
+//		view.addObject("finish", mycourses2);
+//		view.addObject("navindex", 2);
+		view.setViewName("/lms/online");
+		return view;
+	}
+	
 	@RequestMapping("/getAllCourse")
 	public ModelAndView getAllCourse(HttpServletRequest request, int currentpage) {
 		ModelAndView view = new ModelAndView();
