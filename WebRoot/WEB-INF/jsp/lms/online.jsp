@@ -17,7 +17,7 @@
 <head>
 <base href="<%=basePath%>">
 
-<title>学堂在线</title>
+<title>课程列表</title>
 
 <meta
 	content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'
@@ -107,6 +107,7 @@
 
 				</div>
 				<div class="clear"></div>
+				<c:forEach var="course" items="${courselist}">
 				<div class="row wback nospace">
 					<div class="col-sm-3 courseh">
 						<a> <img src="" alt="..." width="100%" height="150px;"
@@ -116,11 +117,11 @@
 					<div class="col-sm-7">
 						<p>
 							<a>
-								<h1>1111</h1>
+								<h1>${course.name}</h1>
 							</a>
 						</p>
 						<p>
-							<a> 2222</a>
+							<a>${course.describle}</a>
 						</p>
 					</div>
 					<div class="col-sm-2">
@@ -129,8 +130,8 @@
 							<div class="subwrap">
 								<div class="content">
 									<p>
-										<a href="lms/getCourse.action?courseId=1"><button
-												type="button" class="btn btn-success">进入学习</button> </a>
+										<a href="lms/getCourse.action?courseId=${course.id}"><button
+												type="button" class="btn btn-success">进入课程</button> </a>
 
 									</p>
 								</div>
@@ -140,11 +141,12 @@
 					</div>
 				</div>
 				<div class="clear"></div>
+				</c:forEach>
 			</div>
 		</section>
 	</div>
 
-	<div id="pagination" class="center"></div>
+	<ul id="pagination" class="center"></ul>
 
 	<jsp:include page="footer.jsp"></jsp:include>
 
@@ -189,15 +191,14 @@
 			initlist();
 		});
 		function initlist() {
-			var totalPages = 2;
-			currentPage = 1;
-			totalPages = 2;
+			var totalPages = parseInt("${totalpage}");
+			var currentPage = "${currentpage}";
 			$
 					.jqPaginator(
 							'#pagination',
 							{
 								totalPages : totalPages,
-								visiblePages : 4,
+								visiblePages : 5,
 								currentPage : currentPage,
 
 								wrapper : '<ul class="pagination lastspan"></ul>',
@@ -207,9 +208,11 @@
 								/*  last : '<li class="last"><a href="javascript:void(0);">尾页</a></li>', */
 								page : '<li class="page"><a href="javascript:void(0);">{{page}}</a></li>',
 								onPageChange : function(num) {
-									currentPage = num;
-									resetTrain(num);
-									timeservice(0);
+									if (currentPage != num)
+									{
+										location.href="lms/courselist.action?currentpage="+num;
+									}
+									
 								}
 							});
 		}

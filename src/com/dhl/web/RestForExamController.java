@@ -22,6 +22,7 @@ import com.dhl.domain.Train;
 import com.dhl.domain.Vertical;
 import com.dhl.domain.VerticalTrain;
 import com.dhl.service.CourseService;
+import com.dhl.service.TrainService;
 
 /**
  * 为考试题库的restful
@@ -33,6 +34,8 @@ public class RestForExamController {
 
 	@Autowired
 	private CourseService courseService;
+	@Autowired
+	private TrainService trainService;
 	
 	/**
 	 * 取得实训课程列表
@@ -60,6 +63,67 @@ public class RestForExamController {
 		
 		RestTrain rt = new RestTrain();
 		rt.setCourselist(str);
+		return rt;
+	}
+	
+	/**
+	 * 取得所有实训列表
+	 * @param request
+	 * @param response
+	 * @param rshell
+	 * @return
+	 */
+	@RequestMapping(method = RequestMethod.POST, value = "/examtrainlist", headers = "Accept=application/xml, application/json")
+	public @ResponseBody
+	RestTrain examtrainlist(HttpServletRequest request, HttpServletResponse response,@RequestBody RestTrain rshell) {
+
+		List<Train> list = trainService.getAllTrain();
+		String str = "[";
+		for (Train c:list)
+		{
+			str += "{'id':'"+c.getId()+"','name':'"+c.getName()+"'},";
+		}
+		if (str.length() > 1)
+		{
+			str = str.substring(0,str.length()-1);
+		}
+		str += "]";
+//		String str = JSONArray.fromObject(list).toString();
+		
+		RestTrain rt = new RestTrain();
+		rt.setCourselist(str);
+		return rt;
+	}
+	
+	/**
+	 * 取得一个实训的组织结构
+	 * @param request
+	 * @param response
+	 * @param rshell
+	 * @return
+	 */
+	@RequestMapping(method = RequestMethod.POST, value = "/examtrain", headers = "Accept=application/xml, application/json")
+	public @ResponseBody
+	RestTrain examtrain(HttpServletRequest request, HttpServletResponse response,@RequestBody RestTrain rshell) {
+
+		int courseId = rshell.getCourseId();
+		Train t = trainService.get(courseId);
+		
+		String tname = t.getName();
+		String codenum = t.getCodenum();
+		String envname = t.getEnvname();
+		String conContent = t.getConContent();
+		String conShell = t.getConShell();
+		String conAnswer = t.getConAnswer();
+		int score = t.getScore();
+		String scoretag = t.getScoretag();
+		
+		String str = "{'name':'"+tname+"','codenum':'"+codenum+"','conContent':'"+conContent
+				+"','conShell':'"+conShell+"','conAnswer':'"+conAnswer+"','score':'"+score
+				+"','scoretag':'"+scoretag+"','envname':'"+envname+"'}";
+		
+		RestTrain rt = new RestTrain();
+		rt.setCourse(str);
 		return rt;
 	}
 	

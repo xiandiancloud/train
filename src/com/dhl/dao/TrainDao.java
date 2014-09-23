@@ -18,4 +18,10 @@ public class TrainDao extends BaseDao<Train> {
 			return list.get(0);
 		}
 	}
+	
+	public List<Train> getAllTrain()
+	{
+		String hql = "from Train";
+		return find(hql);
+	}
 }

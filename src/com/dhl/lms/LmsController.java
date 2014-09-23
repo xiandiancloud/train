@@ -572,22 +572,15 @@ public class LmsController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping("/courselist")
-	public ModelAndView courselist(HttpServletRequest request) {
+	public ModelAndView courselist(HttpServletRequest request,int currentpage) {
 		ModelAndView view = new ModelAndView();
-//		User user = getSessionUser(request);
-//		// if (user == null) {
-//		// String url = "redirect:/tologin.action";
-//		// return new ModelAndView(url);
-//		// }
-//		// List<UserCourse> mycourses = userCourseService.getMyAllCourse(user
-//		// .getId());
-//		List<UserCourse> mycourses = userCourseService.getMyHavingCourse(user
-//				.getId());
-//		view.addObject("having", mycourses);
-//		List<UserCourse> mycourses2 = userCourseService.getMyFinishCourse(user
-//				.getId());
-//		view.addObject("finish", mycourses2);
-//		view.addObject("navindex", 2);
+		Page page = courseService.getAllCourse(currentpage,
+				CommonConstant.COURSELIST_SIZE);
+		List<Course> courses = page.getResult();
+		int totalpage = (int) page.getTotalPageCount();
+		view.addObject("courselist", courses);
+		view.addObject("totalpage", totalpage);
+		view.addObject("currentpage", currentpage);
 		view.setViewName("/lms/online");
 		return view;
 	}

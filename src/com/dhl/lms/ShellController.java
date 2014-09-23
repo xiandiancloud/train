@@ -13,6 +13,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
 
+import ch.ethz.ssh2.Connection;
+import ch.ethz.ssh2.SCPClient;
+import ch.ethz.ssh2.Session;
+
 import com.dhl.domain.RestShell;
 import com.dhl.domain.UCEnvironment;
 import com.dhl.domain.User;
@@ -47,7 +51,6 @@ public class ShellController extends BaseController {
 		try {
 			String rp = request.getSession().getServletContext()
 					.getRealPath("/");
-			System.out.println(rp);
 			PrintWriter out = response.getWriter();
 			User user = getSessionUser(request);
 //			if (user == null) {
@@ -57,6 +60,18 @@ public class ShellController extends BaseController {
 //			} else {
 
 				System.out.println("path ---------- " + path);
+				//
+				//远程上传文件传递
+				String restid = UtilTools.getConfig().getProperty("RESTHOST_ID");
+				String restusername = UtilTools.getConfig().getProperty("RESTHOST_USERNAME");
+				String restpassword = UtilTools.getConfig().getProperty("RESTHOST_PASSWORD");
+				Connection conn = UtilTools.getConnection(restid, restusername, restpassword);
+				System.out.println("shell-------------------------22222222222"+path);
+				if (conn != null) {
+//					Session ssh = conn.openSession();
+					SCPClient scpClient = conn.createSCPClient();
+					scpClient.put(rp + path, "/tmp", "0755");
+				}
 				// ----------shell start--------------
 				UCEnvironment uce = uceService.getMyUCE(user.getId(), courseId,
 						name);

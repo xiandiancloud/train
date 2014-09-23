@@ -1,5 +1,7 @@
 package com.dhl.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +27,15 @@ public class TrainService {
 	private CourseDao courseDao;
 	@Autowired
 	private VerticalDao verticalDao;
+	
+	/**
+	 * 取得所有实训
+	 * @return
+	 */
+	public List<Train> getAllTrain()
+	{
+		return trainDao.getAllTrain();
+	}
 	
 	/**
 	 * 根据编码取得实验
