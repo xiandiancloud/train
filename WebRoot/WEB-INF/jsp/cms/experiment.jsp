@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -50,6 +51,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     </div>
                     <div class='box-content' style="height:100px;">
                     <div>
+                    <input type="hidden" id="vtrainid">
 	                  <div style="float:left;text-align:right;margin-right:5px;width:20%;border:1px;font-size:14px;font-weight:bold;margin-top:2%;">名称</div>
 	                  <div style="float:left;width:70%;margin-left:5px;"><input id="trainname" type="text" value="" style="width:100%;height:40px;margin-top:1.5%;"></div>
 	                </div>
@@ -186,8 +188,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <div class="col-sm-4" style="margin-bottom:40px;clear:left;padding-top:15px;">
                 <div>
                   <div style="float:left;text-align:right;margin-right:5px;width:50%;border:1px;font-size:14px;font-weight:bold;">
-                  	<button class="btn btn-primary" type="submit" style="margin-right:20px;" onclick="savetrain();">
+                  	<button id="savebutton" class="btn btn-primary" type="button" style="margin-right:20px;" onclick="savetrain();">
                         <i class="icon-save"></i>保存
+                    </button>
+                  </div>
+                  <div style="float:left;text-align:right;margin-right:5px;width:50%;border:1px;font-size:14px;font-weight:bold;">
+                  	<button id="editbutton" class="btn btn-primary" type="button" style="margin-right:20px;" onclick="updatetrain();">
+                        <i class="icon-edit"></i>编辑
                     </button>
                   </div>
                   <div style="float:left;text-align:left;margin-right:5px;width:40%;border:1px;font-size:14px;font-weight:bold;">
@@ -237,6 +244,39 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	    	debug: true 
     	    	}); 
     	}
+    	function inittrain(id,name,codenum,envname,conContent,conShell,conAnswer,score,scoretag)
+    	{
+    		$("#vtrainid").attr("value",id);
+    		$("#trainname").attr("value",name);
+    		$("#codenum").attr("value",codenum);
+    		
+    		$("#envname").attr("value",envname);
+    		conContent = replaceTextarea2(conContent);
+			$("#conContent").contents().find("#editor").html(conContent);
+			//conContent = replaceTextarea1(conContent);
+			$("#conShell").attr("value",conShell);
+			conAnswer = replaceTextarea2(conAnswer);
+			$("#conAnswer").contents().find("#editor").html(conAnswer);
+			//conAnswer = replaceTextarea1(conAnswer);
+			$("#score").attr("value",score);
+			//var scoretag = "";
+			$("#savebutton").hide();
+			$("#editbutton").show();
+    	}
+    	function resettrain()
+    	{
+    		$("#vtrainid").attr("value","");
+    		$("#trainname").attr("value","");
+    		$("#codenum").attr("value","");
+    		
+    		$("#envname").attr("value","");
+			$("#conContent").contents().find("#editor").html("");
+			$("#conShell").attr("value","");
+			$("#conAnswer").contents().find("#editor").html("");
+			$("#score").attr("value","");
+			$("#savebutton").show();
+			$("#editbutton").hide();
+    	}
     	function savetrain()
     	{
     		var sequenticalId = parseInt("${sequentialId}");
@@ -285,6 +325,55 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					else
 					{
 						alert(a.msg);
+					}
+				}
+			});
+    	}
+    	function updatetrain()
+    	{
+    		var sequenticalId = parseInt("${sequentialId}");
+			var verticalId = parseInt("${verticalId}");
+			var courseId = parseInt("${courseId}"); 
+			
+    		var trainId = parseInt($("#vtrainid").val());
+			var name = $("#trainname").val();
+			var codenum = $("#codenum").val();
+			if (isNull(name))	
+			{
+				alert("名称不能为空");
+				return ;
+			}
+			if (isNull(codenum))	
+			{
+				alert("编号不能为空");
+				return ;
+			}
+			var envname = $("#envname").val();
+			var conContent = $("#conContent").contents().find("#editor").html();
+			conContent = replaceTextarea1(conContent);
+			var conShell = $("#conShell").val();
+			var conAnswer = $("#conAnswer").contents().find("#editor").html();
+			conAnswer = replaceTextarea1(conAnswer);
+			var temp = $("#score").val();
+			if (!isInteger(temp))
+			{
+				alert("分值必须是数字");
+				return ;
+			}
+			var score = parseInt(temp);
+			var scoretag = "";
+			//alert("name --- "+name+" , "+codenum+"  ,  "+envname);
+			//$('#editor').wysiwyg();
+			var data = {trainId:trainId,name:name,codenum:codenum,envname:envname,conContent:conContent,conShell:conShell,conAnswer:conAnswer,score:score,scoretag:scoretag};
+			$.ajax({
+				url:"cms/updateTrain.action",
+				type:"post",
+				data:data,
+				success:function(s){
+					var a=eval("("+s+")");	
+					if (a.sucess=="sucess")
+					{
+						location.href = "cms/tottrain.action?courseId="+courseId+"&sequentialId="+sequenticalId+"&verticalId="+verticalId;
 					}
 				}
 			});

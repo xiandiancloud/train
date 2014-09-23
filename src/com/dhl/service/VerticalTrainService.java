@@ -28,4 +28,23 @@ public class VerticalTrainService {
 	{
 		return verticalTrainDao.getAllTrainByCourseId(courseId);
 	}
+	
+	/**
+	 * 根据id取得单元下实训
+	 * @param id
+	 * @return
+	 */
+	public VerticalTrain get(int id)
+	{
+		return verticalTrainDao.get(id);
+	}
+	
+	/**
+	 * 删除单元下的实训
+	 * @param id
+	 */
+	public void remove(int id)
+	{
+		verticalTrainDao.remove(get(id));
+	}
 }

@@ -57,7 +57,7 @@
       <script src="assets/javascripts/ie/respond.min.js" type="text/javascript"></script>
     <![endif]-->
 </head>
-<body class='contrast-blue fixed-header'>
+<body class='contrast-green fixed-header'>
 	<jsp:include page="header.jsp"></jsp:include>
 	<div id='wrapper'>
 		<section id=''>
@@ -93,7 +93,7 @@
 					<c:if test="${buttonshow == 0}">
 						<p class="right ctop">
 							<a href="lms/tocourse.action?courseId=${course.id}">
-								<button type="button" class="btn btn-primary">参加该课程</button>
+								<button type="button" class="btn btn-success">参加该课程</button>
 							</a>
 						</p>
 					</c:if>
@@ -106,7 +106,7 @@
 						<div class="h10"></div>
 						<div class="progress">
 							<div
-								class="progress-bar progress-bar-primary progress-bar-striped"
+								class="progress-bar progress-bar-success progress-bar-striped"
 								role="progressbar" aria-valuenow="40" aria-valuemin="0"
 								aria-valuemax="100" style="width: 0%">
 								<span class="sr-only"></span>
@@ -122,7 +122,7 @@
 						<p class="right top20">
 							<c:if test="${coursehaving == 0}">
 								<a href="lms/tocourse.action?courseId=${course.id}">
-									<button type="button" class="btn btn-primary">继续学习</button>
+									<button type="button" class="btn btn-success">继续学习</button>
 								</a>
 							</c:if>
 						</p>
@@ -193,7 +193,7 @@
 																							value="${vertical.id}" name="verticalId" /> <input
 																							type="hidden" value="${verticalTrains.train.id}"
 																							name="trainId" />
-																						<button type="submit" class="btn btn-primary">进入学习</button>
+																						<button type="submit" class="btn btn-success">进入学习</button>
 																					</form>
 																					</c:if>
 																				</div>

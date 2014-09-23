@@ -45,6 +45,35 @@ public class TrainService {
 		return t;
 	}
 
+	public Train get(int id)
+	{
+		return trainDao.get(id);
+	}
+	
+	public void update(Train entity)
+	{
+		trainDao.update(entity);
+	}
+	
+	public void update(int id,String name, String codenum, String envname,
+			String conContent, String conShell, String conAnswer, int score,
+			String scoretag) {
+
+		Train t = get(id);
+		if (t != null)
+		{
+			t.setName(name);
+			t.setCodenum(codenum);
+			t.setEnvname(envname);
+			t.setConContent(conContent);
+			t.setConShell(conShell);
+			t.setConAnswer(conAnswer);
+			t.setScore(score);
+			t.setScoretag(scoretag);
+			update(t);
+		}
+	}
+	
 	public String save(String name, String codenum, String envname,
 			String conContent, String conShell, String conAnswer, int score,
 			String scoretag, int courseId, int verticalId) {

@@ -107,6 +107,11 @@ public class CourseService {
 		return courseDao.getAllCourse(pageNo, pageSize);
 	}
 
+	public List<Course> getAllCourseList()
+	{
+		return courseDao.getAllCourseList();
+	}
+	
 	/**
 	 * 根据课程id取得课程
 	 * 

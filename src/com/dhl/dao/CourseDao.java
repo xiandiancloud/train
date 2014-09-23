@@ -20,4 +20,11 @@ public class CourseDao extends BaseDao<Course> {
 		return pagedQuery(hql, pageNo, pageSize);
 		
     }
+	
+	public List<Course> getAllCourseList(){
+		String hql = "from Course";
+//    	return find(hql);
+		return find(hql);
+		
+    }
 }

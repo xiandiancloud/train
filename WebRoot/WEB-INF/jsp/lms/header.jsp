@@ -52,6 +52,7 @@
 		</div>
 	</nav>
 </header> --%>
+<header>
 <nav class="navbar navbar-default" role="navigation">
 	<div class="container">
 		<div class="row">
@@ -66,13 +67,13 @@
 				      </button>
 					<a class='navbar-brand' href='lms/getAllCategory.action'> <img
 						width="51" height="48" class="logo" src="images/logo.png" /><a
-						class='navbar-brand top10'><img width="160" height="30"
+						class='navbar-brand'><img width="160" height="30"
 							class="logo" alt="Flatty" src="images/logo-lab.png" />
 					</a>
 				</div>
 				<div class="collapse navbar-collapse" id="example-navbar-collapse">
 					<!--向左对齐-->
-					<ul class="nav navbar-nav navbar-left">
+					<ul class="nav navbar-nav navbar-left pleft15">
 						<li><a href="lms/getAllCategory.action">首页</a></li>
 						<li><a href="lms/courselist.action">课程</a></li>
 						<li><a href="lms/mycourse.action">我的云课堂</a></li>
@@ -112,3 +113,4 @@
 		</div>
 	</div>
 </nav>
+</header>

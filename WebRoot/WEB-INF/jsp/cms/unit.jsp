@@ -75,6 +75,22 @@ function completeEdit(){
     		document.getElementById("t11").innerHTML=currentValue;
     }*/
 } 
+function delverticaltrain(id)
+{
+	var data = {id:id};
+	$.ajax({
+		url:"cms/deleteVerticalTrain.action",
+		type:"post",
+		data:data,
+		success:function(s){
+			var a=eval("("+s+")");	
+			if (a.sucess=="sucess")
+			{
+				location.reload();
+			}
+		}
+	});
+}
 function savever(name)
 {
 	var sequenticalId = parseInt("${sequentialId}");
@@ -1666,13 +1682,14 @@ img.MathJax_strut {
 										        <div class="header-actions">
 										            <ul class="actions-list">
 									                        <li class="action-item action-edit">
-									                            <a href="#" class="edit-button action-button">
+									                            <a href="javascript:void(0);" 
+									                            onclick="showtrain();inittrain('${vt.train.id}','${vt.train.name}','${vt.train.codenum}','${vt.train.envname}','${vt.train.conContent}','${vt.train.conShell}','${vt.train.conAnswer}','${vt.train.score}','${vt.train.scoretag}');" class="edit-button action-button">
 									                                <i class="icon-pencil"></i>
 									                                <span class="action-button-text">编辑</span>
 									                            </a>
 									                        </li>
 										                    <li class="action-item action-delete">
-										                        <a href="#" data-tooltip="删除" class="delete-button action-button">
+										                        <a href="javascript:void(0);" data-tooltip="删除" onclick="delverticaltrain(${vt.id});" class="delete-button action-button">
 										                        <i class="icon-trash"></i>
 										                        <span class="sr">删除</span>
 										                        </a>
@@ -1682,7 +1699,7 @@ img.MathJax_strut {
 										    </div>
 										 </header>
 										    <article class="xblock-render">
-										    实验题目：</br>${vt.train.conContent}
+										    ${vt.train.conContent}
 										    </article>
 										
 										    </section>
@@ -1695,15 +1712,15 @@ img.MathJax_strut {
 										</div>
 										<div class="add-xblock-component new-component-item adding">
 											<div class="new-component">
-												<h5>Add New Component</h5>
+												<h5>增加实验</h5>
 												<ul class="new-component-type">
-													<li><a
+<!-- 													<li><a
 														class="multiple-templates add-xblock-component-button"
 														data-type="problem"> <span
 															class="large-template-icon large-problem-icon"></span> <span
 															class="name">问题</span>
-													</a></li>
-													<li><a onclick="showtrain()"
+													</a></li> -->
+													<li><a onclick="showtrain();resettrain();"
 														class="multiple-templates add-xblock-component-button"
 														data-type="experiment"> <span
 															class="large-template-icon large-experiment-icon"></span>

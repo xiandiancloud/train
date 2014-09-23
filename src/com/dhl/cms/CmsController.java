@@ -279,6 +279,47 @@ public class CmsController extends BaseController {
 		return view;
 	}
 
+
+	/**
+	 * 删除单元下的实训
+	 * 
+	 * @param request
+	 * @param response
+	 */
+	@RequestMapping("/deleteVerticalTrain")
+	public void deleteVerticalTrain(HttpServletRequest request,
+			HttpServletResponse response, int id) {
+
+		try {
+			PrintWriter out = response.getWriter();
+			verticalTrainService.remove(id);
+			String str = "{'sucess':'sucess'}";
+			out.write(str);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * 得到单元下的实训
+	 * 
+	 * @param request
+	 * @param response
+	 */
+	@RequestMapping("/getVerticalTrain")
+	public void getVerticalTrain(HttpServletRequest request,
+			HttpServletResponse response, int id) {
+
+		try {
+			PrintWriter out = response.getWriter();
+			VerticalTrain vt = verticalTrainService.get(id);
+			String str = "{'sucess':'sucess'}";
+			out.write(str);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	/**
 	 * 发布跟取消发布
 	 * 
@@ -291,12 +332,6 @@ public class CmsController extends BaseController {
 
 		try {
 			PrintWriter out = response.getWriter();
-			// User user = getSessionUser(request);
-			// if (user == null) {
-			// String str = "{'sucess':'fail'}";
-			//
-			// out.write(str);
-			// } else {
 			Course course = courseService.get(courseId);
 			course.setPublish(type);
 			courseService.update(course);
@@ -568,6 +603,29 @@ public class CmsController extends BaseController {
 		}
 	}
 
+	/**
+	 * 更新实验
+	 * 
+	 * @param request
+	 * @param response
+	 */
+	@RequestMapping("/updateTrain")
+	public void updateTrain(HttpServletRequest request,
+			HttpServletResponse response,int trainId, String name, String codenum,
+			String envname, String conContent, String conShell,
+			String conAnswer, int score, String scoretag) {
+
+		try {
+			PrintWriter out = response.getWriter();
+			trainService.update(trainId,name, codenum, envname, conContent,
+					conShell, conAnswer, score, scoretag);
+			String str = "{'sucess':'sucess'}";
+			out.write(str);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	@RequestMapping("/uploadshell")
 	public void uploadshell(HttpServletRequest request,
 			HttpServletResponse response,

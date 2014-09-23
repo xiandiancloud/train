@@ -1644,8 +1644,8 @@ header .navbar {
   padding: 0 15px;
   background-color: #f34541;
   border: none;
-  min-height: 40px;
-  height: 40px;
+  min-height: 60px;
+  height: 60px;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   -ms-border-radius: 0;
@@ -1657,9 +1657,9 @@ header .navbar {
     text-shadow: none;
     font-weight: 200;
     padding: 0;
-    height: 40px;
+    height: 60px;
     vertical-align: middle;
-    line-height: 40px; }
+    line-height: 60px; }
     header .navbar .navbar-brand:hover, header .navbar .navbar-brand:focus {
       color: white; }
     header .navbar .navbar-brand .logo {
@@ -1759,8 +1759,8 @@ header .navbar {
       filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
       opacity: 1; }
   header .navbar .user-menu > a {
-    height: 40px;
-    line-height: 38px; }
+    height: 60px;
+    line-height: 58px; }
   header .navbar .user-menu .dropdown-toggle {
     padding: 0 15px; }
     header .navbar .user-menu .dropdown-toggle img {
@@ -1768,7 +1768,7 @@ header .navbar {
       margin-right: 5px;
       vertical-align: top;
       position: relative;
-      top: 8px;
+      top: 18px;
       width: 23px;
       height: 23px; }
     header .navbar .user-menu .dropdown-toggle .user-name {
