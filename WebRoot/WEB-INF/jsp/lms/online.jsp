@@ -70,34 +70,25 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-xs-3">
-						<select class='select2 form-control' name="major">
-
-							<option value='NC'>North Carolina</option>
-							<option value='OH'>Ohio</option>
-							<option value='PA'>Pennsylvania</option>
-							<option value='RI'>Rhode Island</option>
-							<option value='SC'>South Carolina</option>
-							<option value='VT'>Vermont</option>
-							<option value='VA'>Virginia</option>
-							<option value='WV'>West Virginia</option>
-							<option value='NY' selected="selected">-专业-</option>
+						<select class='select2 form-control' name="major" id="category" onchange="loaddata();">
+							<!-- <option value='NY' selected="selected">-专业-</option> -->
 						</select>
 					</div>
 					<div class="col-xs-3">
-						<select class='select2 form-control' name="level">
-							<option value='all' selected="selected">-等级-</option>
-							<option value='low'>初级</option>
-							<option value='middle'>中级</option>
-							<option value='high'>高级</option>
+						<select class='select2 form-control' name="level" id="rank" onchange="loaddata();">
+							<option value="0" selected="selected">-等级-</option>
+							<option value="1">初级</option>
+							<option value="2">中级</option>
+							<option value="3">高级</option>
 						</select>
 					</div>
 					<div class="col-sm-6">
 						<div class="form-group">
 							<div class="input-group controls-group">
 								<input type="text" name="q" class="form-control"
-									placeholder="Search..." value=""> <span
+									placeholder="Search..." value="" id="search" onkeyup="enterloaddata(event);"> <span
 									class="input-group-btn">
-									<button type="button" class="btn">
+									<button type="button" class="btn" onclick="loaddata();">
 										<i class="icon-search"></i>
 									</button>
 								</span>
@@ -117,11 +108,11 @@
 					<div class="col-sm-7">
 						<p>
 							<a>
-								<h1>${course.name}</h1>
+								<h1>${course.course.name}</h1>
 							</a>
 						</p>
 						<p>
-							<a>${course.describle}</a>
+							<a>${course.course.describle}</a>
 						</p>
 					</div>
 					<div class="col-sm-2">
@@ -130,7 +121,7 @@
 							<div class="subwrap">
 								<div class="content">
 									<p>
-										<a href="lms/getCourse.action?courseId=${course.id}"><button
+										<a href="lms/getCourse.action?courseId=${course.course.id}"><button
 												type="button" class="btn btn-success">进入课程</button> </a>
 
 									</p>
@@ -189,9 +180,38 @@
 	<script>
 		$(function() {
 			initlist();
+			initcategory();
+			//根据搜索条件填充
+			$("#rank").attr("value","${rank}");
+			$("#search").attr("value","${search}");
 		});
+		function initcategory()
+		{
+			$.ajax({
+				url:"lms/getAllCourseCategory.action",
+				type:"post",
+				success:function(s){
+					var a=eval("("+s+")");
+					var row = a.rows;
+					var tmp ='<option value="0" selected="selected">-专业-</option>';
+					for ( var i = 0; i < row.length; i++) {
+						var category = row[i];
+						var id = category.id;
+						var name = category.name;
+						tmp += '<option value='+id+'>'+name+'</option>';
+					}
+					//alert(tmp);
+					$("#category").html(tmp);
+					$("#category").attr("value","${category}");
+				}
+			}); 
+		}
 		function initlist() {
 			var totalPages = parseInt("${totalpage}");
+			if (totalPages == 0)
+			{
+				return;
+			}
 			var currentPage = "${currentpage}";
 			$
 					.jqPaginator(
@@ -210,11 +230,35 @@
 								onPageChange : function(num) {
 									if (currentPage != num)
 									{
-										location.href="lms/courselist.action?currentpage="+num;
+										var c = $("#category").val();
+										var r = $("#rank").val();
+										var s = $("#search").val();
+										s = encodeURIComponent(s);
+										
+										location.href="lms/courselist.action?currentpage="+num+"&c="+c+"&r="+r+"&s="+s;
 									}
 									
 								}
 							});
+		}
+		
+		//载入数据
+		function loaddata()
+		{
+			var currentpage = "${currentpage}";
+			currentpage = parseInt(currentpage);
+			var c = $("#category").val();
+			var r = $("#rank").val();
+			var s = $("#search").val();
+			s = encodeURIComponent(s);
+			location.href="lms/courselist.action?currentpage="+currentpage+"&c="+c+"&r="+r+"&s="+s;
+		}
+		function enterloaddata(event)
+		{
+			var keyCode = event.keyCode?event.keyCode:event.which?event.which:event.charCode;
+			 if (keyCode ==13){
+			  	loaddata();
+			 }
 		}
 	</script>
 </body>

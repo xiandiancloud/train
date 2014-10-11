@@ -74,7 +74,7 @@
 					<!--向左对齐-->
 					<ul class="nav navbar-nav navbar-left pleft15">
 						<li><a href="lms/getAllCategory.action">首页</a></li>
-						<li><a href="lms/courselist.action?currentpage=1">课程</a></li>
+						<li><a href="lms/courselist.action?currentpage=1&c=0&r=0">课程</a></li>
 						<li><a href="lms/mycourse.action">我的云课堂</a></li>
 					</ul>
 					<!--向右对齐-->

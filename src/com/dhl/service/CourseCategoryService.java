@@ -27,4 +27,17 @@ public class CourseCategoryService {
 		return courseCategoryDao.getCourseByCategoryId(categoryId, pageNo, pageSize);
 	}
 	
+	/**
+	 * 课程列表
+	 * @param categoryId
+	 * @param rank
+	 * @param search
+	 * @param pageNo
+	 * @param pageSize
+	 * @return
+	 */
+	public Page searchCourse(int categoryId,int rank,String search,int pageNo,int pageSize)
+	{
+		return courseCategoryDao.searchCourse(categoryId, rank, search, pageNo, pageSize);
+	}
 }

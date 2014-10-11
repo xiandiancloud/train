@@ -61,16 +61,8 @@ public class LmsController extends BaseController {
 	private UserCourseService userCourseService;
 	@Autowired
 	private UserTrainHistoryService userTrainHistoryService;
-
-	/**
-	 * 自动注入
-	 */
 	@Autowired
 	private CategoryService categoryService;
-
-	/**
-	 * 自动注入
-	 */
 	@Autowired
 	private CourseCategoryService courseCategoryService;
 
@@ -109,6 +101,8 @@ public class LmsController extends BaseController {
 				img = "images/exam.jpg";
 			}
 			buffer.append("\"" + img + "\"");
+			buffer.append(",\"org\":");
+			buffer.append("\"" + p.getCourse().getOrg() + "\"");
 			buffer.append(",\"desc\":");
 			buffer.append("\"" + p.getCourse().getDescrible() + "\"");
 			buffer.append("},");
@@ -146,6 +140,50 @@ public class LmsController extends BaseController {
 		return view;
 	}
 
+	/**
+	 * 取得所有课程的分类
+	 * 
+	 * @param request
+	 * @param response
+	 */
+	@RequestMapping("/getAllCourseCategory")
+	public void getAllCourseCategory(HttpServletRequest request,
+			HttpServletResponse response) {
+
+		try {
+			PrintWriter out = response.getWriter();
+			List<Category> list = categoryService.getAllCategory();
+			String str = getProjectViewStr(list);
+			out.write(str);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private String getProjectViewStr(List<Category> list) {
+		StringBuffer buffer = new StringBuffer();
+		int count = list.size();
+		buffer.append("{\"total\":" + count + ",\"rows\":[");
+		for (int i = 0; i < count; i++) {
+			Category p = list.get(i);
+			buffer.append("{");
+			buffer.append("\"id\":");
+			buffer.append("\"" + p.getId() + "\"");
+			buffer.append(",\"name\":");
+			buffer.append("\"" + p.getName() + "\"");
+			buffer.append("},");
+		}
+		if (count > 0) {
+			String str = buffer.substring(0, buffer.length() - 1) + "]}";
+			str = str.replaceAll("null", "");
+			return str;
+		} else {
+			String str = buffer.toString() + "]}";
+			str = str.replaceAll("null", "");
+			return str;
+		}
+	}
+	
 	/**
 	 * 参加课程,继续学习
 	 * 
@@ -577,15 +615,17 @@ public class LmsController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping("/courselist")
-	public ModelAndView courselist(HttpServletRequest request,int currentpage) {
+	public ModelAndView courselist(HttpServletRequest request,int currentpage,int c,int r,String s) {
 		ModelAndView view = new ModelAndView();
-		Page page = courseService.getAllCourse(currentpage,
-				CommonConstant.COURSELIST_SIZE);
-		List<Course> courses = page.getResult();
+		Page page = courseCategoryService.searchCourse(c, r, s, currentpage, CommonConstant.COURSELIST_SIZE);//courseService.getAllCourse(currentpage,CommonConstant.COURSELIST_SIZE);
+		List<CourseCategory> courses = page.getResult();
 		int totalpage = (int) page.getTotalPageCount();
 		view.addObject("courselist", courses);
 		view.addObject("totalpage", totalpage);
 		view.addObject("currentpage", currentpage);
+		view.addObject("category",c);
+		view.addObject("rank",r);
+		view.addObject("search",s);
 		view.setViewName("/lms/online");
 		return view;
 	}

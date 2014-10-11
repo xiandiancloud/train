@@ -29,7 +29,7 @@ public class CommonConstant
     */
    //public static final int PAGE_SIZE = 10;
    public static final int SYS_PAGE_SIZE = 8;
-   public static final int COURSELIST_SIZE = 2;
+   public static final int COURSELIST_SIZE = 15;
    //系统4种角色
    public static final String ROLE_S = "学生";
    public static final String ROLE_T = "老师";
@@ -43,4 +43,8 @@ public class CommonConstant
    public static final String ERROR_3 = "分类已经存在";
    public static final String ERROR_4 = "实验已经存在";
    
+   //课程级别
+   public static final String LEVEL_1 = "初级";
+   public static final String LEVEL_2 = "中级";
+   public static final String LEVEL_3 = "高级";
 }
