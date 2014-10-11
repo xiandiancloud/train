@@ -233,7 +233,7 @@
 					                    <form role="form">
 										  <div class="form-group">
 										    <label for="trainresult"><div class="h2font">内容</div></label>
-										    <textarea class="form-control" rows="6" id="trainresult"></textarea>
+										    <textarea class="form-control" rows="6" id="trainrevalue"></textarea>
 										  </div>
 										</form>
 										<a href="javascript:void(0);" id="trainsubmit">
@@ -263,6 +263,7 @@
 				                      </div>
 				                    </div>
 				                    <div class='box-content'>
+				                    <h6 id="trainresult"></h6>
 				                    </div>
 						    </div>
 <!-- 							<div class="panel panel-default cmargin5">
@@ -292,7 +293,7 @@
 					</div>
 				</div>
 				<div class="col-sm-8 nospace fheight">
-					<iframe id="iframe" src="http://192.168.1.90:8090/" frameBorder="0"
+					<iframe id="iframe" src="http://192.168.1.103:8090/" frameBorder="0"
 						width="100%" scrolling="no" height="100%"></iframe>
 				</div>
 			</div>
@@ -520,9 +521,17 @@
 					if (a.sucess == "sucess") {
 						var reg = new RegExp("</br>", "g"); //创建正则RegExp对象 
 						var newstr = a.result.replace(reg, "\r\n");
-						//var newstr2 = a.revalue.replace(reg, "\r\n");
+						var newstr2 = a.revalue.replace(reg, "\r\n");
+						if (newstr == "False")
+						{
+							newstr = "错误";
+						}
+						else if (newstr == "True")
+						{
+							newstr = "正确";
+						}
 						$("#trainresult").html(newstr);
-						//$("#trainanswer").html(newstr2);
+						$("#trainrevalue").html(newstr2);
 						$("#trainbutton").html("再来一遍");
 					}
 					else
@@ -602,14 +611,23 @@
 					{
 						var reg = new RegExp("</br>", "g"); //创建正则RegExp对象 
 						var newstr = a.result.replace(reg, "\r\n");
-						//var newstr2 = a.revalue.replace(reg, "\r\n");
+						var newstr2 = a.revalue.replace(reg, "\r\n");
+						if (newstr == "False")
+						{
+							newstr = "错误";
+						}
+						else if (newstr == "True")
+						{
+							newstr = "正确";
+						}
 						$("#trainresult").html(newstr);
-						//$("#trainanswer").html(newstr2);
+						$("#trainrevalue").html(newstr2);
 						$("#trainbutton").html("再来一遍");
 					}
 					else
 					{
 						$("#trainresult").html("");
+						$("#trainrevalue").html("");
 						//$("#trainanswer").html("");
 						$("#trainbutton").html("提交");
 					}

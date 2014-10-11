@@ -72,6 +72,7 @@ public class ShellController extends BaseController {
 					SCPClient scpClient = conn.createSCPClient();
 					scpClient.put(rp + path, "/tmp", "0755");
 				}
+				conn.close();
 				// ----------shell start--------------
 				UCEnvironment uce = uceService.getMyUCE(user.getId(), courseId,
 						name);

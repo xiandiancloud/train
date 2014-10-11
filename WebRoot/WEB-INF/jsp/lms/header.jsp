@@ -66,8 +66,7 @@
 				         <span class="icon-bar"></span>
 				      </button>
 					<a class='navbar-brand' href='lms/getAllCategory.action'> <img
-						width="51" height="48" class="logo" src="images/logo.png" /><a
-						class='navbar-brand'><img width="160" height="30"
+						width="51" height="48" class="logo" src="images/logo.png" /><img width="160" height="30"
 							class="logo" alt="Flatty" src="images/logo-lab.png" />
 					</a>
 				</div>
