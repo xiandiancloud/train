@@ -65,6 +65,18 @@ public class CourseService {
 	private TeacherCourseDao teacherCourseDao;
 
 	/**
+	 * 根据课程id删除课程
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public void remove(int id) {
+		Course c = get(id);
+		if (c != null)
+			courseDao.remove(c);
+	}
+	
+	/**
 	 * 根据课程id取得分类
 	 * 
 	 * @return

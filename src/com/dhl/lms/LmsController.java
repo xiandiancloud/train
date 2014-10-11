@@ -103,7 +103,12 @@ public class LmsController extends BaseController {
 			buffer.append(",\"name\":");
 			buffer.append("\"" + p.getCourse().getName() + "\"");
 			buffer.append(",\"imgpath\":");
-			buffer.append("\"" + p.getCourse().getImgpath() + "\"");
+			String img = p.getCourse().getImgpath();
+			if (img == null || img.length() < 1)
+			{
+				img = "images/exam.jpg";
+			}
+			buffer.append("\"" + img + "\"");
 			buffer.append(",\"desc\":");
 			buffer.append("\"" + p.getCourse().getDescrible() + "\"");
 			buffer.append("},");

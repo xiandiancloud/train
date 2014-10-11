@@ -321,6 +321,18 @@ public class CmsController extends BaseController {
 	}
 	
 	/**
+	 * 跳转到老师课程页面
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/delcourse")
+	public ModelAndView delexam(HttpServletRequest request, int courseId) {
+		courseService.remove(courseId);
+		String url = "redirect:/cms/totcourselist.action";
+		return new ModelAndView(url);
+	}
+	/**
 	 * 发布跟取消发布
 	 * 
 	 * @param request

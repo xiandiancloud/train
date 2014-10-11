@@ -172,8 +172,11 @@
 							</a>
 
 								<ul class="item-actions course-actions">
-									<li class="action"><a href="cms/totcourse.action?courseId=${tcourse.course.id}" rel="external"
-										class="button view-button view-live-button">在线查看</a></li>
+								<table><tr><td><li class="action"><a href="cms/delcourse.action?courseId=${tcourse.course.id}" rel="external"
+										class="button view-button view-live-button">删除</a></li></td><td>&nbsp;&nbsp;</td><td><li class="action"><a href="cms/totcourse.action?courseId=${tcourse.course.id}" rel="external"
+										class="button view-button view-live-button">在线查看</a></li></td></tr></table>
+								<%-- 	<li class="action"><a href="cms/totcourse.action?courseId=${tcourse.course.id}" rel="external"
+										class="button view-button view-live-button">在线查看</a></li> --%>
 								</ul></li>
 						</c:forEach>
 						<!-- 
