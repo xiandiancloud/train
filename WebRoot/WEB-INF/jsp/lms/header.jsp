@@ -96,7 +96,7 @@
 										<li><a href='lms/mycourse.action'> <i
 												class='icon-signout'></i> 我的云课堂
 										</a></li>
-										<li><a href='lms/setting.action?index=1'> <i
+										<li><a href='lms/mysetting.action'> <i
 												class='icon-signout'></i> 设置
 										</a></li>
 										<li class='divider'></li>

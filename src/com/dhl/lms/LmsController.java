@@ -601,14 +601,40 @@ public class LmsController extends BaseController {
 		List<UserCourse> mycourses = userCourseService.getMyHavingCourse(user
 				.getId());
 		view.addObject("having", mycourses);
-		List<UserCourse> mycourses2 = userCourseService.getMyFinishCourse(user
-				.getId());
-		view.addObject("finish", mycourses2);
-		view.addObject("navindex", 2);
+//		List<UserCourse> mycourses2 = userCourseService.getMyFinishCourse(user
+//				.getId());
+//		view.addObject("finish", mycourses2);
+//		view.addObject("navindex", 2);
 		view.setViewName("/lms/mycourse");
 		return view;
 	}
 
+	/**
+	 * 我的未完成的课程
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/mynoficourse")
+	public ModelAndView mynoficourse(HttpServletRequest request) {
+		ModelAndView view = new ModelAndView();
+		User user = getSessionUser(request);
+		// if (user == null) {
+		// String url = "redirect:/tologin.action";
+		// return new ModelAndView(url);
+		// }
+		// List<UserCourse> mycourses = userCourseService.getMyAllCourse(user
+		// .getId());
+//		List<UserCourse> mycourses = userCourseService.getMyHavingCourse(user
+//				.getId());
+//		view.addObject("having", mycourses);
+		List<UserCourse> mycourses2 = userCourseService.getMyFinishCourse(user
+				.getId());
+		view.addObject("finish", mycourses2);
+//		view.addObject("navindex", 2);
+		view.setViewName("/lms/mynoficourse");
+		return view;
+	}
+	
 	/**
 	 * 课程列表
 	 * @param request

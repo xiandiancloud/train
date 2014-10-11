@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.dhl.cons.CommonConstant;
+import com.dhl.domain.Role;
 import com.dhl.domain.UCEnvironment;
 import com.dhl.domain.User;
 import com.dhl.domain.UserCourse;
@@ -144,6 +145,8 @@ public class LmsUserController extends BaseController {
 				out.write(result);
 				return;
 			}
+			Role role = userService.getUserRoleByuserId(user.getId());
+			user.setRole(role);
 			setSessionUser(request, user);
 			String toUrl = (String) request.getSession().getAttribute(
 					CommonConstant.LOGIN_TO_URL);
@@ -165,8 +168,8 @@ public class LmsUserController extends BaseController {
 	 * @param index
 	 * @return
 	 */
-	@RequestMapping("/setting")
-	public ModelAndView setting(HttpServletRequest request, int index) {
+	@RequestMapping("/mysetting")
+	public ModelAndView mysetting(HttpServletRequest request) {
 		ModelAndView view = new ModelAndView();
 		// User user = userService.getUserByUserName(userName);
 		// if (user == null)
@@ -181,24 +184,61 @@ public class LmsUserController extends BaseController {
 		// String url = "redirect:/tologin.action";
 		// return new ModelAndView(url);
 		// }
-		if (index == 2) {
-			List<UCEnvironment> uce = uceService.getMyUCE(user.getId());
-			view.addObject("uce", uce);
-		}
-		if (index == 3) {
-			List<UserCourse> having = userCourseService.getMyHavingCourse(user
-					.getId());
-			List<UserCourse> finish = userCourseService.getMyFinishCourse(user
-					.getId());
-
-			view.addObject("having", having);
-			view.addObject("finish", finish);
-		}
-		view.addObject("setindex", index);
-		view.setViewName("/lms/setting");
+//		if (index == 2) {
+//			List<UCEnvironment> uce = uceService.getMyUCE(user.getId());
+//			view.addObject("uce", uce);
+//		}
+//		if (index == 3) {
+//			List<UserCourse> having = userCourseService.getMyHavingCourse(user
+//					.getId());
+//			List<UserCourse> finish = userCourseService.getMyFinishCourse(user
+//					.getId());
+//
+//			view.addObject("having", having);
+//			view.addObject("finish", finish);
+//		}
+//		view.addObject("setindex", index);
+		view.setViewName("/lms/mysetting");
 		return view;
 	}
 
+	/**
+	 * 我的云平台
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/mycourseenv")
+	public ModelAndView mycourseenv(HttpServletRequest request) {
+		ModelAndView view = new ModelAndView();
+
+		User user = getSessionUser(request);
+		List<UCEnvironment> uce = uceService.getMyUCE(user.getId());
+		view.addObject("uce", uce);
+		view.setViewName("/lms/mycourseenv");
+		return view;
+	}
+	
+	/**
+	 * 我的实验
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/mycoursetrain")
+	public ModelAndView mycoursetrain(HttpServletRequest request) {
+		ModelAndView view = new ModelAndView();
+
+		User user = getSessionUser(request);
+		List<UserCourse> having = userCourseService.getMyHavingCourse(user
+				.getId());
+		List<UserCourse> finish = userCourseService.getMyFinishCourse(user
+				.getId());
+
+		view.addObject("having", having);
+		view.addObject("finish", finish);
+		view.setViewName("/lms/mycoursetrain");
+		return view;
+	}
+	
 	/**
 	 * 判断环境是否已经准备好
 	 * 

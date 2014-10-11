@@ -16,7 +16,7 @@
 <!--<![endif]-->
 <head>
 <base href="<%=basePath%>">
-<title>我的云课堂</title>
+<title>设置</title>
 <meta
 	content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'
 	name='viewport'>
@@ -62,7 +62,17 @@
 	<div id='wrapper'>
 		<section id=''>
 		<div class="container">
-		<div class='row' id='content-wrapper'>
+		<div class="row">
+<%-- 			<div class="col-sm-3">
+				<div class="list-group">
+					<a href="lms/setting.action?index=1"
+						class="list-group-item list-group-item-success <c:if test='${setindex == 1}'>active</c:if>">
+						个人 设置 </a> <a href="lms/setting.action?index=2"
+						class="list-group-item list-group-item-success <c:if test='${setindex == 2}'>active</c:if>">我的云平台</a>
+					<a href="lms/setting.action?index=3"
+						class="list-group-item list-group-item-success <c:if test='${setindex == 3}'>active</c:if>">我的实验</a>
+				</div>
+			</div> --%>
 			<div class='col-xs-3'>
 					<div class='row'>
 						<div class='col-sm-12 box'>
@@ -84,69 +94,106 @@
 						<div class='col-sm-12 box'>
 							<div class="box bordered-box blue-border box-nomargin">
 								<div class="box-header green-background">
-									<i class="icon-book"></i> 我的课堂
+									<i class="icon-book"></i> 我的信息
 								</div>
 								<div class="box-content">
-									<a href="lms/mycourse.action"> <i class='icon-add'></i> 进行中的课程
+									<a href="lms/mysetting.action"> <i class='icon-add'></i> 个人设置
 									</a>
 									<hr class="hr-normal">
-									<a href="lms/mynoficourse.action"> <i class='icon-add'></i> 完成的课程
+									<a href="lms/mycourseenv.action"> <i class='icon-add'></i> 我的云平台
+									</a>
+									<hr class="hr-normal">
+									<a href="lms/mycoursetrain.action"> <i class='icon-add'></i> 我的实验
 									</a>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class='col-xs-9'>
-			<div class="row  wback nospace">
-				<div class="col-sm-3 nospace">
-					<a href="lms/getAllCategory.action" class="thumbnail"> <img
-						src="images/addcourse.png" alt="添加我的课程">
-					</a>
-				</div>
-				<div class="col-sm-9">
-					<img src="images/addct.png" alt="添加我的课程">
-				</div>
-			</div>
-			<div class="clear"></div>
-			<c:forEach var="ucourse" items="${having}">
-				<div class="row wback nospace">
-					<div class="col-sm-3 courseh">
-						<a> <img src="${(empty ucourse.course.imgpath)?'images/exam.jpg':ucourse.course.imgpath}" alt="..." width="100%"
-							height="150px;" class="img-rounded">
-						</a>
-					</div>
-					<div class="col-sm-7">
-						<p>
-							<a>
-								<h1>${ucourse.course.name}</h1>
-							</a>
-						</p>
-						<p>
-							<a> ${ucourse.course.describle}</a>
-						</p>
-					</div>
-					<div class="col-sm-2">
-						<div class="clear"></div>
-						<div class="wrap">
-							<div class="subwrap">
-								<div class="content">
-									<p>
-										<a href="lms/getCourse.action?courseId=${ucourse.course.id}"><button
-												type="button" class="btn btn-success">进入学习</button> </a>
-	
-									</p>
+				<div class="col-xs-9">
+				
+					<div class='row'>
+						<div class='col-sm-12' style='margin-bottom: 0'>
+							<div class='box-content'>
+								<div class='tabbable'>
+									<ul class='nav nav-tabs nav-tabs-simple'>
+										<li class='active'><a class='green-border'
+											data-toggle='tab' href='#tabsimple1'>进行中</a></li>
+										<li ><a class='green-border'
+											data-toggle='tab' href='#tabsimple2'>完成</a></li>	
+									</ul>
+									<div class='tab-content'>
+										<div class='tab-pane active' id='tabsimple1'>
+											<!-- <p>I'm in Section 1.</p> -->
+											<c:forEach var="uc" items="${having}">
+												<div class="row">
+													<div class="col-sm-12">
+														<div class="box ">
+															<div class="box-content">
+																<p>
+																	<strong>${uc.course.name}</strong>
+																</p>
+																<hr class="hr-normal">
+																<div class="pull-left"></div>
+																<div class="pull-right">
+																</div>
+																<div class="clearfix"></div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</c:forEach>
+										</div>
+										<div class='tab-pane' id='tabsimple2'>
+											<c:forEach var="uf" items="${finish}">
+												<div class="row">
+													<div class="col-sm-12">
+														<div class="box bordered-box blue-border box-nomargin">
+															<div class="box-content">
+																<p>
+																	<strong>${uf.course.name}</strong>
+																</p>
+																<hr class="hr-normal">
+																<div class="pull-left">${te.exam.describle}</div>
+																<div class="pull-right">
+																</div>
+																<div class="clearfix"></div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</c:forEach>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
-	
 					</div>
+					
+<%-- 					<ul id="myTab" class="nav nav-tabs">
+						<li class="active"><a href="#having" data-toggle="tab">
+								进行中</a></li>
+						<li><a href="#finish" data-toggle="tab">完成</a></li>
+					</ul>
+					<div id="myTabContent" class="tab-content">
+						<div class="tab-pane fade in active" id="having">
+							<c:forEach var="uc" items="${having}">
+								<div class="h5"></div>
+								<div class="bbborder"><h5>${uc.course.name}</h5></div>
+								<div class="h5"></div>
+							</c:forEach>
+						</div>
+						<div class="tab-pane fade" id="finish">
+							<c:forEach var="uf" items="${finish}">
+								<div class="h5"></div>
+								<div class="bbborder"><h5>${uf.course.name}</h5></div>
+								<div class="h5"></div>
+							</c:forEach>
+						</div>
+					</div> --%>
 				</div>
-				<div class="clear"></div>
-			</c:forEach>
-			</div>
-			</div>
 		</div>
+	</div>
 		</section>
 	</div>
 	<jsp:include page="footer.jsp"></jsp:include>
@@ -185,7 +232,6 @@
 	<script src="js/common.js" type="text/javascript"></script>
 	<script src="js/holder.js"></script>
 	<script>
-		
 	</script>
 </body>
 </html>

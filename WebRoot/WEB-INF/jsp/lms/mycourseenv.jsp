@@ -16,7 +16,7 @@
 <!--<![endif]-->
 <head>
 <base href="<%=basePath%>">
-<title>我的云课堂</title>
+<title>设置</title>
 <meta
 	content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'
 	name='viewport'>
@@ -62,7 +62,17 @@
 	<div id='wrapper'>
 		<section id=''>
 		<div class="container">
-		<div class='row' id='content-wrapper'>
+		<div class="row">
+<%-- 			<div class="col-sm-3">
+				<div class="list-group">
+					<a href="lms/setting.action?index=1"
+						class="list-group-item list-group-item-success <c:if test='${setindex == 1}'>active</c:if>">
+						个人 设置 </a> <a href="lms/setting.action?index=2"
+						class="list-group-item list-group-item-success <c:if test='${setindex == 2}'>active</c:if>">我的云平台</a>
+					<a href="lms/setting.action?index=3"
+						class="list-group-item list-group-item-success <c:if test='${setindex == 3}'>active</c:if>">我的实验</a>
+				</div>
+			</div> --%>
 			<div class='col-xs-3'>
 					<div class='row'>
 						<div class='col-sm-12 box'>
@@ -84,69 +94,48 @@
 						<div class='col-sm-12 box'>
 							<div class="box bordered-box blue-border box-nomargin">
 								<div class="box-header green-background">
-									<i class="icon-book"></i> 我的课堂
+									<i class="icon-book"></i> 我的信息
 								</div>
 								<div class="box-content">
-									<a href="lms/mycourse.action"> <i class='icon-add'></i> 进行中的课程
+									<a href="lms/mysetting.action"> <i class='icon-add'></i> 个人设置
 									</a>
 									<hr class="hr-normal">
-									<a href="lms/mynoficourse.action"> <i class='icon-add'></i> 完成的课程
+									<a href="lms/mycourseenv.action"> <i class='icon-add'></i> 我的云平台
+									</a>
+									<hr class="hr-normal">
+									<a href="lms/mycoursetrain.action"> <i class='icon-add'></i> 我的实验
 									</a>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class='col-xs-9'>
-			<div class="row  wback nospace">
-				<div class="col-sm-3 nospace">
-					<a href="lms/getAllCategory.action" class="thumbnail"> <img
-						src="images/addcourse.png" alt="添加我的课程">
-					</a>
+				<div class="col-sm-9 panel panel-default">
+					<div class="h10"></div>
+					<table class="table table-bordered table-hover h5">
+						<caption></caption>
+						<thead>
+							<tr class="success">
+								<th>名称</th>
+								<th>创建时间</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="uce" items="${uce}">
+								<tr>
+									<td>${uce.name}</td>
+									<td>${uce.createtime}</td>
+									<td><a href="lms/deleteEnv.action?id=${uce.id}"
+										class="glyphicon glyphicon-trash"></a></td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+					<div class="h10"></div>
 				</div>
-				<div class="col-sm-9">
-					<img src="images/addct.png" alt="添加我的课程">
-				</div>
-			</div>
-			<div class="clear"></div>
-			<c:forEach var="ucourse" items="${having}">
-				<div class="row wback nospace">
-					<div class="col-sm-3 courseh">
-						<a> <img src="${(empty ucourse.course.imgpath)?'images/exam.jpg':ucourse.course.imgpath}" alt="..." width="100%"
-							height="150px;" class="img-rounded">
-						</a>
-					</div>
-					<div class="col-sm-7">
-						<p>
-							<a>
-								<h1>${ucourse.course.name}</h1>
-							</a>
-						</p>
-						<p>
-							<a> ${ucourse.course.describle}</a>
-						</p>
-					</div>
-					<div class="col-sm-2">
-						<div class="clear"></div>
-						<div class="wrap">
-							<div class="subwrap">
-								<div class="content">
-									<p>
-										<a href="lms/getCourse.action?courseId=${ucourse.course.id}"><button
-												type="button" class="btn btn-success">进入学习</button> </a>
-	
-									</p>
-								</div>
-							</div>
-						</div>
-	
-					</div>
-				</div>
-				<div class="clear"></div>
-			</c:forEach>
-			</div>
-			</div>
 		</div>
+	</div>
 		</section>
 	</div>
 	<jsp:include page="footer.jsp"></jsp:include>
@@ -185,7 +174,6 @@
 	<script src="js/common.js" type="text/javascript"></script>
 	<script src="js/holder.js"></script>
 	<script>
-		
 	</script>
 </body>
 </html>

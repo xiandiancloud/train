@@ -42,6 +42,52 @@
 	<jsp:include page="common/header.jsp"></jsp:include>
 	<div class="h40"></div>
 	<div class="container">
+		<div class='row' id='content-wrapper'>
+			<div class='col-xs-3'>
+					<div class='row'>
+						<div class='col-sm-12 box'>
+							<div class='box-content'>
+								<div style="text-align:center">
+									<img src="images/user.jpg">
+								</div>
+								<div style="text-align:center">
+									<a class="btn btn-link">${USER_CONTEXT.username} </a>
+								</div>
+								<div style="text-align:center">
+									<a class="btn btn-link">你的角色 </a> <a class="btn btn-link">
+										${USER_CONTEXT.role.roleName} </a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class='row'>
+						<div class='col-sm-12 box'>
+							<div class="box bordered-box blue-border box-nomargin">
+								<div class="box-header green-background">
+									<i class="icon-book"></i> 我的题库
+								</div>
+								<div class="box-content">
+									<a href="lms/myexam.action"> <i class='icon-add'></i> 我的考卷
+									</a>
+									<hr class="hr-normal">
+									<a href="lms/mycompetion.action"> <i class='icon-add'></i> 我的竞赛
+									</a>
+									<hr class="hr-normal">
+									<!-- <p>增加竞赛</p> -->
+									<c:if test="${USER_CONTEXT.role.roleName=='老师'}">
+									<a href="cms" class='btn btn-success'> <i
+										class='icon-add'></i> 增加试卷
+									</a>
+									<a href="cms/totcompetion.action?competionId=-1" class='btn btn-primary'> <i
+										class='icon-add'></i> 增加竞赛
+									</a>
+									</c:if>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='col-xs-9'>
 		<div class="row  wback nospace">
 			<div class="clear"></div>
 			<div class="col-sm-3">
@@ -128,6 +174,8 @@
 				</div>
 			</div>
 		</c:forEach>
+		</div>
+		</div>
 	</div>
 	<jsp:include page="common/footer.jsp"></jsp:include>
 

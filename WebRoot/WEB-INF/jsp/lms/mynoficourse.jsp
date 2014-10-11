@@ -64,6 +64,13 @@
 		<div class="container">
 		<div class='row' id='content-wrapper'>
 			<div class='col-xs-3'>
+					<!-- 					<div class='alert alert-info alert-dismissable'>
+						<a class='close' data-dismiss='alert' href='#'>&times;</a> Welcome
+						to <strong>Flatty (v2.2)</strong> - I hope you'll like it. Don't
+						forget - you can change theme color in top right corner <i
+							class='icon-cog'></i> if you want.
+					</div> -->
+
 					<div class='row'>
 						<div class='col-sm-12 box'>
 							<div class='box-content'>
@@ -108,9 +115,10 @@
 					<img src="images/addct.png" alt="添加我的课程">
 				</div>
 			</div>
-			<div class="clear"></div>
-			<c:forEach var="ucourse" items="${having}">
+			<c:forEach var="ucourse" items="${finish}">
 				<div class="row wback nospace">
+					<hr>
+					<div class="clear"></div>
 					<div class="col-sm-3 courseh">
 						<a> <img src="${(empty ucourse.course.imgpath)?'images/exam.jpg':ucourse.course.imgpath}" alt="..." width="100%"
 							height="150px;" class="img-rounded">
@@ -127,13 +135,13 @@
 						</p>
 					</div>
 					<div class="col-sm-2">
-						<div class="clear"></div>
+	
 						<div class="wrap">
 							<div class="subwrap">
 								<div class="content">
 									<p>
 										<a href="lms/getCourse.action?courseId=${ucourse.course.id}"><button
-												type="button" class="btn btn-success">进入学习</button> </a>
+												type="button" class="btn btn-success">继续学习</button> </a>
 	
 									</p>
 								</div>
@@ -142,7 +150,6 @@
 	
 					</div>
 				</div>
-				<div class="clear"></div>
 			</c:forEach>
 			</div>
 			</div>
