@@ -53,7 +53,7 @@ public class CourseCategoryDao extends BaseDao<CourseCategory> {
 		}
 		if (search != null&& !"".equals(search))
 		{
-			hql = "from CourseCategory where course.publish = 1 and course.name like '%"+search+"%'";
+			hql = "from CourseCategory where course.publish = 1 and (course.name like '%"+search+"%' or course.describle like '%"+search+"%')";
 		}
 		if (categoryId > 0 && rank > 0)
 		{
@@ -61,15 +61,15 @@ public class CourseCategoryDao extends BaseDao<CourseCategory> {
 		}
 		if (categoryId > 0 && search != null && !"".equals(search))
 		{
-			hql = "from CourseCategory where course.publish = 1 and category.id = "+categoryId+" and course.name like '%"+search+"%'";
+			hql = "from CourseCategory where course.publish = 1 and category.id = "+categoryId+" and (course.name like '%"+search+"%' or course.describle like '%"+search+"%')";
 		}
 		if (rank > 0 && search != null)
 		{
-			hql = "from CourseCategory where course.publish = 1 and course.rank = '"+r+"' and course.name like '%"+search+"%'";
+			hql = "from CourseCategory where course.publish = 1 and course.rank = '"+r+"' and (course.name like '%"+search+"%' or course.describle like '%"+search+"%')";
 		}
 		if (categoryId > 0 && rank > 0 && search != null && !"".equals(search))
 		{
-			hql = "from CourseCategory where course.publish = 1 and category.id = "+categoryId+" and course.rank = '"+r+"' and course.name like '%"+search+"%'";
+			hql = "from CourseCategory where course.publish = 1 and category.id = "+categoryId+" and course.rank = '"+r+"' and (course.name like '%"+search+"%' or course.describle like '%"+search+"%')";
 		}
 		return pagedQuery(hql, pageNo, pageSize);
 	}
