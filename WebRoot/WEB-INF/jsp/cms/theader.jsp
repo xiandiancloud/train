@@ -5,11 +5,10 @@
 
 		<div class="wrapper wrapper-l">
 			<h1 class="branding">
-				<a href="cms/totcourselist.action"><img src="" alt="edX Studio" /></a>
+				<a href="cms/totcourselist.action"><img src="images/logo-studio.png" alt="" /></a>
 			</h1>
 
 		</div>
-
 		<div class="wrapper wrapper-r">
 			<nav class="nav-account nav-is-signedin nav-dd ui-right">
 				<!--  <h2 class="sr">帮助 &amp; 账户导航</h2> -->

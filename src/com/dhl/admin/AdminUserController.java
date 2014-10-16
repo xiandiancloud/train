@@ -120,7 +120,7 @@ public class AdminUserController extends BaseController {
 			MD5 md5 = new MD5();
 			String inputstr = md5.getMD5ofStr(password);
 			if (!inputstr.equals(user.getPassword())) {
-				String result = "{'sucess':'fail','msg':'登陆密码不对'}";
+				String result = "{'sucess':'fail','msg':'登录密码不对'}";
 				out.write(result);
 				return;
 			}
@@ -128,7 +128,7 @@ public class AdminUserController extends BaseController {
 			Role role = userService.getUserRoleByuserId(user.getId());
 			if (!CommonConstant.ROLE_A.equals(role.getRoleName()))
 			{
-				String result = "{'sucess':'fail','msg':'登陆邮件不是管理员身份'}";
+				String result = "{'sucess':'fail','msg':'登录邮件不是管理员身份'}";
 				out.write(result);
 				return;
 			}

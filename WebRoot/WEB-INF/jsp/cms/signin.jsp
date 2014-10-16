@@ -14,7 +14,6 @@
 <html lang="zh-cn"><!--<![endif]-->
   <head>
   <base href="<%=basePath%>">
-  
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<title>Sign In | edX Studio</title>
@@ -45,20 +44,17 @@
 	<div class="wrapper wrapper-view">
 		<jsp:include page="theader.jsp"></jsp:include>
 		<div id="page-alert"></div>
-
 		<div id="content">
 			<div class="wrapper-content wrapper">
 				<section class="content">
 					<header>
-						<h1 class="title title-1">登录edX Studio</h1>
-						<a href="cms/totregeister.action" class="action action-signin">如果您没有Studio账号，请现在注册。</a>
+						<h1 class="title title-1">登录</h1>
+						<a href="cms/totregeister.action" class="action action-signin">如果您没有云实训平台账号，请现在注册。</a>
 					</header>
-
 					<article class="content-primary" role="main">
 						<form id="login_form">
-
 							<fieldset>
-								<legend class="sr">登录edX Studio所需的信息</legend>
+								<legend class="sr">登录云实训所需的信息</legend>
 
 								<ol class="list-input">
 									<li class="field text required" id="field-email"><label
@@ -74,7 +70,7 @@
 							</fieldset>
 
 							<div class="form-actions">
-								<button type="button" class="action action-primary" onclick="tlogin();">登录edX Studio</button>
+								<button type="button" class="action action-primary" onclick="tlogin();">登    录</button>
 							</div>
 
 							<!-- no honor code for CMS, but need it because we're using the lms student object -->
@@ -84,7 +80,7 @@
 					</article>
 
 					<aside class="content-supplementary" role="complimentary">
-						<h2 class="sr">Studio支持</h2>
+						<h2 class="sr">平台支持</h2>
 
 						<div class="bit">
 							<h3 class="title-3">需要帮助？</h3>

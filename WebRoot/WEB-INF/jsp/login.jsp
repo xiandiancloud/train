@@ -16,7 +16,7 @@
 <meta name="author" content="">
 <link rel="shortcut icon" href="ico/favicon.ico">
 
-<title>登陆进入</title>
+<title>登录进入</title>
 
 <!-- Bootstrap core CSS -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -47,7 +47,7 @@
 				</br>
 				<h3>
 					<p>
-						<a>请登陆</a>
+						<a>请登录</a>
 					</p>
 					<p class="left40">来访问你的实验</p>
 				</h3>
@@ -70,7 +70,7 @@
 						<div class="clear"></div>
 						<div class="clear"></div>
 						<button type="button" class="btn btn-primary btn-lg btn-block" onclick="login();">
-							登陆+进入我的实验</button>
+							登录+进入我的实验</button>
 					</div>
 				</form>
 			</div>
@@ -78,13 +78,13 @@
 			<a>尚未注册？</a></br>
 			<div class="clear"></div>
 			<p>
-			现在就注册加入<a href="toregeister.action">Your Platform Name Here！</a> 
+			现在就注册加入<a href="toregeister.action">云实训平台</a> 
 			</p>
 			<div class="clear"></div>
 			<a>需要帮助？</a></br>
 			<div class="clear"></div>
 			<p>
-			寻找关于登录您的 Your Platform Name Here 账户的帮助？<a>查看帮助部分来获得常见问题的解答。</a> 
+			寻找关于登录您的 云实训平台账户的帮助？<a>查看帮助部分来获得常见问题的解答。</a> 
 			</p>
 			</div>
 		</div>

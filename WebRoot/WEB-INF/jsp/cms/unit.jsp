@@ -1621,22 +1621,23 @@ img.MathJax_strut {
 					</div>
 
 					<nav class="nav-actions">
-						<h3 class="sr">Page Actions</h3>
+						<!-- <h3 class="sr">Page Actions</h3> -->
 						<ul>
-							<li class="action-item action-view nav-item"><a
+							<li class="action-item action-view nav-item"><!-- <a
 								href="#"
 								class="button button-view action-button" rel="external"
 								title="This link will open in a new browser window/tab"
-								target="_blank"> <span class="action-button-text">View
-										Live Version</span>
-							</a></li>
-							<li class="action-item action-preview nav-item"><a
+								target="_blank"> <span class="action-button-text">查看现场版
+										</span>
+							</a> --></li>
+							<li class="action-item action-preview nav-item"><!-- <a
 								href="#"
 								class="button button-preview action-button" rel="external"
 								title="This link will open in a new browser window/tab"
 								target="_blank"> <span class="action-button-text">Preview
-										Changes</span>
-							</a></li>
+										Changes
+										预览更改</span>
+							</a> --></li>
 						</ul>
 					</nav>
 				</header>
@@ -1645,7 +1646,6 @@ img.MathJax_strut {
 			<div class="wrapper-content wrapper">
 				<div class="inner-wrapper">
 					<section class="content-area">
-
 						<article class="content-primary">
 							<div class="container-message wrapper-message"></div>
 							<section class="wrapper-xblock level-page studio-xblock-wrapper"
@@ -1743,45 +1743,35 @@ img.MathJax_strut {
 								</p>
 							</div>
 						</article>
-						<aside class="content-supplementary" role="complimentary">
+						<aside class="content-supplementary" role="complimentary" style="margin-top:7px;">
 							<div id="publish-unit">
-
 								<div class="bit-publishing is-staff-only is-scheduled">
 									<h3 class="bar-mod-title pub-status">
-										<span class="sr">Publishing Status</span> Visible to Staff
-										Only
+										<span class="sr"></span>
+										我在这个页面能做什么？
 									</h3>
-
 									<div class="wrapper-last-draft bar-mod-content">
-										<p class="copy meta">
-
-											Draft saved on <span class="date">Aug 24, 2014 at
-												03:28 UTC</span> by <span class="user">staff</span>
-
+										<p class="copy meta" style="line-height:25px;">
+											<span class="date">您可以在单元中添加新的实验，定义实验编号、实验名称,实验分值、上传判分脚本。</span><span class="user">您还修改实验名称、实验题目、实验答案.</span>
+											
 										</p>
+										<p class="copy meta"><span>此外，您可以在一个单元中添加多个实验，或者删除多余的实验。</span></p>
 									</div>
-
 									<div class="wrapper-release bar-mod-content">
-										<h5 class="title">Release:</h5>
+										<!-- <h5 class="title">此外:</h5> -->
 										<p class="copy">
-
-
-											<span class="release-date">Jan 01, 2014 at 00:00 UTC</span>
-											with <span class="release-with">Section "Section1"</span>
-
+											<!-- <span class="release-date">您还可以返回到大纲列表</span> -->
+											 <span class="release-with"></span>
 										</p>
 									</div>
-
-
-
 									<div class="wrapper-pub-actions bar-mod-actions">
 										<ul class="action-list">
-											<li class="action-item"><a
-												class="action-publish action-primary " href="">Publish </a>
+											<li class="action-item"><!--  <a
+												class="action-publish action-primary " href="">Publish </a> -->
 											</li>
-											<li class="action-item"><a
+											<li class="action-item"><!-- <a
 												class="action-discard action-secondary " href="">Discard
-													Changes </a></li>
+													Changes </a> --></li>
 										</ul>
 									</div>
 								</div>
@@ -1792,8 +1782,8 @@ img.MathJax_strut {
 
 								<div class="wrapper-last-publish">
 									<p class="copy">
-										Last published <span class="date">Aug 20, 2014 at 01:21
-											UTC</span> by <span class="user">staff</span>
+										<!-- Last published --> <!-- 最后一次出版于 --><span class="date"><!-- Aug 20, 2014 at 01:21
+											UTC --><!-- 2014年8月20号在utc上被员工出版 --></span> <!-- by --> <span class="user"><!-- staff --></span>
 									</p>
 								</div>
 
@@ -1826,7 +1816,7 @@ img.MathJax_strut {
 		<ul class="list-actions list-cta">
 			<li class="action-item"><a href="#sock"
 				class="cta cta-show-sock"><i class="icon-question-sign"></i> <span
-					class="copy">Looking for help with Studio?</span></a></li>
+					class="copy">向云平台寻求帮助?</span></a></li>
 		</ul>
 
 		<div class="wrapper-inner wrapper">

@@ -163,7 +163,6 @@ public class CmsController extends BaseController {
 		view.setViewName("/cms/tcourselist");
 		return view;
 	}
-
 	/**
 	 * 跳转到老师登陆页面
 	 * 

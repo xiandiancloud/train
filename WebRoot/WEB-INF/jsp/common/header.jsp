@@ -32,7 +32,7 @@
 			<ul class="nav navbar-nav navbar-right">
 				<c:choose>
 				  <c:when test="${empty USER_CONTEXT}">   
-				    <li class=""><a href="tologin.action">登陆</a></li>
+				    <li class=""><a href="tologin.action">登录</a></li>
 				  </c:when> 
 				  <c:otherwise>   
 				   <li class="dropdown"><a class="dropdown-toggle"

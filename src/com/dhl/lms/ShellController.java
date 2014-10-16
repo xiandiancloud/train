@@ -59,14 +59,14 @@ public class ShellController extends BaseController {
 //				out.write(str);
 //			} else {
 
-				System.out.println("path ---------- " + path);
+//				System.out.println("path ---------- " + path);
 				//
 				//远程上传文件传递
 				String restid = UtilTools.getConfig().getProperty("RESTHOST_ID");
 				String restusername = UtilTools.getConfig().getProperty("RESTHOST_USERNAME");
 				String restpassword = UtilTools.getConfig().getProperty("RESTHOST_PASSWORD");
 				Connection conn = UtilTools.getConnection(restid, restusername, restpassword);
-				System.out.println("shell-------------------------22222222222"+path);
+//				System.out.println("shell-------------------------22222222222"+path);
 				if (conn != null) {
 //					Session ssh = conn.openSession();
 					SCPClient scpClient = conn.createSCPClient();

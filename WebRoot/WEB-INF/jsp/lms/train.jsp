@@ -27,7 +27,6 @@
     <link href='assets/images/meta_icons/apple-touch-icon-114x114.png' rel='apple-touch-icon-precomposed' sizes='114x114'>
     <link href='assets/images/meta_icons/apple-touch-icon-144x144.png' rel='apple-touch-icon-precomposed' sizes='144x144'>
     <!-- / START - page related stylesheets [optional] -->
-    
     <!-- / END - page related stylesheets [optional] -->
     <!-- / bootstrap [required] -->
     <link href="assets/stylesheets/bootstrap/bootstrap.css" media="all" rel="stylesheet" type="text/css" />
@@ -54,8 +53,8 @@
 					<div class="panel" id="leftpanel">
 						<div class="panel-body">
 							<div id="pagination" class="center"></div>
-							<div class='box box-bordered blue-border box-nomargin cmargin5'>
-						                    <div class='box-header box-header-small blue-background'>
+							<div class='box box-bordered orange-border box-nomargin cmargin5'>
+						                    <div class='box-header box-header-small orange-background'>
 						                      <div class='title'>实验定义</div>
 						                      <div class='actions'>
 						                        <a class="btn box-remove btn-xs btn-link" href="#"><i class='icon-remove'></i>
@@ -124,8 +123,8 @@
 							  </div>
 							</div> -->
 							
-							<div class='box box-bordered green-border box-nomargin cmargin5'>
-						                    <div class='box-header box-header-small green-background'>
+							<div class='box box-bordered orange-border box-nomargin cmargin5'>
+						                    <div class='box-header box-header-small orange-background'>
 						                      <div class='title'>环境</div>
 						                      <div class='actions'>
 						                        <a class="btn box-remove btn-xs btn-link" href="#"><i class='icon-remove'></i>
@@ -183,8 +182,8 @@
 							  </div>
 							</div> -->
 							
-							<div class='box box-bordered red-border box-nomargin cmargin5'>
-				                    <div class='box-header box-header-small red-background'>
+							<div class='box box-bordered orange-border box-nomargin cmargin5'>
+				                    <div class='box-header box-header-small orange-background'>
 				                      <div class='title'>题目</div>
 				                      <div class='actions'>
 				                        <a class="btn box-remove btn-xs btn-link" href="#"><i class='icon-remove'></i>
@@ -251,8 +250,8 @@
 							  </div>
 							</div> -->
 							
-							<div class='box box-bordered purple-border box-nomargin cmargin5'>
-				                    <div class='box-header box-header-small purple-background'>
+							<div class='box box-bordered orange-border box-nomargin cmargin5'>
+				                    <div class='box-header box-header-small orange-background'>
 				                      <div class='title'>成绩</div>
 				                      <div class='actions'>
 				                        <a class="btn box-remove btn-xs btn-link" href="#"><i class='icon-remove'></i>
@@ -274,8 +273,8 @@
 							  </div>
 							</div> -->
 							
-							<div class='box box-bordered muted-border box-nomargin cmargin5'>
-				                    <div class='box-header box-header-small muted-background'>
+							<div class='box box-bordered orange-border box-nomargin cmargin5'>
+				                    <div class='box-header box-header-small orange-background'>
 				                      <div class='title'>答案</div>
 				                      <div class='actions'>
 				                        <a class="btn box-remove btn-xs btn-link" href="#"><i class='icon-remove'></i>

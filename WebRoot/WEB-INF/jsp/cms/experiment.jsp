@@ -65,7 +65,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                   <!-- 环境 -->
     		<div class='col-sm-4'style="clear:left;padding-top:15px;">
                   <div class='box bordered-box blue-border box-nomargin'>
-                    <div class='box-header green-background'>
+                    <div class='box-header blue-background'>
                       <div class='title'>
                        	 环境
                       </div>
@@ -87,7 +87,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		<!-- 题目文本输入开头 -->
   				  <div class='col-sm-4'style="clear:left;padding-top:15px;">
                   <div class='box bordered-box blue-border box-nomargin'>
-                    <div class='box-header red-background'>
+                    <div class='box-header blue-background'>
                       <div class='title'>
                        	 题目
                       </div>
@@ -104,7 +104,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                <!-- 结果 -->
     		<div class='col-sm-4'style="clear:left;padding-top:15px;">
                   <div class='box bordered-box blue-border box-nomargin'>
-                    <div class='box-header orange-background'>
+                    <div class='box-header blue-background'>
                       <div class='title'>
                        	 结果
                       </div>
@@ -112,14 +112,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <div class='box-content' style="height:130px;">
                     <div>
 	                  <div style="float:left;text-align:right;margin-right:5px;width:20%;border:1px;font-size:14px;font-weight:bold;margin-top:5%;">验证脚本</div>
-	                  
 	                  <div style="float:left;width:70%;margin-bottom:2%;margin-left:5px;">
 	                  <div class="box-content"style="display:inline-talbe;float:left;width:100%;margin-top:2%;">
 	                  <!-- <iframe width="100%" scrolling="yes"  frameborder="0"   src="fileupload.html" onload="this.height=84;var fdh=(this.Document?this.Document.body.scrollHeight:this.contentDocument.body.offsetHeight);this.height=(fdh>84?fdh:84)"></iframe> -->
 	                  <div id="result-uploader"></div>
 	                  <input type="hidden" id="conShell"/>
 	                  </div>
-	                  
 	                  </div>
                   </div>
                     </div>
@@ -131,7 +129,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                   <!-- 成绩 -->
     			<div class='col-sm-4'style="clear:left;padding-top:15px;">
                   <div class='box bordered-box blue-border box-nomargin'>
-                    <div class='box-header purple-background'>
+                    <div class='box-header blue-background'>
                       <div class='title'>
                        	 成绩
                       </div>
@@ -158,7 +156,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                   </div>
                   </div>
                  <div>
-                  <div style="float:left;text-align:right;margin-right:5px;width:20%;border:1px;font-size:14px;font-weight:bold;margin-top:6%;">判分脚本</div>
+                  <!-- <div style="float:left;text-align:right;margin-right:5px;width:20%;border:1px;font-size:14px;font-weight:bold;margin-top:6%;">判分脚本</div> -->
                   
                   <div style="float:left;width:70%;margin-bottom:2%;margin-left:5px;margin-top:2%;">
                   <div class="box-content"style="display:inline-talbe;float:left;width:100%">
@@ -172,7 +170,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                   <!-- 答案 -->
     			 <div class='col-sm-4'style="clear:left;padding-top:15px;">
                   <div class='box bordered-box blue-border box-nomargin'>
-                    <div class='box-header black-background'>
+                    <div class='box-header blue-background'>
                       <div class='title'>
                        	 答案
                       </div>
