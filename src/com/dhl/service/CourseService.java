@@ -124,6 +124,14 @@ public class CourseService {
 		return courseDao.getAllCourseList();
 	}
 	
+	public List<Course> getAllPublishCourseList(){
+		return courseDao.getAllPublishCourseList();
+	}
+	
+	public List<Course> getGroomCourse()
+	{
+		return courseDao.getGroomCourse();
+	}
 	/**
 	 * 根据课程id取得课程
 	 * 

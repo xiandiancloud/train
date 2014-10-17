@@ -31,7 +31,7 @@
     <!-- / bootstrap [required] -->
     <link href="assets/stylesheets/bootstrap/bootstrap.css" media="all" rel="stylesheet" type="text/css" />
     <!-- / theme file [required] -->
-    <link href="assets/stylesheets/light-theme.css" media="all" id="color-settings-body-color" rel="stylesheet" type="text/css" />
+    <link href="assets/stylesheets/dhllight-theme.css" media="all" id="color-settings-body-color" rel="stylesheet" type="text/css" />
     <!-- / coloring file [optional] (if you are going to use custom contrast color) -->
     <link href="assets/stylesheets/theme-colors.css" media="all" rel="stylesheet" type="text/css" />
     <!-- / demo file [not required!] -->
@@ -45,38 +45,7 @@
     <jsp:include page="header.jsp"></jsp:include>
     <div id='wrapper'>
       <div id='main-nav-bg'></div>
-      <nav id='main-nav'>
-        <div class='navigation'>
-          <div class='search'>
-            <form action='search_results.html' method='get'>
-              <div class='search-wrapper'>
-                <input value="" class="search-query form-control" placeholder="Search..." autocomplete="off" name="q" type="text" />
-                <button class='btn btn-link icon-search' name='button' type='submit'></button>
-              </div>
-            </form>
-          </div>
-          <ul class='nav nav-stacked'>
-            <li class=''>
-              <a href='admin/school.action'>
-                <i class='icon-dashboard'></i>
-                <span>控制台</span>
-              </a>
-            </li>
-            <li class='active'>
-              <a href='admin/school.action'>
-                <i class='icon-cog'></i>
-                <span>学校管理</span>
-              </a>
-            </li>
-            <li>
-              <a href='admin/category.action'>
-                <i class='icon-star'></i>
-                <span>分类管理</span>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </nav>
+	  <jsp:include page="left.jsp"></jsp:include>
       <section id='content'>
         <div class='container'>
           <div class='row' id='content-wrapper'>

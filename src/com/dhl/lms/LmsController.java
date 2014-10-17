@@ -134,7 +134,10 @@ public class LmsController extends BaseController {
 	public ModelAndView getAllCategory(HttpServletRequest request) {
 		ModelAndView view = new ModelAndView();
 		List<Category> category = categoryService.getAllCategory();
+		List<Course> groomlist = courseService.getGroomCourse();
+		
 		view.addObject("category", category);
+		view.addObject("groomlist", groomlist);
 		view.addObject("navindex", 1);
 		view.setViewName("/lms/courselist");
 		return view;
@@ -366,9 +369,14 @@ public class LmsController extends BaseController {
 						}
 
 					}
+					String img = userCourse.getCourse().getImgpath();
+					if (img == null || img.length() < 1)
+					{
+						img = "images/exam.jpg";
+					}
 					String str = "{'sucess':'sucess','name':'"
 							+ userCourse.getCourse().getName() + "','img':'"
-							+ userCourse.getCourse().getImgpath()
+							+ img
 							+ "','courseId':'" + userCourse.getCourse().getId()
 							+ "','complete':'" + complete + "'}";
 
@@ -648,6 +656,7 @@ public class LmsController extends BaseController {
 		int totalpage = (int) page.getTotalPageCount();
 		view.addObject("courselist", courses);
 		view.addObject("totalpage", totalpage);
+		view.addObject("totalcounts", page.getTotalCount());
 		view.addObject("currentpage", currentpage);
 		view.addObject("category",c);
 		view.addObject("rank",r);

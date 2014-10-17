@@ -39,7 +39,7 @@
 </head>
 <body>
 
-	<jsp:include page="header.jsp"></jsp:include>
+	<jsp:include page="../common/header.jsp"></jsp:include>
 	<div class="container">
 		<div class="clear"></div>
 		<div class="clear"></div>
@@ -173,7 +173,7 @@
 		</div>
 	</div>
 
-	<jsp:include page="footer.jsp"></jsp:include>
+	<jsp:include page="../common/footer.jsp"></jsp:include>
 
 	<!-- Bootstrap core JavaScript
     ================================================== -->

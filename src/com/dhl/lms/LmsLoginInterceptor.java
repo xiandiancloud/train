@@ -29,6 +29,7 @@ public class LmsLoginInterceptor implements HandlerInterceptor {
 		"/getAllCategory.action", "getCourse.action", "/tologin.action",
 		"/login.action", "getCourseByCategoryId.action",
 		"recentcourse.action", "toregeister.action","regeister.action", "getAllSchool.action",
+		"courselist.action","getAllCourseCategory.action",
 		"/bbb.action" };
 
 	@Override

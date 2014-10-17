@@ -13,8 +13,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.dhl.cons.CommonConstant;
 import com.dhl.domain.Category;
+import com.dhl.domain.Course;
 import com.dhl.domain.School;
 import com.dhl.service.CategoryService;
+import com.dhl.service.CourseService;
 import com.dhl.service.SchoolService;
 import com.dhl.web.BaseController;
 
@@ -34,7 +36,9 @@ public class AdminController extends BaseController {
 	private CategoryService categoryService;
 	@Autowired
 	private SchoolService schoolService;
-
+	@Autowired
+	private CourseService courseService;
+	
 	/**
 	 * 管理员到课程分类頁面
 	 * 
@@ -154,6 +158,38 @@ public class AdminController extends BaseController {
 			HttpServletResponse response, int categoryId) {
 		categoryService.remove(categoryId);
 		String url = "redirect:/admin/category.action";
+		return new ModelAndView(url);
+	}
+	
+	/**
+	 * 管理员到实验推荐頁面
+	 * 
+	 * @param request
+	 * @param index
+	 * @return
+	 */
+	@RequestMapping("/groom")
+	public ModelAndView groom(HttpServletRequest request) {
+		ModelAndView view = new ModelAndView();
+
+		List<Course> list = courseService.getAllPublishCourseList();
+		view.addObject("courselist", list);
+		view.setViewName("/admin/groom");
+		return view;
+	}
+	
+	/**
+	 * 推荐实验
+	 * @param request
+	 * @param examId
+	 * @return
+	 */
+	@RequestMapping("/groomcourse")
+	public ModelAndView groomcourse(HttpServletRequest request,int courseId,int type) {
+		Course c = courseService.get(courseId);
+		c.setIsgroom(type);
+		courseService.update(c);
+		String url = "redirect:/admin/groom.action";
 		return new ModelAndView(url);
 	}
 }

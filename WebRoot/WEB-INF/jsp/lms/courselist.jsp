@@ -58,7 +58,7 @@
     <![endif]-->
 </head>
 <body class='contrast-green fixed-header'>
-	<jsp:include page="header.jsp"></jsp:include>
+	<jsp:include page="../common/header.jsp"></jsp:include>
 	<div id='wrapper'>
 		<section id=''>
 			<!-- <div class="tback">
@@ -72,7 +72,20 @@
 				</div>
 			</div> -->
 			<div class="container">
+				<div class="row">
+					<div class="col-xs-12 center">
+						<h1 class="h1font">XD-LAB 推荐</h1>
+						<h5>从推荐实验里选择你感兴趣的实验，赶快加入吧!</h5>
+					</div>
+					<div class="clear"></div>
+					<c:forEach var="groom" items="${groomlist}">
+						<div class="col-xs-3">
+							<a href="lms/toexamintroduce.action?competionId=-1&examId=${groom.id}" class=""><img src="${(empty groom.imgpath)?'images/exam.jpg':groom.imgpath}" width="100%" height="250px;"><h4>${groom.name}</h4></a>
+						</div>
+					</c:forEach>
+				</div>
 				<div class="row none" id="myrecentlycourse">
+				<div class="col-xs-12 clear"></div>
 					<div class="col-xs-12 center">
 						<h3>欢迎回来</h3>
 					</div>
@@ -112,6 +125,15 @@
 					</div>
 
 				</div>
+				<div class="col-xs-12 clear"></div>
+				<div class="col-xs-12 clear"></div>
+				<div class="row">
+						<div class="col-xs-12 center">
+							<h1 class="h1font">XD-LAB 实验分类</h1>
+							<h5>在这里你可以找到任何你想要的训练实验，实现你的云梦想，赶快加入吧！</h5>
+						</div>
+				</div>
+				<div class="col-xs-12 clear"></div>
 				<c:forEach var="category" items="${category}">
 					<div class="row">
 						<div class="col-xs-12 left nospace" id="name${category.id}">
@@ -125,14 +147,14 @@
 						<!-- <div class="col-xs-12 clear"></div> -->
 						<div class="col-xs-12 center" id="nav${category.id}"></div>
 					</div>
-					<div class="clear"></div>
 				</c:forEach>
 
 				<div class="clear"></div>
 			</div>
 		</section>
 	</div>
-	<jsp:include page="footer.jsp"></jsp:include>
+	<div class="clear"></div>
+	<jsp:include page="../common/footer.jsp"></jsp:include>
 	<!-- / jquery [required] -->
 	<script src="assets/javascripts/jquery/jquery.min.js"
 		type="text/javascript"></script>

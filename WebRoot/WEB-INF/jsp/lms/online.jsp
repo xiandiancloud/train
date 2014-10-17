@@ -55,20 +55,24 @@
 	type="text/css" />
 <link href="css/train.css" rel="stylesheet">
 
-
 </head>
-
-
-
-
 <body class='contrast-green fixed-header'>
-
-	<jsp:include page="header.jsp"></jsp:include>
-
+	<jsp:include page="../common/header.jsp"></jsp:include>
 	<div id='wrapper'>
 		<section id=''>
 			<div class="container">
 				<div class="row">
+					<div class="col-xs-12 center">
+						<h1 class="h1font"><a id="allcounts"></a>+的试卷，造就你的云梦想！</h1>
+					</div>
+				</div>
+				<div class="clear"></div>
+				<div class="row searchback">
+				<div class="clear"></div>
+				<div class="row">
+					<div class="col-xs-1 searchtext">
+						实验搜索:
+					</div>
 					<div class="col-xs-3">
 						<select class='select2 form-control' name="major" id="category" onchange="loaddata();">
 							<!-- <option value='NY' selected="selected">-专业-</option> -->
@@ -82,7 +86,7 @@
 							<option value="3">高级</option>
 						</select>
 					</div>
-					<div class="col-sm-6">
+					<div class="col-sm-5">
 						<div class="form-group">
 							<div class="input-group controls-group">
 								<input type="text" name="q" class="form-control"
@@ -95,11 +99,12 @@
 							</div>
 						</div>
 					</div>
-
+				</div>
+				<div class="h5"></div>
 				</div>
 				<div class="clear"></div>
 				<c:forEach var="course" items="${courselist}">
-				<div class="row wback nospace">
+				<div class="row wback">
 					<div class="col-sm-3 courseh">
 						<a> <img src="${(empty course.course.imgpath)?'images/exam.jpg':course.course.imgpath}" alt="..." width="100%" height="150px;"
 							class="img-rounded">
@@ -138,8 +143,8 @@
 	</div>
 
 	<ul id="pagination" class="center"></ul>
-
-	<jsp:include page="footer.jsp"></jsp:include>
+	<div class="clear"></div><div class="clear"></div>
+	<jsp:include page="../common/footer.jsp"></jsp:include>
 
 	<!-- / jquery [required] -->
 	<script src="assets/javascripts/jquery/jquery.min.js"
@@ -200,7 +205,6 @@
 						var name = category.name;
 						tmp += '<option value='+id+'>'+name+'</option>';
 					}
-					//alert(tmp);
 					$("#category").html(tmp);
 					$("#category").attr("value","${category}");
 				}
@@ -212,6 +216,7 @@
 			{
 				return;
 			}
+			$("#allcounts").html("${totalcounts}");
 			var currentPage = "${currentpage}";
 			$
 					.jqPaginator(

@@ -41,286 +41,7 @@
       <script src="assets/javascripts/ie/html5shiv.js" type="text/javascript"></script>
       <script src="assets/javascripts/ie/respond.min.js" type="text/javascript"></script>
     <![endif]-->
-  </head>
-  <body class='contrast-green fixed-header'>
-    <jsp:include page="theader.jsp"></jsp:include>
-    <div id=''>
-      <section id=''>
-	      <div class="container-fluid">
-			<div class="row topback">
-				<div class="col-sm-4 nospace theight">
-	
-					<div class="panel" id="leftpanel">
-						<div class="panel-body">
-							<div id="pagination" class="center"></div>
-							<div class='box box-bordered orange-border box-nomargin cmargin5'>
-						                    <div class='box-header box-header-small orange-background'>
-						                      <div class='title'>实验定义</div>
-						                      <div class='actions'>
-						                        <a class="btn box-remove btn-xs btn-link" href="#"><i class='icon-remove'></i>
-						                        </a>
-						                        
-						                        <a class="btn box-collapse btn-xs btn-link" href="#"><i></i>
-						                        </a>
-						                      </div>
-						                    </div>
-						                    <div class='box-content'>
-									          <form class="form-horizontal" role="form">
-											  <div class="form-group">
-											    <label for="trainname" class="col-sm-2 control-label"><div class="h2font">名称</div></label>
-											    <div class="col-sm-10">
-											      <input type="text" class="form-control" id="trainname" disabled="disabled">
-											    </div>
-											  </div>
-											  <div class="form-group">
-											    <label for="traincode" class="col-sm-2 control-label"><div class="h2font">编号</div></label>
-											    <div class="col-sm-10">
-											      <input type="text" class="form-control" id="traincode" disabled="disabled">
-											    </div>
-											  </div>
-											</form>
-						                    </div>
-						    </div>
-							<!-- <div class="panel panel-default cmargin5">
-							  <div class="l2back h30 hfont">
-							    <div class="lmargin5">环境</div>
-							  </div>
-							  <div class="panel-body">
-								<form class="form-horizontal" role="form">
-								  <div class="form-group">
-								    <label for="trainprename" class="col-sm-2 control-label"><div class="h2font">模板</div></label>
-								    <div class="col-sm-10">
-								      <input type="text" class="form-control" id="trainprename" disabled="disabled">
-								    </div>
-								  </div>
-								  <h6 id="hasenv" class="none">
-										<table class="table table-bordered">
-											<tbody>
-												<tr>
-													<td>ip</td>
-													<td id="ip"></td>
-												</tr>
-												<tr>
-													<td>username</td>
-													<td id="username"></td>
-												</tr>
-												<tr>
-													<td>password</td>
-													<td id="password"></td>
-												</tr>
-												<tr>
-													<td>serverId</td>
-													<td id="ssh"></td>
-												</tr>
-											</tbody>
-										</table>
-									</h6>
-									<a href="javascript:void(0);" id="trainjoin" class="none">
-										<button type="button" class="btn btn-primary">创建环境</button>
-									</a>
-									<img src="images/Loading.gif" class="none" id="imgenv"/>
-								</form>
-							  </div>
-							</div> -->
-							
-							<div class='box box-bordered orange-border box-nomargin cmargin5'>
-						                    <div class='box-header box-header-small orange-background'>
-						                      <div class='title'>环境</div>
-						                      <div class='actions'>
-						                        <a class="btn box-remove btn-xs btn-link" href="#"><i class='icon-remove'></i>
-						                        </a>
-						                        
-						                        <a class="btn box-collapse btn-xs btn-link" href="#"><i></i>
-						                        </a>
-						                      </div>
-						                    </div>
-						                    <div class='box-content'>
-						                    <form class="form-horizontal" role="form">
-								  <div class="form-group">
-								    <label for="trainprename" class="col-sm-2 control-label"><div class="h2font">模板</div></label>
-								    <div class="col-sm-10">
-								      <input type="text" class="form-control" id="trainprename" disabled="disabled">
-								    </div>
-								  </div>
-								  <h6 id="hasenv" class="none">
-										<table class="table table-bordered">
-											<tbody>
-												<tr>
-													<td>ip</td>
-													<td id="ip"></td>
-												</tr>
-												<tr>
-													<td>username</td>
-													<td id="username"></td>
-												</tr>
-												<tr>
-													<td>password</td>
-													<td id="password"></td>
-												</tr>
-												<tr>
-													<td>serverId</td>
-													<td id="ssh"></td>
-												</tr>
-											</tbody>
-										</table>
-									</h6>
-									<a href="javascript:void(0);" id="trainjoin" class="none">
-										<button type="button" class="btn btn-primary">创建环境</button>
-									</a>
-									<img src="images/Loading.gif" class="none" id="imgenv"/>
-								</form>
-						                    </div>
-						    </div>
-						    
-<!-- 							<div class="panel panel-default cmargin5">
-							  <div class="l3back h30 hfont">
-							    <div class="lmargin5">题目</div>
-							  </div>
-							  <div class="panel-body">
-								    <label for="trainname" class="control-label"><div class="h2font">内容</div></label>
-								    <h6 id="traincon"></h6>
-							  </div>
-							</div> -->
-							
-							<div class='box box-bordered orange-border box-nomargin cmargin5'>
-				                    <div class='box-header box-header-small orange-background'>
-				                      <div class='title'>题目</div>
-				                      <div class='actions'>
-				                        <a class="btn box-remove btn-xs btn-link" href="#"><i class='icon-remove'></i>
-				                        </a>
-				                        
-				                        <a class="btn box-collapse btn-xs btn-link" href="#"><i></i>
-				                        </a>
-				                      </div>
-				                    </div>
-				                    <div class='box-content'>
-				                    <label for="trainname" class="control-label"><div class="h2font">内容</div></label>
-						    		<h6 id="traincon"></h6>
-				                    </div>
-						    </div>
-                  
-	<!-- 						<div class="panel panel-default cmargin5">
-							  <div class="l4back h30 hfont">
-							    <div class="lmargin5">结果</div>
-							  </div>
-							  <div class="panel-body">
-								    <form role="form">
-									  <div class="form-group">
-									    <label for="trainanswer"><div class="h2font">内容</div></label>
-									    <textarea class="form-control" rows="6" id="trainanswer"></textarea>
-									  </div>
-									</form>
-									<a href="javascript:void(0);" id="trainsubmit">
-										<button type="button" class="btn btn-primary" id="trainbutton">提交</button>
-									</a>
-									<img src="images/Loading.gif" class="none" id="imgsubmit"/>
-							  </div>
-							</div> -->
-							
-							<div class='box box-bordered orange-border box-nomargin cmargin5'>
-				                    <div class='box-header box-header-small orange-background'>
-				                      <div class='title'>结果</div>
-				                      <div class='actions'>
-				                        <a class="btn box-remove btn-xs btn-link" href="#"><i class='icon-remove'></i>
-				                        </a>
-				                        
-				                        <a class="btn box-collapse btn-xs btn-link" href="#"><i></i>
-				                        </a>
-				                      </div>
-				                    </div>
-				                    <div class='box-content'>
-					                    <form role="form">
-										  <div class="form-group">
-										    <label for="trainresult"><div class="h2font">内容</div></label>
-										    <textarea class="form-control" rows="6" id="trainrevalue"></textarea>
-										  </div>
-										</form>
-										<a href="javascript:void(0);" id="trainsubmit">
-											<button type="button" class="btn btn-primary" id="trainbutton">提交</button>
-										</a>
-										<img src="images/Loading.gif" class="none" id="imgsubmit"/>
-				                    </div>
-						    </div>
-						    
-<!-- 							<div class="panel panel-default cmargin5">
-							  <div class="l5back h30 hfont">
-							    <div class="lmargin5">成绩</div>
-							  </div>
-							  <div class="panel-body">
-							  </div>
-							</div> -->
-							
-							<div class='box box-bordered orange-border box-nomargin cmargin5'>
-				                    <div class='box-header box-header-small orange-background'>
-				                      <div class='title'>成绩</div>
-				                      <div class='actions'>
-				                        <a class="btn box-remove btn-xs btn-link" href="#"><i class='icon-remove'></i>
-				                        </a>
-				                        
-				                        <a class="btn box-collapse btn-xs btn-link" href="#"><i></i>
-				                        </a>
-				                      </div>
-				                    </div>
-				                    <div class='box-content'>
-				                    <h6 id="trainresult"></h6>
-				                    </div>
-						    </div>
-<!-- 							<div class="panel panel-default cmargin5">
-							  <div class="l6back h30 hfont">
-							    <div class="lmargin5">答案</div>
-							  </div>
-							  <div class="panel-body">
-							  </div>
-							</div> -->
-							
-							<div class='box box-bordered orange-border box-nomargin cmargin5'>
-				                    <div class='box-header box-header-small orange-background'>
-				                      <div class='title'>答案</div>
-				                      <div class='actions'>
-				                        <a class="btn box-remove btn-xs btn-link" href="#"><i class='icon-remove'></i>
-				                        </a>
-				                        
-				                        <a class="btn box-collapse btn-xs btn-link" href="#"><i></i>
-				                        </a>
-				                      </div>
-				                    </div>
-				                    <div class='box-content'>
-				                    <h6 id="trainanswer"></h6>
-				                    </div>
-						    </div>
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-8 nospace fheight">
-					<iframe id="iframe" src="http://192.168.1.103:8090/" frameBorder="0"
-						width="100%" scrolling="no" height="100%"></iframe>
-				</div>
-			</div>
-		</div>
-      </section>
-    </div>
     
-    <jsp:include page="footer.jsp"></jsp:include>
-   <div class="modal fade" id="myModal" data-backdrop="static">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<!-- 				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">
-						<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-					</button>
-					<h4 class="modal-title">Modal title</h4>
-				</div> -->
-				<div class="modal-body">
-					<h4>不要离开太久哦</h4>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-primary"
-						onclick="gototrain();">继续实验</button>
-					<!-- <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button> -->
-				</div>
-			</div>
-		</div>
-	</div>
     <!-- / jquery [required] -->
     <script src="assets/javascripts/jquery/jquery.min.js" type="text/javascript"></script>
     <!-- / jquery mobile (for touch events) -->
@@ -347,6 +68,209 @@
     <script src="js/common.js" type="text/javascript"></script>
     <script src="js/holder.js"></script>
 	<script src="js/jqPaginator.js"></script>
+	
+    <script type="text/javascript" src="easyui/jquery.easyui.min.js"></script>
+	
+	<link rel="stylesheet" type="text/css" href="easyui/themes/bootstrap/easyui.css">
+	
+	<style>
+		#editor {overflow:auto;height: 150px;}
+		#leftpanel{margin-right: 5px;border:0;}
+		#editor img{
+			  padding: 4px;
+			  line-height: 1.42857;
+			  background-color: white;
+			  border: 0px solid #dddddd;
+			  border-radius: 4px;
+			  -webkit-transition: all 0.2s ease-in-out;
+			  transition: all 0.2s ease-in-out;
+			  display: inline-block;
+			  max-width: 100%;
+			  height: auto;
+		}
+	</style>
+	
+  </head>
+  <body class='easyui-layout'>
+  <div data-options="region:'north',border:false" style="height:60px;padding:0px">
+	<div class="tt"><jsp:include page="theader.jsp"></jsp:include></div>
+  </div>
+    
+    <div data-options="region:'west',split:true" style="width:450px;">
+    	<div id="leftpanel">
+			<div id="pagination" class="center"></div>
+			<div class='box box-bordered orange-border box-nomargin cmargin5'>
+		                    <div class='box-header box-header-small orange-background'>
+		                      <div class='title'>实验定义</div>
+		                      <div class='actions'>
+		                        <a class="btn box-remove btn-xs btn-link" href="#"><i class='icon-remove'></i>
+		                        </a>
+		                        
+		                        <a class="btn box-collapse btn-xs btn-link" href="#"><i></i>
+		                        </a>
+		                      </div>
+		                    </div>
+		                    <div class='box-content'>
+					          <form class="form-horizontal" role="form">
+							  <div class="form-group">
+							    <label for="trainname" class="col-sm-2 control-label"><div class="h2font">名称</div></label>
+							    <div class="col-sm-10">
+							      <input type="text" class="form-control" id="trainname" disabled="disabled">
+							    </div>
+							  </div>
+							  <div class="form-group">
+							    <label for="traincode" class="col-sm-2 control-label"><div class="h2font">编号</div></label>
+							    <div class="col-sm-10">
+							      <input type="text" class="form-control" id="traincode" disabled="disabled">
+							    </div>
+							  </div>
+							</form>
+		                    </div>
+		    </div>
+			<div class='box box-bordered orange-border box-nomargin cmargin5'>
+		                    <div class='box-header box-header-small orange-background'>
+		                      <div class='title'>环境</div>
+		                      <div class='actions'>
+		                        <a class="btn box-remove btn-xs btn-link" href="#"><i class='icon-remove'></i>
+		                        </a>
+		                        
+		                        <a class="btn box-collapse btn-xs btn-link" href="#"><i></i>
+		                        </a>
+		                      </div>
+		                    </div>
+		                    <div class='box-content'>
+		                    <form class="form-horizontal" role="form">
+				  <div class="form-group">
+				    <label for="trainprename" class="col-sm-2 control-label"><div class="h2font">模板</div></label>
+				    <div class="col-sm-10">
+				      <input type="text" class="form-control" id="trainprename" disabled="disabled">
+				    </div>
+				  </div>
+				  <h6 id="hasenv" class="none">
+						<table class="table table-bordered">
+							<tbody>
+								<tr>
+									<td>ip</td>
+									<td id="ip"></td>
+								</tr>
+								<tr>
+									<td>username</td>
+									<td id="username"></td>
+								</tr>
+								<tr>
+									<td>password</td>
+									<td id="password"></td>
+								</tr>
+								<tr>
+									<td>serverId</td>
+									<td id="ssh"></td>
+								</tr>
+							</tbody>
+						</table>
+					</h6>
+					<a href="javascript:void(0);" id="trainjoin" class="none">
+						<button type="button" class="btn btn-primary">创建环境</button>
+					</a>
+					<img src="images/Loading.gif" class="none" id="imgenv"/>
+				</form>
+		                    </div>
+		    </div>
+		    
+			<div class='box box-bordered orange-border box-nomargin cmargin5'>
+                    <div class='box-header box-header-small orange-background'>
+                      <div class='title'>题目</div>
+                      <div class='actions'>
+                        <a class="btn box-remove btn-xs btn-link" href="#"><i class='icon-remove'></i>
+                        </a>
+                        
+                        <a class="btn box-collapse btn-xs btn-link" href="#"><i></i>
+                        </a>
+                      </div>
+                    </div>
+                    <div class='box-content'>
+                    <label for="trainname" class="control-label"><div class="h2font">内容</div></label>
+		    		<h6 id="traincon"></h6>
+                    </div>
+		    </div>
+			<div class='box box-bordered orange-border box-nomargin cmargin5'>
+                    <div class='box-header box-header-small orange-background'>
+                      <div class='title'>结果</div>
+                      <div class='actions'>
+                        <a class="btn box-remove btn-xs btn-link" href="#"><i class='icon-remove'></i>
+                        </a>
+                        
+                        <a class="btn box-collapse btn-xs btn-link" href="#"><i></i>
+                        </a>
+                      </div>
+                    </div>
+                    <div class='box-content'>
+	                    <form role="form">
+						  <div class="form-group">
+						    <label for="trainresult"><div class="h2font">内容</div></label>
+						    <textarea class="form-control" rows="6" id="trainrevalue"></textarea>
+						  </div>
+						</form>
+						<a href="javascript:void(0);" id="trainsubmit">
+							<button type="button" class="btn btn-primary" id="trainbutton">提交</button>
+						</a>
+						<img src="images/Loading.gif" class="none" id="imgsubmit"/>
+                    </div>
+		    </div>
+			<div class='box box-bordered orange-border box-nomargin cmargin5'>
+                    <div class='box-header box-header-small orange-background'>
+                      <div class='title'>成绩</div>
+                      <div class='actions'>
+                        <a class="btn box-remove btn-xs btn-link" href="#"><i class='icon-remove'></i>
+                        </a>
+                        
+                        <a class="btn box-collapse btn-xs btn-link" href="#"><i></i>
+                        </a>
+                      </div>
+                    </div>
+                    <div class='box-content'>
+                    <h6 id="trainresult"></h6>
+                    </div>
+		    </div>
+			<div class='box box-bordered orange-border box-nomargin cmargin5'>
+                    <div class='box-header box-header-small orange-background'>
+                      <div class='title'>答案</div>
+                      <div class='actions'>
+                        <a class="btn box-remove btn-xs btn-link" href="#"><i class='icon-remove'></i>
+                        </a>
+                        
+                        <a class="btn box-collapse btn-xs btn-link" href="#"><i></i>
+                        </a>
+                      </div>
+                    </div>
+                    <div class='box-content'>
+                    <h6 id="trainanswer"></h6>
+                    </div>
+		    </div>
+		</div>
+    </div>
+    <div data-options="region:'south',border:false" style="height:50px;background:#EEEEEE;padding:0px;">
+	<jsp:include page="../common/footer.jsp"></jsp:include>
+	</div>
+	
+	<div data-options="region:'center'" style="padding:0px;overflow:hidden;">
+		<iframe id="iframe" src="http://192.168.1.103:8090/" frameBorder="0"
+							width="100%" scrolling="no" height="100%"></iframe>
+	</div>
+   <div class="modal fade" id="myModal" data-backdrop="static">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body">
+					<h4>不要离开太久哦</h4>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary"
+						onclick="gototrain();">继续实验</button>
+					<!-- <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button> -->
+				</div>
+			</div>
+		</div>
+	</div>
+    
     <script>
     var currentPage;
 	$(function() {

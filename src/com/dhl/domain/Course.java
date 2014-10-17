@@ -36,6 +36,15 @@ public class Course extends BaseDomain {
 	private String org;
 	private String coursecode;
 	private String rank;
+	private int isgroom;
+	public int getIsgroom() {
+		return isgroom;
+	}
+
+	public void setIsgroom(int isgroom) {
+		this.isgroom = isgroom;
+	}
+
 	public String getRank() {
 		return rank;
 	}

@@ -4,7 +4,7 @@
   <header class="primary" role="banner">
 
     <div class="wrapper wrapper-l">
-      <h1 class="branding"><a href="cms/totcourselist.action"><img src="images/logo-edx-studio.png" alt="" /></a></h1>
+      <h1 class="branding"><a href="cms/totcourselist.action"><img src="images/logo-studio.png" alt="" /></a></h1>
 
       
       <h2 class="info-course">
