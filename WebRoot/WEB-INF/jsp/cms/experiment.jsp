@@ -183,23 +183,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     </div>
                   </div>
                 </div>
-                <div class="col-sm-4" style="margin-bottom:40px;clear:left;padding-top:15px;">
-                <div>
-                  <div style="float:left;text-align:right;margin-right:5px;width:50%;border:1px;font-size:14px;font-weight:bold;">
-                  	<button id="savebutton" class="btn btn-primary" type="button" style="margin-right:20px;" onclick="savetrain();">
-                        <i class="icon-save"></i>保存
-                    </button>
-                  </div>
-                  <div style="float:left;text-align:right;margin-right:5px;width:50%;border:1px;font-size:14px;font-weight:bold;">
-                  	<button id="editbutton" class="btn btn-primary" type="button" style="margin-right:20px;" onclick="updatetrain();">
-                        <i class="icon-edit"></i>编辑
-                    </button>
-                  </div>
-                  <div style="float:left;text-align:left;margin-right:5px;width:40%;border:1px;font-size:14px;font-weight:bold;">
-                  <button class="btn" type="submit" style="" onclick="hidetrain();">取消</button>
-                  </div>
-                 </div>
-                 </div>
+                
          </div>    
          <script>
     	$(function() {
@@ -241,6 +225,38 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	    	},
     	    	debug: true 
     	    	}); 
+    	}
+    	function inittrainbyid(id)
+    	{
+    		$("#savebutton").hide();
+			$("#editbutton").show();
+    		var data={trainId:id};
+ 			$.ajax({
+				url:"cms/getTrain.action",
+				type:"post",
+				data:data,
+				success:function(s){
+					var a=eval("("+s+")");	
+					if (a.sucess=="sucess")
+					{
+						$("#vtrainid").attr("value",id);
+			    		$("#trainname").attr("value",a.name);
+			    		$("#codenum").attr("value",a.codenum);
+			    		
+			    		$("#envname").attr("value",a.envname);
+			    		conContent = replaceTextarea2(a.conContent);
+						$("#conContent").contents().find("#editor").html(conContent);
+						//conContent = replaceTextarea1(conContent);
+						$("#conShell").attr("value",a.conShell);
+						conAnswer = replaceTextarea2(a.conAnswer);
+						$("#conAnswer").contents().find("#editor").html(conAnswer);
+						//conAnswer = replaceTextarea1(conAnswer);
+						$("#score").attr("value",a.score);
+						//var scoretag = "";
+					}
+				}
+			});
+    		
     	}
     	function inittrain(id,name,codenum,envname,conContent,conShell,conAnswer,score,scoretag)
     	{
@@ -329,11 +345,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	}
     	function updatetrain()
     	{
-    		var sequenticalId = parseInt("${sequentialId}");
-			var verticalId = parseInt("${verticalId}");
-			var courseId = parseInt("${courseId}"); 
-			
-    		var trainId = parseInt($("#vtrainid").val());
+    	var tid = $("#vtrainid").val();
+			if (tid)
+			{
+			}
+			else
+			{
+				savetrain();
+				return;
+			}
+    		var trainId = parseInt(tid);
 			var name = $("#trainname").val();
 			var codenum = $("#codenum").val();
 			if (isNull(name))	
@@ -371,10 +392,56 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					var a=eval("("+s+")");	
 					if (a.sucess=="sucess")
 					{
-						location.href = "cms/tottrain.action?courseId="+courseId+"&sequentialId="+sequenticalId+"&verticalId="+verticalId;
+						//location.href = "cms/tottrain.action?courseId="+courseId+"&sequentialId="+sequenticalId+"&verticalId="+verticalId;
+						location.reload();
 					}
 				}
 			});
+    		/*var sequenticalId = parseInt("${sequentialId}");
+			var verticalId = parseInt("${verticalId}");
+			var courseId = parseInt("${courseId}"); 
+			
+    		var trainId = parseInt($("#vtrainid").val());
+			var name = $("#trainname").val();
+			var codenum = $("#codenum").val();
+			if (isNull(name))	
+			{
+				alert("名称不能为空");
+				return ;
+			}
+			if (isNull(codenum))	
+			{
+				alert("编号不能为空");
+				return ;
+			}
+			var envname = $("#envname").val();
+			var conContent = $("#conContent").contents().find("#editor").html();
+			conContent = replaceTextarea1(conContent);
+			var conShell = $("#conShell").val();
+			var conAnswer = $("#conAnswer").contents().find("#editor").html();
+			conAnswer = replaceTextarea1(conAnswer);
+			var temp = $("#score").val();
+			if (!isInteger(temp))
+			{
+				alert("分值必须是数字");
+				return ;
+			}
+			var score = parseInt(temp);
+			var scoretag = "";
+			//$('#editor').wysiwyg();
+			var data = {trainId:trainId,name:name,codenum:codenum,envname:envname,conContent:conContent,conShell:conShell,conAnswer:conAnswer,score:score,scoretag:scoretag};
+			$.ajax({
+				url:"cms/updateTrain.action",
+				type:"post",
+				data:data,
+				success:function(s){
+					var a=eval("("+s+")");	
+					if (a.sucess=="sucess")
+					{
+						location.href = "cms/tottrain.action?courseId="+courseId+"&sequentialId="+sequenticalId+"&verticalId="+verticalId;
+					}
+				}
+			});*/
     	}
 	</script>
   </body>

@@ -23,6 +23,7 @@ import com.dhl.domain.Role;
 import com.dhl.domain.School;
 import com.dhl.domain.Sequential;
 import com.dhl.domain.TeacherCourse;
+import com.dhl.domain.Train;
 import com.dhl.domain.User;
 import com.dhl.domain.Vertical;
 import com.dhl.domain.VerticalTrain;
@@ -72,7 +73,28 @@ public class CmsController extends BaseController {
 	@Autowired
 	private SchoolService schoolService;
 
-	
+	/**
+	 * 得到实验
+	 * 
+	 * @param request
+	 * @param response
+	 */
+	@RequestMapping("/getTrain")
+	public void getTrain(HttpServletRequest request,
+			HttpServletResponse response,int trainId) {
+
+		try {
+			PrintWriter out = response.getWriter();
+			Train t = trainService.get(trainId);
+    		
+			String str = "{'sucess':'sucess','name':'"+t.getName()+"','codenum':'"+t.getCodenum()
+					+"','envname':'"+t.getEnvname()+"','conContent':'"+t.getConContent()+"','conShell':'"
+					+t.getConShell()+"','conAnswer':'"+t.getConAnswer()+"','score':'"+t.getScore()+"'}";
+			out.write(str);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	
 	/**
 	 * 所有学校

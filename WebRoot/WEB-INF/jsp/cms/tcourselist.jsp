@@ -377,7 +377,7 @@ $("#dengji li a").click(function(index){
 				<aside class="content-supplementary" role="complimentary" style="margin-top:90px;">
 				<div class="bit">
 					<h3 class="title title-3">对云实训平台不熟悉?</h3>
-					<p>	点击右上角的帮助按钮，从而获得更多您访问的平台页面信息.您也可以使用在页面底部的链接，从而进入我们不断更新的文件盒其他一些平台资源。
+					<p>	点击右上角的帮助按钮，从而获得更多您访问的平台页面信息.您也可以使用在页面底部的链接，从而进入我们不断更新的文件和其他一些平台资源。
 						</p>
 
 					<ol class="list-actions">
@@ -387,7 +387,7 @@ $("#dengji li a").click(function(index){
 						<li class="action-item"><a
 							href="http://help.edge.edx.org/discussion/new"
 							class="show-tender"
-							title="Use our feedback tool, Tender, to request help">向云实训平台请求帮助</a></li>
+							title="Use our feedback tool, Tender, to request help">向云实训平台求助</a></li>
 					</ol>
 				</div>
 
