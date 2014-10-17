@@ -194,12 +194,11 @@ create table t_environment
    UNIQUE KEY (name)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
-drop table if exists user_course_environment;
-create table user_course_environment
+drop table if exists t_user_environment;
+create table t_user_environment
 (
    id                  int not null AUTO_INCREMENT,
    userId              int(10) not null,
-   courseId            int(10) not null,
    name                varchar(255) not null,  
    createtime          varchar(255) not null, 
    hostname            varchar(255) default null,
@@ -207,7 +206,6 @@ create table user_course_environment
    password            varchar(255) default null,
    serverId            varchar(255) default null,
    primary key (id),
-   CONSTRAINT receiveuser_course_environment_ibfk_1 FOREIGN KEY (userId) REFERENCES auth_user (id) ON DELETE CASCADE,
-   CONSTRAINT receiveuser_course_environment_ibfk_2 FOREIGN KEY (courseId) REFERENCES t_course (id) ON DELETE CASCADE,
-   CONSTRAINT receiveuser_course_environment_ibfk_3 FOREIGN KEY (name) REFERENCES t_environment (name) ON DELETE CASCADE
+   CONSTRAINT receivet_user_environment_ibfk_1 FOREIGN KEY (userId) REFERENCES auth_user (id) ON DELETE CASCADE,
+   CONSTRAINT receivet_user_environment_ibfk_2 FOREIGN KEY (name) REFERENCES t_environment (name) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;

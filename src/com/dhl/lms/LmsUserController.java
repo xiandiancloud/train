@@ -14,11 +14,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.dhl.cons.CommonConstant;
 import com.dhl.domain.Role;
-import com.dhl.domain.UCEnvironment;
+import com.dhl.domain.UserEnvironment;
 import com.dhl.domain.User;
 import com.dhl.domain.UserCourse;
 import com.dhl.domain.UserTrain;
-import com.dhl.service.UCEService;
+import com.dhl.service.UserEnvironmentService;
 import com.dhl.service.UserCourseService;
 import com.dhl.service.UserService;
 import com.dhl.service.UserTrainService;
@@ -39,7 +39,7 @@ public class LmsUserController extends BaseController {
 	@Autowired
 	private UserService userService;
 	@Autowired
-	private UCEService uceService;
+	private UserEnvironmentService uceService;
 	@Autowired
 	private UserTrainService userTrainService;
 	@Autowired
@@ -212,7 +212,7 @@ public class LmsUserController extends BaseController {
 		ModelAndView view = new ModelAndView();
 
 		User user = getSessionUser(request);
-		List<UCEnvironment> uce = uceService.getMyUCE(user.getId());
+		List<UserEnvironment> uce = uceService.getMyUCE(user.getId());
 		view.addObject("uce", uce);
 		view.setViewName("/lms/mycourseenv");
 		return view;
@@ -256,8 +256,7 @@ public class LmsUserController extends BaseController {
 			User user = getSessionUser(request);
 			PrintWriter out = response.getWriter();
 			// if (user != null) {
-			UCEnvironment uce = uceService.getMyUCE(user.getId(), courseId,
-					name);
+			UserEnvironment uce = uceService.getMyUCE(user.getId(),name);
 			UserTrain userTrain = userTrainService.getUserTrain(user.getId(),
 					courseId, trainId);
 			String result = userTrain == null ? "" : userTrain.getResult();

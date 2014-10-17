@@ -11,9 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.dhl.domain.UCEnvironment;
 import com.dhl.domain.User;
-import com.dhl.service.UCEService;
+import com.dhl.domain.UserEnvironment;
+import com.dhl.service.UserEnvironmentService;
 import com.dhl.util.UtilTools;
 import com.dhl.web.BaseController;
 
@@ -29,13 +29,13 @@ public class ISController extends BaseController {
 	// @Autowired
 	// private UserTrainService userTrainService;
 	@Autowired
-	private UCEService uceService;
+	private UserEnvironmentService uceService;
 
 	// private UserCourseService userCourseService;
 
 	@RequestMapping("/createServer")
 	public void createServer(HttpServletRequest request,
-			HttpServletResponse response, int courseId, String name) {
+			HttpServletResponse response,String name) {
 		try {
 			PrintWriter out = response.getWriter();
 			User user = getSessionUser(request);
@@ -44,8 +44,7 @@ public class ISController extends BaseController {
 //				out.write(str);
 //			} else {
 
-				UCEnvironment uce = uceService.getMyUCE(user.getId(), courseId,
-						name);
+				UserEnvironment uce = uceService.getMyUCE(user.getId(), name);
 				if (uce != null) {
 					String uh = uce.getHostname();
 					if (uh != null && uh.length() > 0) {
@@ -77,8 +76,7 @@ public class ISController extends BaseController {
 					String str = "{'sucess':'sucess','ip':'" + ip
 							+ "','username':'" + username + "','password':'"
 							+ password + "','ssh':'" + ssh + "'}";
-					uceService.save(user.getId(), courseId, name, ip, username,
-							password, ssh);
+					uceService.save(user.getId(), name, ip, username,password, ssh);
 					out.write(str);
 				}
 
@@ -102,7 +100,7 @@ public class ISController extends BaseController {
 	@RequestMapping("/deleteEnv")
 	public ModelAndView delServer(HttpServletRequest request,
 			HttpServletResponse response, int id) {
-		UCEnvironment uce = uceService.get(id);
+		UserEnvironment uce = uceService.get(id);
 		if (uce != null) {
 			String uh = uce.getServerId();
 			if (uh != null && uh.length() > 0) {
@@ -110,7 +108,7 @@ public class ISController extends BaseController {
 			}
 		}
 		uceService.delete(id);
-		String url = "redirect:/lms/setting.action?index=2";
+		String url = "redirect:/lms/mycourseenv.action";
 		return new ModelAndView(url);
 	}
 }

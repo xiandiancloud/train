@@ -91,7 +91,7 @@
 	</style>
 	
   </head>
-  <body class='easyui-layout'>
+  <body class='easyui-layout' >
   <div data-options="region:'north',border:false" style="height:60px;padding:0px">
 	<div class="tt"><jsp:include page="theader.jsp"></jsp:include></div>
   </div>
@@ -471,9 +471,7 @@
 		<c:forEach items="${tlist}" var="train" varStatus="status">
 		if ("${status.count}" == currentPage) {
 			var name = "${train.envname}";
-			var courseId = parseInt("${course.id}");
 			var data = {
-				courseId : courseId,
 				name : name
 			};
 			$.ajax({

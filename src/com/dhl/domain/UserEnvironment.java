@@ -12,15 +12,14 @@ import javax.persistence.Table;
  * 
  */
 @Entity
-@Table(name = "user_course_environment")
-public class UCEnvironment extends BaseDomain {
+@Table(name = "t_user_environment")
+public class UserEnvironment extends BaseDomain {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private int id;
 	private int userId;
-	private int courseId;
 	//环境模板名
 	private String name;
 //	private String result;
@@ -65,12 +64,6 @@ public class UCEnvironment extends BaseDomain {
 	}
 	public void setUserId(int userId) {
 		this.userId = userId;
-	}
-	public int getCourseId() {
-		return courseId;
-	}
-	public void setCourseId(int courseId) {
-		this.courseId = courseId;
 	}
 	public String getName() {
 		return name;

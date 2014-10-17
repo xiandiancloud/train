@@ -18,10 +18,10 @@ import ch.ethz.ssh2.SCPClient;
 import ch.ethz.ssh2.Session;
 
 import com.dhl.domain.RestShell;
-import com.dhl.domain.UCEnvironment;
+import com.dhl.domain.UserEnvironment;
 import com.dhl.domain.User;
 import com.dhl.domain.UserTrain;
-import com.dhl.service.UCEService;
+import com.dhl.service.UserEnvironmentService;
 import com.dhl.service.UserTrainService;
 import com.dhl.util.UtilTools;
 import com.dhl.web.BaseController;
@@ -40,7 +40,7 @@ public class ShellController extends BaseController {
 	// @Autowired
 	// private UserCourseService userCourseService;
 	@Autowired
-	private UCEService uceService;
+	private UserEnvironmentService uceService;
 	@Autowired
 	private RestTemplate restTemplate;
 	
@@ -74,8 +74,7 @@ public class ShellController extends BaseController {
 				}
 				conn.close();
 				// ----------shell start--------------
-				UCEnvironment uce = uceService.getMyUCE(user.getId(), courseId,
-						name);
+				UserEnvironment uce = uceService.getMyUCE(user.getId(), name);
 				if (uce != null)
 				{
 					String ip = uce.getHostname();
@@ -129,42 +128,6 @@ public class ShellController extends BaseController {
 					out.write(str);
 				}
 				
-//				Connection conn = UtilTools.getConnection(ip, userName,
-//						passWord);
-//				if (conn != null) {
-
-//					Session ssh = conn.openSession();
-//					SCPClient scpClient = conn.createSCPClient();
-//					scpClient.put(rp + path, "/tmp", "0755");
-//
-//					String[] strs = path.split("/");
-//					String commandsrc = "cd /tmp;./" + strs[strs.length - 1]
-//							+ " &";
-//					ssh.execCommand(commandsrc);
-//
-//					String tmp = "";
-//					InputStream is = new StreamGobbler(ssh.getStdout());
-//					BufferedReader brs = new BufferedReader(
-//							new InputStreamReader(is));
-//					while (true) {
-//						String line = brs.readLine();
-//						if (line == null) {
-//							break;
-//						}
-//						tmp += line + "</br>";
-//					}
-//					String[] tmpstr = tmp.split("&&&&&&");
-//					String rdata = tmpstr[0];
-//					String result = tmpstr[1];
-//
-//					ssh.close();
-//					conn.close();
-					// ----------shell end----------------
-
-					
-//				}
-
-//			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			PrintWriter out = null;
