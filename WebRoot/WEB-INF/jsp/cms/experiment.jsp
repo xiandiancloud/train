@@ -242,7 +242,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						$("#vtrainid").attr("value",id);
 			    		$("#trainname").attr("value",a.name);
 			    		$("#codenum").attr("value",a.codenum);
-			    		
 			    		$("#envname").attr("value",a.envname);
 			    		conContent = replaceTextarea2(a.conContent);
 						$("#conContent").contents().find("#editor").html(conContent);
@@ -263,7 +262,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		$("#vtrainid").attr("value",id);
     		$("#trainname").attr("value",name);
     		$("#codenum").attr("value",codenum);
-    		
     		$("#envname").attr("value",envname);
     		conContent = replaceTextarea2(conContent);
 			$("#conContent").contents().find("#editor").html(conContent);

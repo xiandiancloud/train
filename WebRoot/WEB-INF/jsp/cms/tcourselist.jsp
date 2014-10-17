@@ -13,7 +13,7 @@
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <base href="<%=basePath%>">
-<title>我的课程 |edX Studio</title>
+<title>我的课程 </title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="path_prefix" content="">
 <link type="text/css" rel="stylesheet" href="tcss/normalize.css">
