@@ -31,11 +31,51 @@
 <link type="text/css" rel="stylesheet" href="tcss/style-app-extend1.css">
 <link type="text/css" rel="stylesheet" href="tcss/style-xmodule.css">
 
-	<script src="js/jquery-1.11.1.js"></script>
-	<script src="js/index.js"></script>
-	<style type="text/css">
-		select {margin-right: 1em; float: left; height:45px; width:200px;}
-	</style>
+<script src="js/jquery-1.11.1.js"></script>
+<script src="js/index.js"></script>
+<style>
+.dhlselect
+ {
+height: 100%;
+width: 100%;
+width: 45%;
+min-width: 100px;
+padding: 10px;
+border-radius: 3px;
+border: 1px solid #b2b2b2;
+text-overflow: ellipsis;
+-webkit-appearance: menulist;
+box-sizing: border-box;
+align-items: center;
+border: 1px solid;
+border-image-source: initial;
+border-image-slice: initial;
+border-image-width: initial;
+border-image-outset: initial;
+border-image-repeat: initial;
+white-space: pre;
+-webkit-rtl-ordering: logical;
+cursor: default;
+
+-webkit-box-sizing: border-box;
+-moz-box-sizing: border-box;
+box-sizing: border-box;
+background-color: #f2f2f2;
+background-image: -webkit-linear-gradient(#f2f2f2,#fff);
+background-image: linear-gradient(#f2f2f2,#fff);
+border: 1px solid #b2b2b2;
+border-radius: 2px;
+background-color: #f2f2f2;
+box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+color: #4c4c4c;
+outline: 0;
+}
+.dhlselect:focus
+{background-color:#fffcf1;
+background-image:-webkit-linear-gradient(#fffcf1,#fffefd);
+background-image:linear-gradient(#fffcf1,#fffefd);
+outline:0}
+</style>
 </head>
 
 <body class="is-signedin index view-dashboard hide-wip lang_zh-cn">
@@ -96,12 +136,12 @@
 										name="new-course-name" aria-required="true"
 										placeholder="例如，计算机科学导论" /> <span class="tip">这是您的课程公共展示名，是不能被修改的。但您可以以后可以提前设置一个不同的展示名。</span> <span class="tip tip-error is-hiding"></span></li>
 									<li class="field text required" id="field-course-category"><label
-										for="name">课程专业</label> <select class="short"	id="category">
+										for="name">课程专业</label> <select class="short dhlselect" id="category">
 										</select>
-										<span class="tip" style="margin-top:60px;">这是您的课程公共展示名，是不能被修改的。但您可以以后可以提前设置一个不同的展示名。</span> <span class="tip tip-error is-hiding"></span></li>
+										<span class="tip">这是您的课程公共展示名，是不能被修改的。但您可以以后可以提前设置一个不同的展示名。</span> <span class="tip tip-error is-hiding"></span></li>
 									<li class="field text required" id="field-course-rank"><label
-										for="name" style="margin-top: 10px;">等级</label> 
-										<select class="new-course-rank"	id="rank">
+										for="name">等级</label> 
+										<select class="dhlselect" id="rank">
 										<option value="高级">高级</option>
 										<option value="中级">中级</option>
 										<option value="低级">低级</option>
@@ -109,7 +149,7 @@
 										<!-- <input
 										class="new-course-rank" id="rank" type="text"
 										name="new-course-rank" aria-required="true"
-										placeholder="例如，高级 中级  低级" /> --> <span class="tip"  style="margin-top:60px;">
+										placeholder="例如，高级 中级  低级" /> --> <span class="tip">
 										这是您的课程公共展示名，是不能被修改的。但您可以以后可以提前设置一个不同的展示名。</span><span class="tip tip-error is-hiding"></span></li>
 									<li class="field text required" id="field-organization"><label
 										for="org"  style="margin-top:10px;">组织</label> <input class="new-course-org"
@@ -176,83 +216,6 @@
 										class="button view-button view-live-button">在线查看</a></li> --%>
 								</ul></li>
 						</c:forEach>
-						<!-- 
-          <li class="course-item">
-            <a class="course-link" href="/course/Nanjing/NO003/2014_T2">
-              <h3 class="course-title">云计算与软件工程</h3>
-
-              <div class="course-metadata">
-                <span class="course-org metadata-item">
-                  <span class="label">组织：</span> <span class="value">Nanjing</span>
-                </span>
-                <span class="course-num metadata-item">
-                  <span class="label">课程代码：</span>
-                  <span class="value">NO003</span>
-                </span>
-                <span class="course-run metadata-item">
-                  <span class="label">开课时间</span> <span class="value">2014_T2</span>
-                </span>
-              </div>
-            </a>
-
-            <ul  class="item-actions course-actions">
-              <li class="action">
-                <a href="//localhost:8000/courses/Nanjing/NO003/2014_T2/jump_to/i4x://Nanjing/NO003/course/2014_T2" rel="external" class="button view-button view-live-button">在线查看</a>
-              </li>
-            </ul>
-          </li>
-          
-          <li class="course-item">
-            <a class="course-link" href="/course/NJUPT/No001/2014_T1">
-              <h3 class="course-title">数据结构</h3>
-
-              <div class="course-metadata">
-                <span class="course-org metadata-item">
-                  <span class="label">组织：</span> <span class="value">NJUPT</span>
-                </span>
-                <span class="course-num metadata-item">
-                  <span class="label">课程代码：</span>
-                  <span class="value">No001</span>
-                </span>
-                <span class="course-run metadata-item">
-                  <span class="label">开课时间</span> <span class="value">2014_T1</span>
-                </span>
-              </div>
-            </a>
-
-            <ul  class="item-actions course-actions">
-              <li class="action">
-                <a href="//localhost:8000/courses/NJUPT/No001/2014_T1/jump_to/i4x://NJUPT/No001/course/2014_T1" rel="external" class="button view-button view-live-button">在线查看</a>
-              </li>
-            </ul>
-          </li>
-          
-          <li class="course-item">
-            <a class="course-link" href="/course/nicky-NJUPT/NO002/2014_09">
-              <h3 class="course-title">算法设计与分析</h3>
-
-              <div class="course-metadata">
-                <span class="course-org metadata-item">
-                  <span class="label">组织：</span> <span class="value">nicky-NJUPT</span>
-                </span>
-                <span class="course-num metadata-item">
-                  <span class="label">课程代码：</span>
-                  <span class="value">NO002</span>
-                </span>
-                <span class="course-run metadata-item">
-                  <span class="label">开课时间</span> <span class="value">2014_09</span>
-                </span>
-              </div>
-            </a>
-
-            <ul  class="item-actions course-actions">
-              <li class="action">
-                <a href="//localhost:8000/courses/nicky-NJUPT/NO002/2014_09/jump_to/i4x://nicky-NJUPT/NO002/course/2014_09" rel="external" class="button view-button view-live-button">在线查看</a>
-              </li>
-            </ul>
-          </li>
-        
-        -->
 					</ul>
 				</div>
 
@@ -289,54 +252,6 @@
 					class="cta cta-show-sock"><i class="icon-question-sign"></i> <span
 						class="copy"><!-- Looking for help with Studio? -->向云实训平台求助？</span></a></li>
 			</ul>
-			<div class="wrapper-inner wrapper">
-				<section class="sock" id="sock"> <header>
-				<h2 class="title sr">edX Studio Documentation</h2>
-				</header>
-				<div class="support">
-					<h3 class="title">edX Studio Documentation</h3>
-					<div class="copy">
-						<p><!-- You can click Help in the upper right corner of any page to
-							get more information about the page you're on. You can also use
-							the links below to download the Building and Running an edX
-							Course PDF file, to go to the edX Author Support site, or to
-							enroll in edX101. -->您可以点击在任何页面的右上角的帮助按钮，来获得更多关于当前页面的信息。您也可以使用下面的链接来下载如何创建并运行一个云实训课程的pdf文件，登录实训平台版权支持网站，或者退出云平台</p>
-					</div>
-
-					<ul class="list-actions">
-						<li class="action-item js-help-pdf"><a
-							href="https://media.readthedocs.org/pdf/edx-partner-course-staff/latest/edx-partner-course-staff.pdf"
-							target="_blank" rel="external" class="action action-primary">Building
-								and Running an edX Course PDF</a></li>
-
-						<li class="action-item"><a href="http://help.edge.edx.org/"
-							rel="external" class="action action-primary">edX Studio
-								Author Support</a> <span class="tip">edX Studio Author
-								Support</span></li>
-						<li class="action-item"><a
-							href="https://edge.edx.org/courses/edX/edX101/How_to_Create_an_edX_Course/about"
-							rel="external" class="action action-primary">注册edX101</a> <span
-							class="tip">How to use edX Studio to build your course</span></li>
-					</ul>
-				</div>
-
-				<div class="feedback">
-					<h3 class="title">Request help with edX Studio</h3>
-
-					<div class="copy">
-						<p>Have problems, questions, or suggestions about edX Studio?</p>
-					</div>
-
-					<ul class="list-actions">
-						<li class="action-item"><a
-							href="http://help.edge.edx.org/discussion/new"
-							class="action action-primary show-tender"
-							title="请使用工具Tender来分享您的反馈"><i class="icon-comments"></i>联系我们</a>
-						</li>
-					</ul>
-				</div>
-				</section>
-			</div>
 		</div>
 
 		<jsp:include page="tfooter.jsp"></jsp:include>
