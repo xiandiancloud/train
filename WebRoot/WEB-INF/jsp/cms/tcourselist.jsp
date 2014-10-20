@@ -1,7 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -13,7 +12,7 @@
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <base href="<%=basePath%>">
-<title>我的课程 </title>
+<title>我的课程 |edX Studio</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="path_prefix" content="">
 <link type="text/css" rel="stylesheet" href="tcss/normalize.css">
@@ -27,112 +26,31 @@
 <link type="text/css" rel="stylesheet" href="tcss/content.min.css">
 <link type="text/css" rel="stylesheet"
 	href="tcss/tinymce-studio-content.css">
-	
 <link type="text/css" rel="stylesheet" href="tcss/skin.min.css">
 <link type="text/css" rel="stylesheet" href="tcss/style-app.css">
 <link type="text/css" rel="stylesheet" href="tcss/style-app-extend1.css">
 <link type="text/css" rel="stylesheet" href="tcss/style-xmodule.css">
-<script src="degreepicker. min.js"></script>
-<script src="degreepicker.js"></script>
 
 	<script src="js/jquery-1.11.1.js"></script>
 	<script src="js/index.js"></script>
-	<!-- 日期控件js -->
-	<script type="text/javascript"  src="js/WdatePicker.js"></script>
-<link type="text/css" rel="stylesheet"
-	href="css/jquery.timepicker.css">
-	<!-- <script type="text/javascript">
-	//页面加载时,隐藏
-	window.onload=function(){
-	$("#dengji").hide();
-	</script>
-	/* $("#degreelevel").val($("#dengji li:each").attr("class","select"));
-	$("#dengji li:each").click();
-	}; */
-	<script type="text/javascript">
-	//工厂函数显示或者
-	$(function(){
-	//显示
-	$("#degreelevel").focus(function(){
-	$("#dengji").show();
-	});
-	//隐藏
-	$("#degreelevel").blur(function(){
-	$("#dengji").hide();
-	});
-		
-		/* $("#dengji").children.bind("click",function(){
-		$("#degreelevel").val($(this).text());
-		}); */
-		/* $("#dengji li").each(function(index){
-		alert(index+$(this).text());
-		}); */
-		$("#dengji li").each(function(index,item){
-		$(item).bind("click",function(){
-		alert(1);
-		alert($(this).text());
-		$("#degreelevel").val($(this).text());
-		alert(2);
-		});
-		});	
-	})
-	</script> -->
-	
-<script type="text/javascript">
-window.onload=function(){
-$("#dengji").hide();
-};
-$("#coursespecial").hide();
-</script>
-<script type="text/javascript">
-$(function(){
-$("#degreelevel").focus(function(){
-$("#dengji").show();
-});
-$("#category").focus(function(){
-$("#coursespecial").show();
-});
-
-
-$("#degreelevel").blur(function(){
-$("#dengji").hide();
-});
-$("#category").blur(function(){
-$("#coursespecial").hide();
-});
-
-$("#dengji li a").click(function(index){
-  alert($(this).text());
-  $("#dengji li").removeClass("showdegree");
-  $(this).parent().addClass("showdegree");
-});
-
-
-
-/* $("#dengji li").each(function(index) {
-    alert(index + ': ' + $(this).text());
-  }); */
-
-
-
-})
-</script>
-	
+	<style type="text/css">
+		select {margin-right: 1em; float: left; height:45px; width:200px;}
+	</style>
 </head>
+
 <body class="is-signedin index view-dashboard hide-wip lang_zh-cn">
 	<a class="nav-skip" href="#content">跳过本内容页</a>
 	<!-- view -->
 	<div class="wrapper wrapper-view">
 
 		<jsp:include page="theader.jsp"></jsp:include>
-
 		<div id="page-alert"></div>
-
 		<div id="content">
 
 			<div class="wrapper-mast wrapper">
 				<header class="mast has-actions">
 				<h1 class="page-header">我的课程</h1>
+
 				<nav class="nav-actions">
 				<h3 class="sr">页面操作</h3>
 				<ul>
@@ -142,15 +60,20 @@ $("#dengji li a").click(function(index){
 				</ul>
 				</nav> </header>
 			</div>
+
 			<div class="wrapper-content wrapper">
 				<section class="content"> <article class="content-primary"
 					role="main">
+
 				<div class="introduction">
 					<h2 class="title">欢迎，${USER_CONTEXT.username}！</h2>
+
 					<div class="copy">
-						<p>这是当前您在平台中可以访问的所有课程：</p>
+						<p>这里当前您在云实训平台中可以访问的所有课程：</p>
 					</div>
+
 				</div>
+
 				<div class="wrapper-create-element wrapper-create-course">
 					<form class="create-course course-info" id="create-course-form"
 						name="create-course-form">
@@ -171,70 +94,31 @@ $("#dengji li a").click(function(index){
 										for="name">课程名称</label> <input
 										class="new-course-name" id="name" type="text"
 										name="new-course-name" aria-required="true"
-										placeholder="例如，计算机科学导论" /> <span class="tip"><!-- The
-											public display name for your course. This cannot be changed,
-											but you can set a different display name in Advanced Settings
-											later. -->课程公开显示名称，公开名称是不能被修改的，但您以后可以在高级设置中设置一个不同的显示名字</span> <span class="tip tip-error is-hiding"></span></li>
+										placeholder="例如，计算机科学导论" /> <span class="tip">这是您的课程公共展示名，是不能被修改的。但您可以以后可以提前设置一个不同的展示名。</span> <span class="tip tip-error is-hiding"></span></li>
 									<li class="field text required" id="field-course-category"><label
-										for="name">课程专业</label>
-										<input
-										class="new-course-rank ui-timepicker-input" id="category" type="text"
-										name="new-course-rank" aria-required="true"
-										placeholder="例如，大数据    云计算    iaas" style="width:200px;" />
-										<!-- <input
-										class="new-course-category" id="category" type="text"
-										name="new-course-category" aria-required="true"
-										placeholder="例如，云计算   大数据  iaas" /> -->
-										<ul id="coursespecial" tabindex="-1" class="ui-timepicker-list" style="position: absolute; left: 342.53125px; height:84px; margin-top:0.5px; width:198px;display: block;">
-										<li style="text-align:center" ><a href="javascript void(0);">大   数   据</a></li>
-										<li style="text-align:center"><a href="javascript void(0);">云   计   算   </a></li>
-										<li style="text-align:center"><a href="javascript void(0);">iaas</a></li>
-										</ul>
-										
-											<!-- <ul id="speciality" tabindex="-1" class="ui-timepicker-list" style="position: absolute; left: 342.53125px; height:84px; margin-top:20px; width:198px;display: block;">
-										<li style="text-align:center">云          计           算</li>
-										<li style="text-align:center">i  a  a  s</li>
-										<li style="text-align:center">大          数           据</li>
-										</ul> -->
-										 <!-- <input
-										class="new-course-category" id="category" type="text"
-										name="new-course-category" aria-required="true"
-										placeholder="例如，计算机" /> --> <!-- <select class="short"	id="category"></select><span class="tip"> -->
-									
-										<span class="tip"><!-- The
-											public display name for your course. This cannot be changed,
-											but you can set a different display name in Advanced Settings
-											later. -->课程公开显示名称，公开名称是不能被修改的，但您以后可以在高级设置中设置一个不同的显示名字</span> <span class="tip tip-error is-hiding"></span></li>
+										for="name">课程专业</label> <select class="short"	id="category">
+										</select>
+										<span class="tip" style="margin-top:60px;">这是您的课程公共展示名，是不能被修改的。但您可以以后可以提前设置一个不同的展示名。</span> <span class="tip tip-error is-hiding"></span></li>
 									<li class="field text required" id="field-course-rank"><label
-										for="name">等级</label>
-										 <input
-										id="degreelevel" type="text"
-										 aria-required="true"
-										placeholder="例如，高级 中级  低级" style="width:200px;" onFocus="show();" value=""/>
-										<ul id="dengji" tabindex="-1" class="ui-timepicker-list" style="position: absolute; left: 342.53125px; height:84px; margin-top:0.5px; width:198px;display: block;">
-										<li style="text-align:center" class="showdegree"><a href="javascript void(0);">高   级</a></li>
-										<li style="text-align:center"><a href="javascript void(0);">中   级</a></li>
-										<li style="text-align:center"><a href="javascript void(0);">初   级</a></li>
-										</ul>
-										<span class="tip"><!-- The
-											public display name for your course. This cannot be changed,
-											but you can set a different display name in Advanced Settings
-											later. -->课程公开显示名称，公开名称是不能被修改的，但您以后可以在高级设置中设置一个不同的显示名字</span>
-										<!-- <select style="width:100px;" size="1" multiple="multiple">
+										for="name" style="margin-top: 10px;">等级</label> 
+										<select class="new-course-rank"	id="rank">
 										<option value="高级">高级</option>
 										<option value="中级">中级</option>
 										<option value="低级">低级</option>
-										</select> -->
-										 <span class="tip tip-error is-hiding"></span></li>
+										</select>
+										<!-- <input
+										class="new-course-rank" id="rank" type="text"
+										name="new-course-rank" aria-required="true"
+										placeholder="例如，高级 中级  低级" /> --> <span class="tip"  style="margin-top:60px;">
+										这是您的课程公共展示名，是不能被修改的。但您可以以后可以提前设置一个不同的展示名。</span><span class="tip tip-error is-hiding"></span></li>
 									<li class="field text required" id="field-organization"><label
-										for="org">组织</label> <input class="new-course-org"
+										for="org"  style="margin-top:10px;">组织</label> <input class="new-course-org"
 										id="org" type="text" name="new-course-org"
 										aria-required="true"
 										placeholder="例如：UniversityX 或 OrganizationX" /> <span
 										class="tip">资助本课程的机构名称。 <strong>注意：这是你课程URL的一部分，请勿使用空格或特殊字符。</strong>
 											这将不能被更改，但是您可以稍后在高级设置中设置不同的显示名称。
-									</span> <span class="tip tip-error is-hiding"></span></li>
-
+									</span><span class="tip tip-error is-hiding"></span></li>
 									<li class="field text required" id="field-course-number">
 										<label for="coursecode">课程代码</label> <input
 										class="new-course-number" id="coursecode" type="text"
@@ -245,11 +129,10 @@ $("#dengji li a").click(function(index){
 									</li>
 
 									<li class="field text required" id="field-course-run"><label
-										for="starttime">开课时间</label>
-										   <!-- <input type="text"  id="temp" 
-                         	onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"/> -->									
-                         		 <input	class="new-course-run" id="starttime" type="text" name="new-course-run" aria-required="true"placeholder="例如：2014_T1" />
-                         		  <span class="tip">
+										for="starttime">开课时间</label> <input
+										class="new-course-run" id="starttime" type="text"
+										name="new-course-run" aria-required="true"
+										placeholder="例如：2014_T1" /> <span class="tip">
 											您课程开设的学期。 <strong>注意：这是课程URL的一部分，请勿使用空格或特殊字符，一旦设定不可更改。</strong>
 									</span> <span class="tip tip-error is-hiding"></span></li>
 								</ol>
@@ -373,12 +256,13 @@ $("#dengji li a").click(function(index){
 					</ul>
 				</div>
 
-				</article> 
-				<aside class="content-supplementary" role="complimentary" style="margin-top:90px;">
+				</article> <aside class="content-supplementary" role="complimentary">
 				<div class="bit">
-					<h3 class="title title-3">对云实训平台不熟悉?</h3>
-					<p>	点击右上角的帮助按钮，从而获得更多您访问的平台页面信息.您也可以使用在页面底部的链接，从而进入我们不断更新的文件和其他一些平台资源。
-						</p>
+					<h3 class="title title-3">没有云实训平台账号?</h3>
+					<p><!-- Click Help in the upper-right corner to get more information
+						about the Studio page you are viewing. You can also use the links
+						at the bottom of the page to access our continously updated
+						documentation and other Studio resources. -->您可以点击当前页面右上角的帮助按钮来获得更多关于您正在访问的页面信息。您也可以使用在页面底部的链接来获得更多我们不断更新的相关文件盒其他一些平台资源。</p>
 
 					<ol class="list-actions">
 						<li class="action-item"><a
@@ -403,24 +287,20 @@ $("#dengji li a").click(function(index){
 			<ul class="list-actions list-cta">
 				<li class="action-item"><a href="#sock"
 					class="cta cta-show-sock"><i class="icon-question-sign"></i> <span
-						class="copy"><!-- Looking for help with Studio? -->
-						向云平台寻求帮助？</span></a></li>
+						class="copy"><!-- Looking for help with Studio? -->向云实训平台求助？</span></a></li>
 			</ul>
-
 			<div class="wrapper-inner wrapper">
 				<section class="sock" id="sock"> <header>
 				<h2 class="title sr">edX Studio Documentation</h2>
 				</header>
-
 				<div class="support">
 					<h3 class="title">edX Studio Documentation</h3>
-
 					<div class="copy">
-						<p>You can click Help in the upper right corner of any page to
+						<p><!-- You can click Help in the upper right corner of any page to
 							get more information about the page you're on. You can also use
 							the links below to download the Building and Running an edX
 							Course PDF file, to go to the edX Author Support site, or to
-							enroll in edX101.</p>
+							enroll in edX101. -->您可以点击在任何页面的右上角的帮助按钮，来获得更多关于当前页面的信息。您也可以使用下面的链接来下载如何创建并运行一个云实训课程的pdf文件，登录实训平台版权支持网站，或者退出云平台</p>
 					</div>
 
 					<ul class="list-actions">
@@ -439,6 +319,7 @@ $("#dengji li a").click(function(index){
 							class="tip">How to use edX Studio to build your course</span></li>
 					</ul>
 				</div>
+
 				<div class="feedback">
 					<h3 class="title">Request help with edX Studio</h3>
 
@@ -518,3 +399,4 @@ $("#dengji li a").click(function(index){
 	</script>
 </body>
 </html>
+
