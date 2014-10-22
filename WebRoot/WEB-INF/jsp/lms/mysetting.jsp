@@ -286,7 +286,7 @@
 								<div class="h5"></div>
 								<textarea class="form-control" rows="3"></textarea>
 								<div class="clear"></div>
-								<a>请告诉我们您注册 Your Platform Name Here的原因</a>
+								<a>请告诉我们您注册 云实训平台的原因</a>
 								<div class="h5"></div>
 								<textarea class="form-control" rows="3"></textarea>
 								<div class="clear"></div>

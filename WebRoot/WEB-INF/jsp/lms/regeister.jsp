@@ -54,7 +54,7 @@
 					<p>
 						<a>欢迎！</a>
 					</p>
-					<p class="left40">注册以创建你在 Your Platform Name Here的账户</p>
+					<p class="left40">注册以创建你在 云实训平台的账户</p>
 				</h3>
 
 			</div>

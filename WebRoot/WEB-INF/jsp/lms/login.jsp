@@ -56,6 +56,11 @@
       <script src="assets/javascripts/ie/html5shiv.js" type="text/javascript"></script>
       <script src="assets/javascripts/ie/respond.min.js" type="text/javascript"></script>
     <![endif]-->
+    <style type="text/css">
+   .hrefcolor{color: #009fe6;}
+.hrefcolor:hover{color: #C90;}
+    
+    </style>
 </head>
 <body class='contrast-green fixed-header'>
 	<jsp:include page="../common/header.jsp"></jsp:include>
@@ -96,10 +101,10 @@
 						</form>
 					</div>
 					<div class="col-sm-5">
-					<a>尚未注册？</a></br>
+					<a href="lms/toregeister.action" class="hrefcolor">尚未注册？</a></br>
 					<div class="clear"></div>
 					<p>
-					现在就注册加入<a href="lms/toregeister.action">你的云实训平台！</a> 
+					现在就注册加入<a href="lms/toregeister.action" class="hrefcolor">你的云实训平台！</a> 
 					</p>
 					<div class="clear"></div>
 					<a>需要帮助？</a></br>
