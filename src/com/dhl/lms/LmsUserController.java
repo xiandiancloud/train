@@ -19,6 +19,7 @@ import com.dhl.domain.UserTrain;
 import com.dhl.service.UserCourseService;
 import com.dhl.service.UserEnvironmentService;
 import com.dhl.service.UserTrainService;
+import com.dhl.util.UtilTools;
 import com.dhl.web.BaseController;
 import com.xiandian.cai.UserInterface;
 import com.xiandian.model.Role;
@@ -116,8 +117,16 @@ public class LmsUserController extends BaseController {
 	@RequestMapping("/loginout")
 	public ModelAndView loginout(HttpServletRequest request) {
 		setSessionUser(request, null);
-		String url = "redirect:/lms/getAllCategory.action";
-
+		String url;
+		int type = Integer.parseInt(UtilTools.getConfig().getProperty("SSO_TYPE"));
+		if (type == CommonConstant.SSO_CAS)
+		{
+			url = UtilTools.getConfig().getProperty("SSO_LOGOUT");
+		}
+		else
+		{
+			url = "redirect:/lms/getAllCategory.action";
+		}
 		return new ModelAndView(url);
 	}
 

@@ -51,5 +51,4 @@ public class CommonConstant
    //是否是单点登录  默认0的话不是单点登录
    public static final int SSO_NO = 0;
    public static final int SSO_CAS = 1;
-   public static final int SSO_LDAP = 2;
 }
