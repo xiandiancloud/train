@@ -40,185 +40,210 @@ import org.jasig.cas.client.validation.Assertion;
  * dhl 重写单点登录的验证模块，主要是增加排除验证的url
  */
 public class AuthenticationFilter extends AbstractCasFilter {
-	
-	//增加排除验证的url
-//    private String excludes = "getAllCategory.action";
+
+	// 增加排除验证的url
 	private static final String[] INHERENT_ESCAPE_URIS = {
-		"getAllCategory.action", "getCourse.action",
-		"login.action", "getCourseByCategoryId.action",
-		"recentcourse.action", "toregeister.action","regeister.action", "getAllSchool.action",
-		"courselist.action","getAllCourseCategory.action" };
-	
-    private final String exclude_splitter = ";";
-    
-    /**
-     * The URL to the CAS Server login.
-     */
-    private String casServerLoginUrl;
+			"getAllCategory.action", "getCourse.action", "login.action",
+			"getCourseByCategoryId.action", "recentcourse.action",
+			"toregeister.action", "regeister.action", "getAllSchool.action",
+			"courselist.action", "getAllCourseCategory.action",
+			"tlogin.action", "totregeister.action",
+			"tregeister.action" };
 
-    /**
-     * Whether to send the renew request or not.
-     */
-    private boolean renew = false;
+	/**
+	 * The URL to the CAS Server login.
+	 */
+	private String casServerLoginUrl;
 
-    /**
-     * Whether to send the gateway request or not.
-     */
-    private boolean gateway = false;
+	/**
+	 * Whether to send the renew request or not.
+	 */
+	private boolean renew = false;
 
-    private GatewayResolver gatewayStorage = new DefaultGatewayResolverImpl();
+	/**
+	 * Whether to send the gateway request or not.
+	 */
+	private boolean gateway = false;
 
-    private AuthenticationRedirectStrategy authenticationRedirectStrategy = new DefaultAuthenticationRedirectStrategy();
-    
-    private UrlPatternMatcherStrategy ignoreUrlPatternMatcherStrategyClass = null;
-    
-    private static final Map<String, Class<? extends UrlPatternMatcherStrategy>> PATTERN_MATCHER_TYPES =
-            new HashMap<String, Class<? extends UrlPatternMatcherStrategy>>();
-    
-    static {
-        PATTERN_MATCHER_TYPES.put("CONTAINS", ContainsPatternUrlPatternMatcherStrategy.class);
-        PATTERN_MATCHER_TYPES.put("REGEX", RegexUrlPatternMatcherStrategy.class);
-        PATTERN_MATCHER_TYPES.put("EXACT", ExactUrlPatternMatcherStrategy.class);
-    }
-    
-    protected void initInternal(final FilterConfig filterConfig) throws ServletException {
-        if (!isIgnoreInitConfiguration()) {
-            super.initInternal(filterConfig);
-            setCasServerLoginUrl(getPropertyFromInitParams(filterConfig, "casServerLoginUrl", null));
-            logger.trace("Loaded CasServerLoginUrl parameter: {}", this.casServerLoginUrl);
-            setRenew(parseBoolean(getPropertyFromInitParams(filterConfig, "renew", "false")));
-            logger.trace("Loaded renew parameter: {}", this.renew);
-            setGateway(parseBoolean(getPropertyFromInitParams(filterConfig, "gateway", "false")));
-            logger.trace("Loaded gateway parameter: {}", this.gateway);
-                       
-            final String ignorePattern = getPropertyFromInitParams(filterConfig, "ignorePattern", null);
-            logger.trace("Loaded ignorePattern parameter: {}", ignorePattern);
-            
-            final String ignoreUrlPatternType = getPropertyFromInitParams(filterConfig, "ignoreUrlPatternType", "REGEX");
-            logger.trace("Loaded ignoreUrlPatternType parameter: {}", ignoreUrlPatternType);
-            
-            if (ignorePattern != null) {
-                final Class<? extends UrlPatternMatcherStrategy> ignoreUrlMatcherClass = PATTERN_MATCHER_TYPES.get(ignoreUrlPatternType);
-                if (ignoreUrlMatcherClass != null) {
-                    this.ignoreUrlPatternMatcherStrategyClass = ReflectUtils.newInstance(ignoreUrlMatcherClass.getName());
-                } else {
-                    try {
-                        logger.trace("Assuming {} is a qualified class name...", ignoreUrlPatternType);
-                        this.ignoreUrlPatternMatcherStrategyClass = ReflectUtils.newInstance(ignoreUrlPatternType);
-                    } catch (final IllegalArgumentException e) {
-                        logger.error("Could not instantiate class [{}]", ignoreUrlPatternType, e);
-                    }
-                }
-                if (this.ignoreUrlPatternMatcherStrategyClass != null) {
-                    this.ignoreUrlPatternMatcherStrategyClass.setPattern(ignorePattern);
-                }
-            }
-            
-            final String gatewayStorageClass = getPropertyFromInitParams(filterConfig, "gatewayStorageClass", null);
+	private GatewayResolver gatewayStorage = new DefaultGatewayResolverImpl();
 
-            if (gatewayStorageClass != null) {
-                this.gatewayStorage = ReflectUtils.newInstance(gatewayStorageClass);
-            }
-            
-            final String authenticationRedirectStrategyClass = getPropertyFromInitParams(filterConfig,
-                    "authenticationRedirectStrategyClass", null);
+	private AuthenticationRedirectStrategy authenticationRedirectStrategy = new DefaultAuthenticationRedirectStrategy();
 
-            if (authenticationRedirectStrategyClass != null) {
-                this.authenticationRedirectStrategy = ReflectUtils.newInstance(authenticationRedirectStrategyClass);
-            }
-        }
-    }
+	private UrlPatternMatcherStrategy ignoreUrlPatternMatcherStrategyClass = null;
 
-    public void init() {
-        super.init();
-        CommonUtils.assertNotNull(this.casServerLoginUrl, "casServerLoginUrl cannot be null.");
-    }
+	private static final Map<String, Class<? extends UrlPatternMatcherStrategy>> PATTERN_MATCHER_TYPES = new HashMap<String, Class<? extends UrlPatternMatcherStrategy>>();
 
-    public final void doFilter(final ServletRequest servletRequest, final ServletResponse servletResponse,
-            final FilterChain filterChain) throws IOException, ServletException {
-        
-        final HttpServletRequest request = (HttpServletRequest) servletRequest;
-        final HttpServletResponse response = (HttpServletResponse) servletResponse;
-        
-        if (isRequestUrlExcluded(request)) {
-            logger.debug("Request is ignored.");
-            filterChain.doFilter(request, response);
-            return;
-        }
-        
-        final HttpSession session = request.getSession(false);
-        final Assertion assertion = session != null ? (Assertion) session.getAttribute(CONST_CAS_ASSERTION) : null;
+	static {
+		PATTERN_MATCHER_TYPES.put("CONTAINS",
+				ContainsPatternUrlPatternMatcherStrategy.class);
+		PATTERN_MATCHER_TYPES
+				.put("REGEX", RegexUrlPatternMatcherStrategy.class);
+		PATTERN_MATCHER_TYPES
+				.put("EXACT", ExactUrlPatternMatcherStrategy.class);
+	}
 
-        if (assertion != null) {
-            filterChain.doFilter(request, response);
-            return;
-        }
+	protected void initInternal(final FilterConfig filterConfig)
+			throws ServletException {
+		if (!isIgnoreInitConfiguration()) {
+			super.initInternal(filterConfig);
+			setCasServerLoginUrl(getPropertyFromInitParams(filterConfig,
+					"casServerLoginUrl", null));
+			logger.trace("Loaded CasServerLoginUrl parameter: {}",
+					this.casServerLoginUrl);
+			setRenew(parseBoolean(getPropertyFromInitParams(filterConfig,
+					"renew", "false")));
+			logger.trace("Loaded renew parameter: {}", this.renew);
+			setGateway(parseBoolean(getPropertyFromInitParams(filterConfig,
+					"gateway", "false")));
+			logger.trace("Loaded gateway parameter: {}", this.gateway);
 
-        final String serviceUrl = constructServiceUrl(request, response);
-        //排除不需要验证的url
-        if(isURILogin(request.getRequestURI(), request))
-        {
-        	filterChain.doFilter(request, response);
-            return;
-        }
-        
-        final String ticket = retrieveTicketFromRequest(request);
-        final boolean wasGatewayed = this.gateway && this.gatewayStorage.hasGatewayedAlready(request, serviceUrl);
+			final String ignorePattern = getPropertyFromInitParams(
+					filterConfig, "ignorePattern", null);
+			logger.trace("Loaded ignorePattern parameter: {}", ignorePattern);
 
-        if (CommonUtils.isNotBlank(ticket) || wasGatewayed) {
-            filterChain.doFilter(request, response);
-            return;
-        }
+			final String ignoreUrlPatternType = getPropertyFromInitParams(
+					filterConfig, "ignoreUrlPatternType", "REGEX");
+			logger.trace("Loaded ignoreUrlPatternType parameter: {}",
+					ignoreUrlPatternType);
 
-        final String modifiedServiceUrl;
+			if (ignorePattern != null) {
+				final Class<? extends UrlPatternMatcherStrategy> ignoreUrlMatcherClass = PATTERN_MATCHER_TYPES
+						.get(ignoreUrlPatternType);
+				if (ignoreUrlMatcherClass != null) {
+					this.ignoreUrlPatternMatcherStrategyClass = ReflectUtils
+							.newInstance(ignoreUrlMatcherClass.getName());
+				} else {
+					try {
+						logger.trace(
+								"Assuming {} is a qualified class name...",
+								ignoreUrlPatternType);
+						this.ignoreUrlPatternMatcherStrategyClass = ReflectUtils
+								.newInstance(ignoreUrlPatternType);
+					} catch (final IllegalArgumentException e) {
+						logger.error("Could not instantiate class [{}]",
+								ignoreUrlPatternType, e);
+					}
+				}
+				if (this.ignoreUrlPatternMatcherStrategyClass != null) {
+					this.ignoreUrlPatternMatcherStrategyClass
+							.setPattern(ignorePattern);
+				}
+			}
 
-        logger.debug("no ticket and no assertion found");
-        if (this.gateway) {
-            logger.debug("setting gateway attribute in session");
-            modifiedServiceUrl = this.gatewayStorage.storeGatewayInformation(request, serviceUrl);
-        } else {
-            modifiedServiceUrl = serviceUrl;
-        }
+			final String gatewayStorageClass = getPropertyFromInitParams(
+					filterConfig, "gatewayStorageClass", null);
 
-        logger.debug("Constructed service url: {}", modifiedServiceUrl);
+			if (gatewayStorageClass != null) {
+				this.gatewayStorage = ReflectUtils
+						.newInstance(gatewayStorageClass);
+			}
 
-        final String urlToRedirectTo = CommonUtils.constructRedirectUrl(this.casServerLoginUrl,
-                getServiceParameterName(), modifiedServiceUrl, this.renew, this.gateway);
+			final String authenticationRedirectStrategyClass = getPropertyFromInitParams(
+					filterConfig, "authenticationRedirectStrategyClass", null);
 
-        logger.debug("redirecting to \"{}\"", urlToRedirectTo);
-        this.authenticationRedirectStrategy.redirect(request, response, urlToRedirectTo);
-    }
+			if (authenticationRedirectStrategyClass != null) {
+				this.authenticationRedirectStrategy = ReflectUtils
+						.newInstance(authenticationRedirectStrategyClass);
+			}
+		}
+	}
 
-    public final void setRenew(final boolean renew) {
-        this.renew = renew;
-    }
+	public void init() {
+		super.init();
+		CommonUtils.assertNotNull(this.casServerLoginUrl,
+				"casServerLoginUrl cannot be null.");
+	}
 
-    public final void setGateway(final boolean gateway) {
-        this.gateway = gateway;
-    }
+	public final void doFilter(final ServletRequest servletRequest,
+			final ServletResponse servletResponse, final FilterChain filterChain)
+			throws IOException, ServletException {
 
-    public final void setCasServerLoginUrl(final String casServerLoginUrl) {
-        this.casServerLoginUrl = casServerLoginUrl;
-    }
+		final HttpServletRequest request = (HttpServletRequest) servletRequest;
+		final HttpServletResponse response = (HttpServletResponse) servletResponse;
 
-    public final void setGatewayStorage(final GatewayResolver gatewayStorage) {
-        this.gatewayStorage = gatewayStorage;
-    }
-        
-    private boolean isRequestUrlExcluded(final HttpServletRequest request) {
-        if (this.ignoreUrlPatternMatcherStrategyClass == null) {
-            return false;
-        }
-        
-        final StringBuffer urlBuffer = request.getRequestURL();
-        if (request.getQueryString() != null) {
-            urlBuffer.append("?").append(request.getQueryString());
-        }
-        final String requestUri = urlBuffer.toString();
-        return this.ignoreUrlPatternMatcherStrategyClass.matches(requestUri);
-    }
-    
-    /**
+		if (isRequestUrlExcluded(request)) {
+			logger.debug("Request is ignored.");
+			filterChain.doFilter(request, response);
+			return;
+		}
+
+		final HttpSession session = request.getSession(false);
+		final Assertion assertion = session != null ? (Assertion) session
+				.getAttribute(CONST_CAS_ASSERTION) : null;
+
+		if (assertion != null) {
+			filterChain.doFilter(request, response);
+			return;
+		}
+
+		final String serviceUrl = constructServiceUrl(request, response);
+		// 排除不需要验证的url
+		if (isURILogin(request.getRequestURI(), request)) {
+			filterChain.doFilter(request, response);
+			return;
+		}
+
+		final String ticket = retrieveTicketFromRequest(request);
+		final boolean wasGatewayed = this.gateway
+				&& this.gatewayStorage.hasGatewayedAlready(request, serviceUrl);
+
+		if (CommonUtils.isNotBlank(ticket) || wasGatewayed) {
+			filterChain.doFilter(request, response);
+			return;
+		}
+
+		final String modifiedServiceUrl;
+
+		logger.debug("no ticket and no assertion found");
+		if (this.gateway) {
+			logger.debug("setting gateway attribute in session");
+			modifiedServiceUrl = this.gatewayStorage.storeGatewayInformation(
+					request, serviceUrl);
+		} else {
+			modifiedServiceUrl = serviceUrl;
+		}
+
+		logger.debug("Constructed service url: {}", modifiedServiceUrl);
+
+		final String urlToRedirectTo = CommonUtils.constructRedirectUrl(
+				this.casServerLoginUrl, getServiceParameterName(),
+				modifiedServiceUrl, this.renew, this.gateway);
+
+		logger.debug("redirecting to \"{}\"", urlToRedirectTo);
+		this.authenticationRedirectStrategy.redirect(request, response,
+				urlToRedirectTo);
+	}
+
+	public final void setRenew(final boolean renew) {
+		this.renew = renew;
+	}
+
+	public final void setGateway(final boolean gateway) {
+		this.gateway = gateway;
+	}
+
+	public final void setCasServerLoginUrl(final String casServerLoginUrl) {
+		this.casServerLoginUrl = casServerLoginUrl;
+	}
+
+	public final void setGatewayStorage(final GatewayResolver gatewayStorage) {
+		this.gatewayStorage = gatewayStorage;
+	}
+
+	private boolean isRequestUrlExcluded(final HttpServletRequest request) {
+		if (this.ignoreUrlPatternMatcherStrategyClass == null) {
+			return false;
+		}
+
+		final StringBuffer urlBuffer = request.getRequestURL();
+		if (request.getQueryString() != null) {
+			urlBuffer.append("?").append(request.getQueryString());
+		}
+		final String requestUri = urlBuffer.toString();
+		return this.ignoreUrlPatternMatcherStrategyClass.matches(requestUri);
+	}
+
+	/**
 	 * 当前URI资源是否需要登录才能访问
 	 * 
 	 * @param requestURI
