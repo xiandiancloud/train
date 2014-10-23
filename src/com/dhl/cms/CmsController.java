@@ -19,25 +19,25 @@ import com.dhl.cons.CommonConstant;
 import com.dhl.domain.Category;
 import com.dhl.domain.Chapter;
 import com.dhl.domain.Course;
-import com.dhl.domain.Role;
-import com.dhl.domain.School;
 import com.dhl.domain.Sequential;
 import com.dhl.domain.TeacherCourse;
 import com.dhl.domain.Train;
-import com.dhl.domain.User;
 import com.dhl.domain.Vertical;
 import com.dhl.domain.VerticalTrain;
 import com.dhl.service.CategoryService;
 import com.dhl.service.ChapterService;
 import com.dhl.service.CourseService;
-import com.dhl.service.SchoolService;
 import com.dhl.service.SequentialService;
 import com.dhl.service.TeacherCourseService;
 import com.dhl.service.TrainService;
-import com.dhl.service.UserService;
 import com.dhl.service.VerticalService;
 import com.dhl.service.VerticalTrainService;
 import com.dhl.web.BaseController;
+import com.xiandian.cai.SchoolInterface;
+import com.xiandian.cai.UserInterface;
+import com.xiandian.model.Role;
+import com.xiandian.model.School;
+import com.xiandian.model.User;
 
 /**
  * 老师定义课程，使用等使用
@@ -69,10 +69,10 @@ public class CmsController extends BaseController {
 	@Autowired
 	private CategoryService categoryService;
 	@Autowired
-	private UserService userService;
-	@Autowired
-	private SchoolService schoolService;
+	private SchoolInterface schoolInterface;
 
+	@Autowired
+	private UserInterface userInterface;
 	/**
 	 * 得到实验
 	 * 
@@ -108,7 +108,7 @@ public class CmsController extends BaseController {
 		
 		try {
 			PrintWriter out = response.getWriter();
-			List<School> school = schoolService.getAllSchool();
+			List<School> school = schoolInterface.getAllSchool();
 			String str = getSchoolStr(school);
 			out.write(str);
 			// }
@@ -156,7 +156,7 @@ public class CmsController extends BaseController {
 			String url = "redirect:/cms/totlogin.action";
 			return new ModelAndView(url);
 		}
-		Role role = userService.getUserRoleByuserId(user.getId());
+		Role role = user.getRole();//userInterface.getUserRoleByuserId(user.getId());
 		if (!CommonConstant.ROLE_T.equals(role.getRoleName())) {
 			String url = "redirect:/cms/totlogin.action";
 			return new ModelAndView(url);

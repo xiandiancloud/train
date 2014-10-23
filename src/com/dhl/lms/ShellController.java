@@ -15,16 +15,15 @@ import org.springframework.web.client.RestTemplate;
 
 import ch.ethz.ssh2.Connection;
 import ch.ethz.ssh2.SCPClient;
-import ch.ethz.ssh2.Session;
 
 import com.dhl.domain.RestShell;
 import com.dhl.domain.UserEnvironment;
-import com.dhl.domain.User;
 import com.dhl.domain.UserTrain;
 import com.dhl.service.UserEnvironmentService;
 import com.dhl.service.UserTrainService;
 import com.dhl.util.UtilTools;
 import com.dhl.web.BaseController;
+import com.xiandian.model.User;
 
 /**
  * 实验提交检测control
