@@ -56,9 +56,19 @@ public class LmsUserController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping("/tologin")
-	public ModelAndView tologin(HttpServletRequest request, String url) {
+	public ModelAndView tologin(HttpServletRequest request) {
 		ModelAndView view = new ModelAndView();
-		view.setViewName("/lms/login");
+		String url;
+		int type = Integer.parseInt(UtilTools.getConfig().getProperty("SSO_TYPE"));
+		if (type == CommonConstant.SSO_CAS)
+		{
+			url = "redirect:/lms/getAllCategory.action";
+		}
+		else
+		{
+			url = "/lms/login";
+		}
+		view.setViewName(url);
 		return view;
 	}
 
@@ -121,7 +131,7 @@ public class LmsUserController extends BaseController {
 		int type = Integer.parseInt(UtilTools.getConfig().getProperty("SSO_TYPE"));
 		if (type == CommonConstant.SSO_CAS)
 		{
-			url = UtilTools.getConfig().getProperty("SSO_LOGOUT");
+			url = "redirect:"+UtilTools.getConfig().getProperty("SSO_LOGOUT");;
 		}
 		else
 		{
@@ -183,33 +193,7 @@ public class LmsUserController extends BaseController {
 	@RequestMapping("/mysetting")
 	public ModelAndView mysetting(HttpServletRequest request) {
 		ModelAndView view = new ModelAndView();
-		// User user = userService.getUserByUserName(userName);
-		// if (user == null)
-		// {
-		// user = userService.add(userName);
-		// }
-		// setSessionUser(request, user);
-		// String url = "redirect:/getAllCourse.action";
-
 		User user = getSessionUser(request);
-		// if (user == null) {
-		// String url = "redirect:/tologin.action";
-		// return new ModelAndView(url);
-		// }
-//		if (index == 2) {
-//			List<UCEnvironment> uce = uceService.getMyUCE(user.getId());
-//			view.addObject("uce", uce);
-//		}
-//		if (index == 3) {
-//			List<UserCourse> having = userCourseService.getMyHavingCourse(user
-//					.getId());
-//			List<UserCourse> finish = userCourseService.getMyFinishCourse(user
-//					.getId());
-//
-//			view.addObject("having", having);
-//			view.addObject("finish", finish);
-//		}
-//		view.addObject("setindex", index);
 		view.setViewName("/lms/mysetting");
 		return view;
 	}

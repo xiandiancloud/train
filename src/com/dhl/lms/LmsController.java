@@ -197,11 +197,6 @@ public class LmsController extends BaseController {
 	public ModelAndView tocourse(HttpServletRequest request, int courseId) {
 		ModelAndView view = new ModelAndView();
 		User user = getSessionUser(request);
-		// if (user == null) {
-		// String url = "redirect:/tologin.action?url=getCourse.courseId="
-		// + courseId;
-		// return new ModelAndView(url);
-		// }
 		userCourseService.setMyCourseActiveState(user.getId());
 		UserCourse ucs = userCourseService
 				.getUserCourse(user.getId(), courseId);
@@ -266,11 +261,6 @@ public class LmsController extends BaseController {
 			int verticalId, int trainId) {
 		ModelAndView view = new ModelAndView();
 		User user = getSessionUser(request);
-		// if (user == null) {
-		// String url = "redirect:/tologin.action?url=getCourse.courseId="
-		// + courseId;
-		// return new ModelAndView(url);
-		// }
 		userCourseService.setMyCourseActiveState(user.getId());
 		UserCourse ucs = userCourseService
 				.getUserCourse(user.getId(), courseId);
@@ -599,19 +589,9 @@ public class LmsController extends BaseController {
 	public ModelAndView mycourse(HttpServletRequest request) {
 		ModelAndView view = new ModelAndView();
 		User user = getSessionUser(request);
-		// if (user == null) {
-		// String url = "redirect:/tologin.action";
-		// return new ModelAndView(url);
-		// }
-		// List<UserCourse> mycourses = userCourseService.getMyAllCourse(user
-		// .getId());
 		List<UserCourse> mycourses = userCourseService.getMyHavingCourse(user
 				.getId());
 		view.addObject("having", mycourses);
-//		List<UserCourse> mycourses2 = userCourseService.getMyFinishCourse(user
-//				.getId());
-//		view.addObject("finish", mycourses2);
-//		view.addObject("navindex", 2);
 		view.setViewName("/lms/mycourse");
 		return view;
 	}
@@ -625,19 +605,9 @@ public class LmsController extends BaseController {
 	public ModelAndView mynoficourse(HttpServletRequest request) {
 		ModelAndView view = new ModelAndView();
 		User user = getSessionUser(request);
-		// if (user == null) {
-		// String url = "redirect:/tologin.action";
-		// return new ModelAndView(url);
-		// }
-		// List<UserCourse> mycourses = userCourseService.getMyAllCourse(user
-		// .getId());
-//		List<UserCourse> mycourses = userCourseService.getMyHavingCourse(user
-//				.getId());
-//		view.addObject("having", mycourses);
 		List<UserCourse> mycourses2 = userCourseService.getMyFinishCourse(user
 				.getId());
 		view.addObject("finish", mycourses2);
-//		view.addObject("navindex", 2);
 		view.setViewName("/lms/mynoficourse");
 		return view;
 	}

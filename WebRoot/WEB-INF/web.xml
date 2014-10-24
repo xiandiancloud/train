@@ -10,7 +10,7 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
- 	<!-- CAS SINGLE SIGN OUT FILTER 
+ 	<!-- CAS SINGLE SIGN OUT FILTER -->
 	<context-param>
 		<param-name>serverName</param-name>
 		<param-value>http://localhost</param-value>
@@ -79,7 +79,7 @@
 		<filter-name>CAS HttpServletRequest Wrapper Filter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	-->
+	
 	
 	<filter>
 		<filter-name>hibernateFilter</filter-name>

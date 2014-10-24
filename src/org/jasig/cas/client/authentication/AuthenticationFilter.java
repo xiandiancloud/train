@@ -43,12 +43,11 @@ public class AuthenticationFilter extends AbstractCasFilter {
 
 	// 增加排除验证的url
 	private static final String[] INHERENT_ESCAPE_URIS = {
-			"getAllCategory.action", "getCourse.action", "login.action",
+			"getAllCategory.action", "getCourse.action",
 			"getCourseByCategoryId.action", "recentcourse.action",
 			"toregeister.action", "regeister.action", "getAllSchool.action",
 			"courselist.action", "getAllCourseCategory.action",
-			"tlogin.action", "totregeister.action",
-			"tregeister.action" };
+			"totregeister.action", "tregeister.action" };
 
 	/**
 	 * The URL to the CAS Server login.
