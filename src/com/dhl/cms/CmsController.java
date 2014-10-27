@@ -32,6 +32,7 @@ import com.dhl.service.TeacherCourseService;
 import com.dhl.service.TrainService;
 import com.dhl.service.VerticalService;
 import com.dhl.service.VerticalTrainService;
+import com.dhl.util.UtilTools;
 import com.dhl.web.BaseController;
 import com.xiandian.cai.SchoolInterface;
 import com.xiandian.cai.UserInterface;
@@ -194,7 +195,17 @@ public class CmsController extends BaseController {
 	@RequestMapping("/totlogin")
 	public ModelAndView totlogin(HttpServletRequest request) {
 		ModelAndView view = new ModelAndView();
-		view.setViewName("/cms/signin");
+		String url;
+		int type = Integer.parseInt(UtilTools.getConfig().getProperty("SSO_TYPE"));
+		if (type == CommonConstant.SSO_CAS)
+		{
+			url = "redirect:/cms/totcourselist.action";
+		}
+		else
+		{
+			url = "/cms/signin";
+		}
+		view.setViewName(url);
 		return view;
 	}
 

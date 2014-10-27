@@ -66,7 +66,7 @@
 			<div class="clear"></div>
 			<div class="row panel panel-default">
 				<div class="col-sm-8">
-					<img src="${course.imgpath}" alt="..." width="100%" height="200px;"
+					<img src="${(empty course.imgpath)?'images/exam.jpg':course.imgpath}" alt="..." width="100%" height="200px;"
 						class="img-rounded">
 				</div>
 				<div class="col-sm-4">
@@ -324,7 +324,7 @@
 				
 				if ("sucess" == a.sucess)
 				{
-					location.href="";
+					location.reload();
 				}
 			}
 		});
