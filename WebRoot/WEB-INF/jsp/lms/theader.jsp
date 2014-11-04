@@ -24,6 +24,12 @@
 						<li><a href="lms/getAllCategory.action">首页</a></li>
 						<li><a href="lms/courselist.action?currentpage=1&c=0&r=0">课程</a></li>
 						<li><a href="lms/mycourse.action">我的云课堂</a></li>
+						<c:if test="${USER_CONTEXT.role.roleName=='老师'}">
+						<li><a href="cms">制作课件</a></li>
+						</c:if>
+						<c:if test="${USER_CONTEXT.role.roleName=='管理员'}">
+						<li><a href="admin">系统设置</a></li>
+						</c:if>
 					</ul>
 					<!--向右对齐-->
 					<ul class="nav navbar-nav navbar-right">

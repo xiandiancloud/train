@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.dhl.cons.CommonConstant;
+import com.dhl.util.UtilTools;
 import com.dhl.web.BaseController;
 import com.xiandian.cai.UserInterface;
 import com.xiandian.model.Role;
@@ -93,10 +94,18 @@ public class AdminUserController extends BaseController {
 	 */
 	@RequestMapping("/aloginout")
 	public ModelAndView aloginout(HttpServletRequest request) {
-		ModelAndView view = new ModelAndView();
 		setSessionUser(request, null);
-		view.setViewName("/admin/signin");
-		return view;
+		String url;
+		int type = Integer.parseInt(UtilTools.getConfig().getProperty("SSO_TYPE"));
+		if (type == CommonConstant.SSO_CAS)
+		{
+			url = "redirect:"+UtilTools.getConfig().getProperty("SSO_LOGOUT");
+		}
+		else
+		{
+			url = "/admin/signin";
+		}
+		return new ModelAndView(url);
 	}
 
 	/**

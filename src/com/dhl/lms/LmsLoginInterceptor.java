@@ -25,8 +25,8 @@ public class LmsLoginInterceptor extends BaseController implements HandlerInterc
 	private static final String FILTERED_REQUEST = "@@session_context_filtered_request";
 
 	private static final String[] INHERENT_ESCAPE_URIS = {
-		"/getAllCategory.action", "getCourse.action", "/tologin.action",
-		"/login.action", "getCourseByCategoryId.action",
+		"getAllCategory.action", "getCourse.action", "tologin.action",
+		"login.action", "getCourseByCategoryId.action","sleepfront.action",
 		"recentcourse.action", "toregeister.action","regeister.action", "getAllSchool.action",
 		"courselist.action","getAllCourseCategory.action" };
 
@@ -61,25 +61,24 @@ public class LmsLoginInterceptor extends BaseController implements HandlerInterc
 
 				httpRequest.getSession().setAttribute(
 						CommonConstant.LOGIN_TO_URL, toUrl);
-
 				response.sendRedirect(contextPath + "/lms/tologin.action");
 				return false;
 			}
 			
-			if (user != null && !isURILogin(httpRequest.getRequestURI(), httpRequest)) {
-				Role role = user.getRole();
-				if (CommonConstant.ROLE_C.equals(role.getRoleName()) || CommonConstant.ROLE_A.equals(role.getRoleName())) {
-					String toUrl = httpRequest.getRequestURL().toString();
-					if (!StringUtils.isEmpty(httpRequest.getQueryString())) {
-						toUrl += "?" + httpRequest.getQueryString();
-					}
-
-					httpRequest.getSession().setAttribute(
-							CommonConstant.LOGIN_TO_URL, toUrl);
-					response.sendRedirect(contextPath + "/lms/tologin.action");
-					return false;
-				}
-			}
+//			if (user != null && !isURILogin(httpRequest.getRequestURI(), httpRequest)) {
+//				Role role = user.getRole();
+//				if (CommonConstant.ROLE_C.equals(role.getRoleName()) || CommonConstant.ROLE_A.equals(role.getRoleName())) {
+//					String toUrl = httpRequest.getRequestURL().toString();
+//					if (!StringUtils.isEmpty(httpRequest.getQueryString())) {
+//						toUrl += "?" + httpRequest.getQueryString();
+//					}
+//
+//					httpRequest.getSession().setAttribute(
+//							CommonConstant.LOGIN_TO_URL, toUrl);
+//					response.sendRedirect(contextPath + "/lms/tologin.action");
+//					return false;
+//				}
+//			}
 			return true;
 		}
 	}

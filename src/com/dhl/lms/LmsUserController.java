@@ -1,12 +1,18 @@
 package com.dhl.lms;
 
 import java.io.PrintWriter;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
+import org.jasig.cas.client.authentication.AttributePrincipal;
+import org.jasig.cas.client.util.AbstractCasFilter;
+import org.jasig.cas.client.validation.Assertion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -150,6 +156,41 @@ public class LmsUserController extends BaseController {
 		}
 	}
 	
+	@RequestMapping("/sleepfront")
+	public ModelAndView sleepfront(HttpServletRequest request) {
+		
+		setSessionUser(request, null);
+		HttpSession session = request.getSession(false);
+		session.setAttribute("_const_cas_assertion_", null);
+//		session.setAttribute(CASFilter.CAS_FILTER_USER)
+		
+//		Assertion assertion = (Assertion) (session == null ? request
+//                .getAttribute(AbstractCasFilter.CONST_CAS_ASSERTION) : session
+//                .getAttribute(AbstractCasFilter.CONST_CAS_ASSERTION));
+//		
+//		AttributePrincipal principal = (AttributePrincipal) request.getUserPrincipal();  
+        // AttributePrincipal principal = AssertionHolder.getAssertion().getPrincipal();
+//		if (principal != null)
+//		{
+//	        String loginName = principal.getName();  
+//	        Map<String, Object> attributes = principal.getAttributes();  
+//	        Iterator it = attributes.entrySet().iterator();    
+//	        while (it.hasNext())     
+//	        {    
+//	                Map.Entry pairs = (Map.Entry)it.next();    
+//	         }  
+//		}
+//		try {
+//			Thread.sleep(800);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		String url = "redirect:/lms/getAllCategory.action";
+		return new ModelAndView(url);
+	}
+	
+	
 	@RequestMapping("/loginout")
 	public ModelAndView loginout(HttpServletRequest request) {
 		setSessionUser(request, null);
@@ -157,7 +198,7 @@ public class LmsUserController extends BaseController {
 		int type = Integer.parseInt(UtilTools.getConfig().getProperty("SSO_TYPE"));
 		if (type == CommonConstant.SSO_CAS)
 		{
-			url = "redirect:"+UtilTools.getConfig().getProperty("SSO_LOGOUT");;
+			url = "redirect:"+UtilTools.getConfig().getProperty("SSO_LOGOUT");
 		}
 		else
 		{

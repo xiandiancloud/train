@@ -43,7 +43,7 @@ public class AuthenticationFilter extends AbstractCasFilter {
 
 	// 增加排除验证的url
 	private static final String[] INHERENT_ESCAPE_URIS = {
-			"getAllCategory.action", "getCourse.action",
+			"getAllCategory.action", "getCourse.action","sleepfront.action",
 			"getCourseByCategoryId.action", "recentcourse.action",
 			"toregeister.action", "regeister.action", "getAllSchool.action",
 			"courselist.action", "getAllCourseCategory.action",
@@ -159,7 +159,7 @@ public class AuthenticationFilter extends AbstractCasFilter {
 
 		final HttpServletRequest request = (HttpServletRequest) servletRequest;
 		final HttpServletResponse response = (HttpServletResponse) servletResponse;
-
+		System.out.println("train sessionId ---- "+request.getSession().getId());
 		if (isRequestUrlExcluded(request)) {
 			logger.debug("Request is ignored.");
 			filterChain.doFilter(request, response);
@@ -174,7 +174,6 @@ public class AuthenticationFilter extends AbstractCasFilter {
 			filterChain.doFilter(request, response);
 			return;
 		}
-
 		final String serviceUrl = constructServiceUrl(request, response);
 		// 排除不需要验证的url
 		if (isURILogin(request.getRequestURI(), request)) {

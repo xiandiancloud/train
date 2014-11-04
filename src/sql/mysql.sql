@@ -204,9 +204,8 @@ create table user_train
    result              varchar(255) default null,
    primary key (id),
    UNIQUE KEY (courseId,trainId),
-   CONSTRAINT receiveuser_train_ibfk_1 FOREIGN KEY (userId) REFERENCES auth_user (id) ON DELETE CASCADE,
-   CONSTRAINT receiveuser_train_ibfk_2 FOREIGN KEY (courseId) REFERENCES t_course (id) ON DELETE CASCADE,
-   CONSTRAINT receiveuser_train_ibfk_3 FOREIGN KEY (trainId) REFERENCES t_train (id) ON DELETE CASCADE
+   CONSTRAINT receiveuser_train_ibfk_1 FOREIGN KEY (courseId) REFERENCES t_course (id) ON DELETE CASCADE,
+   CONSTRAINT receiveuser_train_ibfk_2 FOREIGN KEY (trainId) REFERENCES t_train (id) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 drop table if exists user_course;
@@ -221,8 +220,7 @@ create table user_course
    docounts            int(10) default 1,
    primary key (id),
    UNIQUE KEY (userId,courseId),
-   CONSTRAINT receiveuser_course_ibfk_1 FOREIGN KEY (userId) REFERENCES auth_user (id) ON DELETE CASCADE,
-   CONSTRAINT receiveuser_course_ibfk_2 FOREIGN KEY (courseId) REFERENCES t_course (id) ON DELETE CASCADE
+   CONSTRAINT receiveuser_course_ibfk_1 FOREIGN KEY (courseId) REFERENCES t_course (id) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 drop table if exists teacher_course;
@@ -233,8 +231,7 @@ create table teacher_course
    courseId            int(10) not null,
    primary key (id),
    UNIQUE KEY (userId,courseId),
-   CONSTRAINT receiveteacher_course_ibfk_1 FOREIGN KEY (userId) REFERENCES auth_user (id) ON DELETE CASCADE,
-   CONSTRAINT receiveteacher_course_ibfk_2 FOREIGN KEY (courseId) REFERENCES t_course (id) ON DELETE CASCADE
+   CONSTRAINT receiveteacher_course_ibfk_1 FOREIGN KEY (courseId) REFERENCES t_course (id) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 drop table if exists user_train_history;
@@ -251,9 +248,8 @@ create table user_train_history
    usetime             varchar(255) default 0,
    primary key (id),
    UNIQUE KEY (courseId,trainId,docounts),
-   CONSTRAINT receiveuser_train_history_ibfk_1 FOREIGN KEY (userId) REFERENCES auth_user (id) ON DELETE CASCADE,
-   CONSTRAINT receiveuser_train_history_ibfk_2 FOREIGN KEY (courseId) REFERENCES t_course (id) ON DELETE CASCADE,
-   CONSTRAINT receiveuser_train_history_ibfk_3 FOREIGN KEY (trainId) REFERENCES t_train (id) ON DELETE CASCADE
+   CONSTRAINT receiveuser_train_history_ibfk_1 FOREIGN KEY (courseId) REFERENCES t_course (id) ON DELETE CASCADE,
+   CONSTRAINT receiveuser_train_history_ibfk_2 FOREIGN KEY (trainId) REFERENCES t_train (id) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 drop table if exists t_environment;
@@ -277,6 +273,5 @@ create table t_user_environment
    password            varchar(255) default null,
    serverId            varchar(255) default null,
    primary key (id),
-   CONSTRAINT receivet_user_environment_ibfk_1 FOREIGN KEY (userId) REFERENCES auth_user (id) ON DELETE CASCADE,
-   CONSTRAINT receivet_user_environment_ibfk_2 FOREIGN KEY (name) REFERENCES t_environment (name) ON DELETE CASCADE
+   CONSTRAINT receivet_user_environment_ibfk_1 FOREIGN KEY (name) REFERENCES t_environment (name) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
