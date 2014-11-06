@@ -188,7 +188,7 @@
                       </div>
                     </div>
                     <div class='box-content'>
-                    <label for="trainname" class="control-label"><div class="h2font">内容</div></label>
+                    <!-- <label for="trainname" class="control-label"><div class="h2font">内容</div></label> -->
 		    		<h6 id="traincon"></h6>
                     </div>
 		    </div>
@@ -206,7 +206,7 @@
                     <div class='box-content'>
 	                    <form role="form">
 						  <div class="form-group">
-						    <label for="trainresult"><div class="h2font">内容</div></label>
+						    <!-- <label for="trainresult"><div class="h2font">内容</div></label> -->
 						    <textarea class="form-control" rows="6" id="trainrevalue"></textarea>
 						  </div>
 						</form>
@@ -558,8 +558,8 @@
 			$("#traincode").attr("value","${train.codenum}");//html("实验名称：${train.name}");
 			$("#trainprename").attr("value","${train.envname}");
 			//$("#trainjoin").attr("href", "");
-			$("#traincon").html("${train.conContent}");
-			$("#trainanswer").html("${train.conAnswer}");
+			$("#traincon").html('${train.conContent}');
+			$("#trainanswer").html('${train.conAnswer}');
 		}
 		</c:forEach>
 	}
