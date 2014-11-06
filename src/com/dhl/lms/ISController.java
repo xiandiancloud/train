@@ -39,48 +39,41 @@ public class ISController extends BaseController {
 		try {
 			PrintWriter out = response.getWriter();
 			User user = getSessionUser(request);
-//			if (user == null) {
-//				String str = "{'sucess':'fail'}";
-//				out.write(str);
-//			} else {
-
-				UserEnvironment uce = uceService.getMyUCE(user.getId(), name);
-				if (uce != null) {
-					String uh = uce.getHostname();
-					if (uh != null && uh.length() > 0) {
-						// zai wansh
-						out.write(uh);
-					} else {
-
-						String[] servers = UtilTools.createServer(user.getUsername() + System.currentTimeMillis());
-
-						// 创建成功后，保存hostname
-						String ip = servers[0];
-						String username = servers[1];
-						String password = servers[2];
-						String ssh = servers[3];
-						String str = "{'sucess':'sucess','ip':'" + ip
-								+ "','username':'" + username
-								+ "','password':'" + password + "','ssh':'"
-								+ ssh + "'}";
-						uceService.update(uce, ip, username, password, ssh);
-						out.write(str);
-					}
+			UserEnvironment uce = uceService.getMyUCE(user.getId(), name);
+			if (uce != null) {
+				String uh = uce.getHostname();
+				if (uh != null && uh.length() > 0) {
+					// zai wansh
+					out.write(uh);
 				} else {
+
 					String[] servers = UtilTools.createServer(user.getUsername() + System.currentTimeMillis());
+
 					// 创建成功后，保存hostname
 					String ip = servers[0];
 					String username = servers[1];
 					String password = servers[2];
 					String ssh = servers[3];
 					String str = "{'sucess':'sucess','ip':'" + ip
-							+ "','username':'" + username + "','password':'"
-							+ password + "','ssh':'" + ssh + "'}";
-					uceService.save(user.getId(), name, ip, username,password, ssh);
+							+ "','username':'" + username
+							+ "','password':'" + password + "','ssh':'"
+							+ ssh + "'}";
+					uceService.update(uce, ip, username, password, ssh);
 					out.write(str);
 				}
-
-//			}
+			} else {
+				String[] servers = UtilTools.createServer(user.getUsername() + System.currentTimeMillis());
+				// 创建成功后，保存hostname
+				String ip = servers[0];
+				String username = servers[1];
+				String password = servers[2];
+				String ssh = servers[3];
+				String str = "{'sucess':'sucess','ip':'" + ip
+						+ "','username':'" + username + "','password':'"
+						+ password + "','ssh':'" + ssh + "'}";
+				uceService.save(user.getId(), name, ip, username,password, ssh);
+				out.write(str);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			PrintWriter out = null;

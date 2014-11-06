@@ -63,7 +63,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-xs-12 center">
-						<h1 class="h1font"><a id="allcounts"></a>+的试卷，造就你的云梦想！</h1>
+						<h1 class="h1font"><a id="allcounts"></a>+的课程，造就你的云梦想！</h1>
 					</div>
 				</div>
 				<div class="clear"></div>

@@ -143,7 +143,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	    		  '<div class="qq-upload-button btn btn-success" style="width: auto;">{uploadButtonText}</div>' +
     	    		  '<span class="qq-drop-processing" style="display:none"><span>{dropProcessingText}</span>'+
     	    		  '<span class="qq-drop-processing-spinner"></span></span>' +
-    	    		  '<ul class="qq-upload-list" style="margin-top: 10px; text-align: center;"></ul>' +
+    	    		  '<ul class="qq-upload-list" style="margin-top: 10px; text-align: center;display:none"></ul>' +
     	    		  '</div>', 
     	    	classes: { 
     	    	success: 'alert alert-success', 

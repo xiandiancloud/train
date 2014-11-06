@@ -159,7 +159,7 @@ public class CmsController extends BaseController {
 		}
 		Role role = user.getRole();//userInterface.getUserRoleByuserId(user.getId());
 		if (!CommonConstant.ROLE_T.equals(role.getRoleName())) {
-			String url = "redirect:/cms/totlogin.action";
+			String url = "redirect:/lms/getAllCategory.action";
 			return new ModelAndView(url);
 		}
 		ModelAndView view = new ModelAndView();

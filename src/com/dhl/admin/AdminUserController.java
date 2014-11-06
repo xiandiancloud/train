@@ -40,20 +40,30 @@ public class AdminUserController extends BaseController {
 	 */
 	@RequestMapping("/admin")
 	public ModelAndView admin(HttpServletRequest request) {
-		User user = getSessionUser(request);
-		if (user == null)
+
+		
+		String url = "";
+		int type = Integer.parseInt(UtilTools.getConfig().getProperty("SSO_TYPE"));
+		if (type == CommonConstant.SSO_CAS)
 		{
-			ModelAndView view = new ModelAndView();
-			view.setViewName("/admin/signin");
-			return view;
+			url = "redirect:/admin/school.action";
 		}
-		Role role = user.getRole();//userInterface.getUserRoleByuserId(user.getId());
-		if (!CommonConstant.ROLE_A.equals(role.getRoleName())) {
-			ModelAndView view = new ModelAndView();
-			view.setViewName("/admin/signin");
-			return view;
+		else
+		{
+			User user = getSessionUser(request);
+			if (user == null)
+			{
+//				ModelAndView view = new ModelAndView();
+//				view.setViewName("/admin/signin");
+				url = "/admin/signin";
+			}
+			Role role = user.getRole();//userInterface.getUserRoleByuserId(user.getId());
+			if (!CommonConstant.ROLE_A.equals(role.getRoleName())) {
+//				ModelAndView view = new ModelAndView();
+//				view.setViewName("/admin/signin");
+				url = "redirect:/lms/getAllCategory.action";
+			}
 		}
-		String url = "redirect:/admin/school.action";
 		return new ModelAndView(url);
 //		ModelAndView view = new ModelAndView();
 //		view.setViewName("/admin/signin");
