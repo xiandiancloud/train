@@ -129,6 +129,7 @@ a:hover{text-decoration:none ; }
 .bborder{border-bottom:1px solid #ddd;height:100px;}
 .bbborder{border-bottom:1px solid #ddd;height:30px;}
 .bbbborder{border-bottom:1px solid red;height:1px;background:#fff}
+.noborder{border:0}
 .topone{z-index: 99;}
 .toptwo{top:50px;z-index: 98;}
 .rborder{margin-top: 30px;}
