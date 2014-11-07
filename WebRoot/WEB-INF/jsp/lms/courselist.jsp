@@ -16,7 +16,7 @@
 <!--<![endif]-->
 <head>
 <base href="<%=basePath%>">
-<title>课程列表</title>
+<title>LAB列表</title>
 <meta
 	content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'
 	name='viewport'>
@@ -80,7 +80,7 @@
 					<div class="clear"></div>
 					<c:forEach var="groom" items="${groomlist}">
 						<div class="col-xs-3">
-							<a href="lms/getCourse.action?courseId=${groom.id}" class=""><img src="${(empty groom.imgpath)?'images/exam.jpg':groom.imgpath}" class="img-thumbnail"><h4>${groom.name}</h4></a>
+							<a href="lms/getCourse.action?courseId=${groom.id}" class=""><img src="${(empty groom.imgpath)?'images/exam.jpg':groom.imgpath}" class="img-thumbnail"><h5>${groom.name}</h5></a>
 						</div>
 					</c:forEach>
 				</div>
@@ -137,7 +137,7 @@
 				<c:forEach var="category" items="${category}">
 					<div class="row">
 						<div class="col-xs-12 left nospace" id="name${category.id}">
-							<h3>${category.name}</h3>
+							<div class="numberfont">${category.name}</div>
 						</div>
 						<%-- <div class="col-xs-12 center">
 							<h4>${category.describle}</h4>

@@ -297,6 +297,8 @@ public class CmsController extends BaseController {
 			int sequentialId, int verticalId) {
 		ModelAndView view = new ModelAndView();
 		view.addObject("courseId", courseId);
+		Course course = courseService.get(courseId);
+		view.addObject("course", course);
 		view.addObject("sequentialId", sequentialId);
 		view.addObject("verticalId", verticalId);
 		/*

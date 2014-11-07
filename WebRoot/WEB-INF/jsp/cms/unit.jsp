@@ -520,67 +520,7 @@ div.MathJax_MathML {
 	font-weight: bold
 }
 
-@font-face /*1*/ {
-	font-family: MathJax_AMS-WEB;
-	src:
-		url('http://edx-static.s3.amazonaws.com/mathjax-MathJax-727332c/fonts/HTML-CSS/TeX/otf/MathJax_AMS-Regular.otf')
-}
-
-@font-face /*2*/ {
-	font-family: MathJax_Script-WEB;
-	src:
-		url('http://edx-static.s3.amazonaws.com/mathjax-MathJax-727332c/fonts/HTML-CSS/TeX/otf/MathJax_Script-Regular.otf')
-}
-
-@font-face /*3*/ {
-	font-family: MathJax_Fraktur-WEB;
-	src:
-		url('http://edx-static.s3.amazonaws.com/mathjax-MathJax-727332c/fonts/HTML-CSS/TeX/otf/MathJax_Fraktur-Regular.otf')
-}
-
-@font-face /*4*/ {
-	font-family: MathJax_Caligraphic-WEB;
-	src:
-		url('http://edx-static.s3.amazonaws.com/mathjax-MathJax-727332c/fonts/HTML-CSS/TeX/otf/MathJax_Caligraphic-Regular.otf')
-}
-
-@font-face /*5*/ {
-	font-family: MathJax_Fraktur-WEB;
-	font-weight: bold;
-	src:
-		url('http://edx-static.s3.amazonaws.com/mathjax-MathJax-727332c/fonts/HTML-CSS/TeX/otf/MathJax_Fraktur-Bold.otf')
-}
-
-@font-face /*6*/ {
-	font-family: MathJax_Caligraphic-WEB;
-	font-weight: bold;
-	src:
-		url('http://edx-static.s3.amazonaws.com/mathjax-MathJax-727332c/fonts/HTML-CSS/TeX/otf/MathJax_Caligraphic-Bold.otf')
-}
 </style>
-<script type="text/javascript" charset="utf-8" async=""
-	data-requirecontext="_" data-requiremodule="date"
-	src="/static/acf03d7/js/vendor/date.js"></script>
-<script type="text/javascript" charset="utf-8" async=""
-	data-requirecontext="_" data-requiremodule="js/models/metadata"
-	src="/static/acf03d7/js/models/metadata.js"></script>
-<script type="text/javascript" charset="utf-8" async=""
-	data-requirecontext="_" data-requiremodule="js/views/abstract_editor"
-	src="/static/acf03d7/js/views/abstract_editor.js"></script>
-<script type="text/javascript" charset="utf-8" async=""
-	data-requirecontext="_" data-requiremodule="js/models/uploads"
-	src="/static/acf03d7/js/models/uploads.js"></script>
-<script type="text/javascript" charset="utf-8" async=""
-	data-requirecontext="_" data-requiremodule="js/views/uploads"
-	src="/static/acf03d7/js/views/uploads.js"></script>
-<script type="text/javascript" charset="utf-8" async=""
-	data-requirecontext="_"
-	data-requiremodule="js/views/video/transcripts/metadata_videolist"
-	src="/static/acf03d7/js/views/video/transcripts/metadata_videolist.js"></script>
-<script type="text/javascript" charset="utf-8" async=""
-	data-requirecontext="_"
-	data-requiremodule="js/views/video/translations_editor"
-	src="/static/acf03d7/js/views/video/translations_editor.js"></script>
 <style type="text/css">
 .MathJax_Display {
 	text-align: center;
@@ -731,89 +671,6 @@ img.MathJax_strut {
 	background: transparent
 }
 
-@font-face {
-	font-family: MathJax_Main;
-	src:
-		url('http://edx-static.s3.amazonaws.com/mathjax-MathJax-727332c/fonts/HTML-CSS/TeX/woff/MathJax_Main-Regular.woff')
-		format('woff'),
-		url('http://edx-static.s3.amazonaws.com/mathjax-MathJax-727332c/fonts/HTML-CSS/TeX/otf/MathJax_Main-Regular.otf')
-		format('opentype')
-}
-
-@font-face {
-	font-family: MathJax_Main;
-	src:
-		url('http://edx-static.s3.amazonaws.com/mathjax-MathJax-727332c/fonts/HTML-CSS/TeX/woff/MathJax_Main-Bold.woff')
-		format('woff'),
-		url('http://edx-static.s3.amazonaws.com/mathjax-MathJax-727332c/fonts/HTML-CSS/TeX/otf/MathJax_Main-Bold.otf')
-		format('opentype');
-	font-weight: bold
-}
-
-@font-face {
-	font-family: MathJax_Main;
-	src:
-		url('http://edx-static.s3.amazonaws.com/mathjax-MathJax-727332c/fonts/HTML-CSS/TeX/woff/MathJax_Main-Italic.woff')
-		format('woff'),
-		url('http://edx-static.s3.amazonaws.com/mathjax-MathJax-727332c/fonts/HTML-CSS/TeX/otf/MathJax_Main-Italic.otf')
-		format('opentype');
-	font-style: italic
-}
-
-@font-face {
-	font-family: MathJax_Math;
-	src:
-		url('http://edx-static.s3.amazonaws.com/mathjax-MathJax-727332c/fonts/HTML-CSS/TeX/woff/MathJax_Math-Italic.woff')
-		format('woff'),
-		url('http://edx-static.s3.amazonaws.com/mathjax-MathJax-727332c/fonts/HTML-CSS/TeX/otf/MathJax_Math-Italic.otf')
-		format('opentype');
-	font-style: italic
-}
-
-@font-face {
-	font-family: MathJax_Caligraphic;
-	src:
-		url('http://edx-static.s3.amazonaws.com/mathjax-MathJax-727332c/fonts/HTML-CSS/TeX/woff/MathJax_Caligraphic-Regular.woff')
-		format('woff'),
-		url('http://edx-static.s3.amazonaws.com/mathjax-MathJax-727332c/fonts/HTML-CSS/TeX/otf/MathJax_Caligraphic-Regular.otf')
-		format('opentype')
-}
-
-@font-face {
-	font-family: MathJax_Size1;
-	src:
-		url('http://edx-static.s3.amazonaws.com/mathjax-MathJax-727332c/fonts/HTML-CSS/TeX/woff/MathJax_Size1-Regular.woff')
-		format('woff'),
-		url('http://edx-static.s3.amazonaws.com/mathjax-MathJax-727332c/fonts/HTML-CSS/TeX/otf/MathJax_Size1-Regular.otf')
-		format('opentype')
-}
-
-@font-face {
-	font-family: MathJax_Size2;
-	src:
-		url('http://edx-static.s3.amazonaws.com/mathjax-MathJax-727332c/fonts/HTML-CSS/TeX/woff/MathJax_Size2-Regular.woff')
-		format('woff'),
-		url('http://edx-static.s3.amazonaws.com/mathjax-MathJax-727332c/fonts/HTML-CSS/TeX/otf/MathJax_Size2-Regular.otf')
-		format('opentype')
-}
-
-@font-face {
-	font-family: MathJax_Size3;
-	src:
-		url('http://edx-static.s3.amazonaws.com/mathjax-MathJax-727332c/fonts/HTML-CSS/TeX/woff/MathJax_Size3-Regular.woff')
-		format('woff'),
-		url('http://edx-static.s3.amazonaws.com/mathjax-MathJax-727332c/fonts/HTML-CSS/TeX/otf/MathJax_Size3-Regular.otf')
-		format('opentype')
-}
-
-@font-face {
-	font-family: MathJax_Size4;
-	src:
-		url('http://edx-static.s3.amazonaws.com/mathjax-MathJax-727332c/fonts/HTML-CSS/TeX/woff/MathJax_Size4-Regular.woff')
-		format('woff'),
-		url('http://edx-static.s3.amazonaws.com/mathjax-MathJax-727332c/fonts/HTML-CSS/TeX/otf/MathJax_Size4-Regular.otf')
-		format('opentype')
-}
 
 .MathJax .noError {
 	vertical-align:;
@@ -824,21 +681,6 @@ img.MathJax_strut {
 	border: 1px solid
 }
 </style>
-<script type="text/javascript" charset="utf-8" async=""
-	data-requirecontext="_"
-	data-requiremodule="js/views/video/transcripts/utils"
-	src="/static/acf03d7/js/views/video/transcripts/utils.js"></script>
-<script type="text/javascript" charset="utf-8" async=""
-	data-requirecontext="_"
-	data-requiremodule="js/views/video/transcripts/message_manager"
-	src="/static/acf03d7/js/views/video/transcripts/message_manager.js"></script>
-<script type="text/javascript" charset="utf-8" async=""
-	data-requirecontext="_"
-	data-requiremodule="js/views/video/transcripts/file_uploader"
-	src="/static/acf03d7/js/views/video/transcripts/file_uploader.js"></script>
-<script type="text/javascript" charset="utf-8" async=""
-	data-requirecontext="_" data-requiremodule="jquery.ajaxQueue"
-	src="/static/acf03d7/js/vendor/jquery.ajaxQueue.js"></script>
 </head>
 
 
