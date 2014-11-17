@@ -527,6 +527,9 @@
 						$("#hasenv").hide();
 						$("#trainjoin").show();
 					}
+					$("#traincon").html(a.conContent);
+					$("#trainanswer").html(a.conAnswer);
+					
 					//a.result
 					if (a.result && a.result.length > 0)
 					{
@@ -558,8 +561,8 @@
 			$("#traincode").attr("value","${train.codenum}");//html("实验名称：${train.name}");
 			$("#trainprename").attr("value","${train.envname}");
 			//$("#trainjoin").attr("href", "");
-			$("#traincon").html('${train.conContent}');
-			$("#trainanswer").html('${train.conAnswer}');
+			//$("#traincon").html('${train.conContent}');
+			//$("#trainanswer").html('${train.conAnswer}');
 		}
 		</c:forEach>
 	}

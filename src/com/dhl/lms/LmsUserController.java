@@ -1,27 +1,24 @@
 package com.dhl.lms;
 
 import java.io.PrintWriter;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
-import org.jasig.cas.client.authentication.AttributePrincipal;
-import org.jasig.cas.client.util.AbstractCasFilter;
-import org.jasig.cas.client.validation.Assertion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.dhl.cons.CommonConstant;
+import com.dhl.domain.Train;
 import com.dhl.domain.UserCourse;
 import com.dhl.domain.UserEnvironment;
 import com.dhl.domain.UserTrain;
+import com.dhl.service.TrainService;
 import com.dhl.service.UserCourseService;
 import com.dhl.service.UserEnvironmentService;
 import com.dhl.service.UserTrainService;
@@ -43,8 +40,8 @@ public class LmsUserController extends BaseController {
 	/**
 	 * 自动注入
 	 */
-//	@Autowired
-//	private UserService userService;
+	@Autowired
+	private TrainService trainService;
 	@Autowired
 	private UserEnvironmentService uceService;
 	@Autowired
@@ -326,16 +323,19 @@ public class LmsUserController extends BaseController {
 					courseId, trainId);
 			String result = userTrain == null ? "" : userTrain.getResult();
 			String revalue = userTrain == null ? "" : userTrain.getRevalue();
+			Train t = trainService.get(trainId);
+			String conContent = UtilTools.replaceBackett(t.getConContent());
+			String conAnswer = UtilTools.replaceBackett(t.getConAnswer());
 			if (uce != null) {
 
 				String str = "{'sucess':'sucess','ip':'" + uce.getHostname()
 						+ "','username':'" + uce.getUsername() + "','result':'"
 						+ result + "','revalue':'" + revalue + "','password':'"
-						+ uce.getPassword() + "','ssh':'" + uce.getServerId()
+						+ uce.getPassword()+"','conContent':'"+conContent+"','conAnswer':'"+conAnswer + "','ssh':'" + uce.getServerId()
 						+ "'}";
 				out.write(str);
 			} else {
-				String str = "{'sucess':'fail','result':'" + result
+				String str = "{'sucess':'fail','result':'" + result+"','conContent':'"+conContent+"','conAnswer':'"+conAnswer
 						+ "','revalue':'" + revalue + "'}";
 				out.write(str);
 			}

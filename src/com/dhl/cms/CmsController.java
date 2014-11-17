@@ -88,9 +88,11 @@ public class CmsController extends BaseController {
 			PrintWriter out = response.getWriter();
 			Train t = trainService.get(trainId);
     		
+			String conContent = UtilTools.replaceBackett(t.getConContent());
+			String conAnswer = UtilTools.replaceBackett(t.getConAnswer());
 			String str = "{'sucess':'sucess','name':'"+t.getName()+"','codenum':'"+t.getCodenum()
-					+"','envname':'"+t.getEnvname()+"','conContent':'"+t.getConContent()+"','conShell':'"
-					+t.getConShell()+"','conAnswer':'"+t.getConAnswer()+"','scoretag':'"+t.getScoretag()+"','score':'"+t.getScore()+"'}";
+					+"','envname':'"+t.getEnvname()+"','conContent':'"+conContent+"','conShell':'"
+					+t.getConShell()+"','conAnswer':'"+conAnswer+"','scoretag':'"+t.getScoretag()+"','score':'"+t.getScore()+"'}";
 			out.write(str);
 		} catch (Exception e) {
 			e.printStackTrace();

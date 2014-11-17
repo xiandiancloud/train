@@ -162,6 +162,13 @@ public class UtilTools {
 		return str;
 	}
 
+	public static String replaceBackett(String str)
+	{
+		str = str.replaceAll("\'","\\\\\'");  
+		str = str.replaceAll("\"","\\\\\"");  
+		return str;
+	}
+	
 	public static String[] createServer(String serverName) {
 		Keystone keystone = new Keystone(Configuration.KEYSTONE_AUTH_URL);
 		Access access = keystone
