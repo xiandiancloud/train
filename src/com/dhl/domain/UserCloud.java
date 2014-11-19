@@ -12,24 +12,31 @@ import javax.persistence.Table;
  * 
  */
 @Entity
-@Table(name = "t_environment")
-public class Environment extends BaseDomain {
+@Table(name = "t_user_cloud")
+public class UserCloud extends BaseDomain {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private int id;
-	private String name;
+	private int userId;
+	private int cloudId;
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getName() {
-		return name;
+	public int getUserId() {
+		return userId;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+	public int getCloudId() {
+		return cloudId;
+	}
+	public void setCloudId(int cloudId) {
+		this.cloudId = cloudId;
 	}
 }

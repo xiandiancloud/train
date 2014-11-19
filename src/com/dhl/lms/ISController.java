@@ -35,11 +35,11 @@ public class ISController extends BaseController {
 
 	@RequestMapping("/createServer")
 	public void createServer(HttpServletRequest request,
-			HttpServletResponse response,String name) {
+			HttpServletResponse response,int courseId,int trainId,String name) {
 		try {
 			PrintWriter out = response.getWriter();
 			User user = getSessionUser(request);
-			UserEnvironment uce = uceService.getMyUCE(user.getId(), name);
+			UserEnvironment uce = uceService.getMyUCE(user.getId(), courseId, trainId);
 			if (uce != null) {
 				String uh = uce.getHostname();
 				if (uh != null && uh.length() > 0) {
@@ -71,7 +71,7 @@ public class ISController extends BaseController {
 				String str = "{'sucess':'sucess','ip':'" + ip
 						+ "','username':'" + username + "','password':'"
 						+ password + "','ssh':'" + ssh + "'}";
-				uceService.save(user.getId(), name, ip, username,password, ssh);
+				uceService.save(user.getId(),courseId,trainId, name, ip, username,password, ssh);
 				out.write(str);
 			}
 		} catch (Exception e) {

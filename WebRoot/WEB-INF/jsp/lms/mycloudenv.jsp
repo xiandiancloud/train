@@ -99,9 +99,9 @@
 								<div class="box-content">
 									<a href="lms/mysetting.action" class="list-group-item"> <i class='icon-link'></i> 个人设置
 									</a>
-									<a href="lms/mycloudenv.action" class="list-group-item"> <i class='icon-link'></i> 我的云平台
+									<a href="lms/mycloudenv.action" class="list-group-item active"> <i class='icon-link'></i> 我的云平台
 									</a>
-									<a href="lms/mycourseenv.action" class="list-group-item active"> <i class='icon-link'></i> 我的云虚机
+									<a href="lms/mycourseenv.action" class="list-group-item"> <i class='icon-link'></i> 我的云虚机
 									</a>
 									<a href="lms/mycoursetrain.action" class="list-group-item"> <i class='icon-link'></i> 我的实验
 									</a>
@@ -111,38 +111,37 @@
 					</div>
 				</div>
 				<div class="col-sm-9 panel panel-default">
-					<div class="h10"></div>
-					<table class="table table-bordered table-hover h5">
-						<caption></caption>
-						<thead>
-							<tr class="green-background">
-							    <th>课程名称</th>
-							    <th>实验名称</th>
-								<th>名称</th>
-								<th>创建时间</th>
-								<th></th>
-							</tr>
-						</thead>
-						<tbody>
-							<c:forEach var="uce" items="${uce}">
-								<tr>
-									<td></td>
-									<td></td>
-									<td>${uce.name}</td>
-									<td>${uce.createtime}</td>
-									<td><a href="lms/deleteEnv.action?id=${uce.id}"
-										class="glyphicon glyphicon-trash"></a></td>
-								</tr>
-							</c:forEach>
-						</tbody>
-					</table>
-					<div class="h10"></div>
+					<div class="cmargin">
+						<div class="h10"></div>
+						<form role="form">
+							<div class="form-group">
+								<a>云平台IP</a>
+								<div class="h5"></div>
+								<input type="text" class="form-control" id="ip" value="${USER_CONTEXT.email}">
+								<div class="clear"></div>
+								<a>登录用户名</a>
+								<div class="h5"></div>
+								<input type="text" class="form-control" id="password" value="${USER_CONTEXT.password}">
+								<div class="clear"></div>
+								<a>登录密码</a>
+								<div class="h5"></div>
+								<input type="password" class="form-control" id="username" value="${USER_CONTEXT.username}">
+								<div class="clear"></div>
+								<a>全名</a>
+								<div class="h5"></div>
+								<input type="text" class="form-control" id="name" value="${up.name}">
+								<div class="clear"></div>
+								<button type="button" class="btn btn-success btn-lg btn-block"
+									onclick="update();">保存</button>
+							</div>
+						</form>
+					</div>
 				</div>
 		</div>
 	</div>
 		</section>
 	</div>
-	<div class="clear"></div>
+	<div class="clear"></div><div class="clear"></div>
 	<jsp:include page="../common/footer.jsp"></jsp:include>
 	<!-- / jquery [required] -->
 	<script src="assets/javascripts/jquery/jquery.min.js"
@@ -179,6 +178,51 @@
 	<script src="js/common.js" type="text/javascript"></script>
 	<script src="js/holder.js"></script>
 	<script>
+    $(function() {
+    	$("#level_of_education").val("${up.level_of_education}");
+    	$("#gender").val("${up.gender}");
+    	$("#year_of_birth").val("${up.year_of_birth}");
+    	var mailing_address = replaceTextarea2("${up.mailing_address}");
+    	$("#mailing_address").val(mailing_address);
+    	var goals = replaceTextarea2("${up.goals}");
+    	$("#goals").val(goals);
+	});
+    
+    function update() {
+		var email = $("#email").val();
+		var username = $("#username").val();
+		var name = $("#name").val();
+		var gender = $("#gender").val();
+		var mailing_address = $("#mailing_address").val();
+		mailing_address = replaceTextarea1(mailing_address);
+		var year_of_birth = $("#year_of_birth").val();
+		var level_of_education = $("#level_of_education").val();
+		var goals = $("#goals").val();
+		goals = replaceTextarea1(goals);
+		var data = {
+			email : email,
+			username : username,
+			name : name,
+			gender : gender,
+			mailing_address : mailing_address,
+			year_of_birth : year_of_birth,
+			level_of_education : level_of_education,
+			goals : goals
+		};
+		$.ajax({
+			url : "lms/update.action",
+			type : "post",
+			data : data,
+			success : function(s) {
+				var a = eval("(" + s + ")");
+				
+				if (a.sucess == "sucess") {
+					location.reload();
+					alert("修改成功");
+				}
+			}
+		});
+	}
 	</script>
 </body>
 </html>

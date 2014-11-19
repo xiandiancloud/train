@@ -269,6 +269,20 @@ public class LmsUserController extends BaseController {
 	 * @param request
 	 * @return
 	 */
+	@RequestMapping("/mycloudenv")
+	public ModelAndView mycloudenv(HttpServletRequest request) {
+		ModelAndView view = new ModelAndView();
+
+		User user = getSessionUser(request);
+		view.setViewName("/lms/mycloudenv");
+		return view;
+	}
+	
+	/**
+	 * 我的云虚机
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping("/mycourseenv")
 	public ModelAndView mycourseenv(HttpServletRequest request) {
 		ModelAndView view = new ModelAndView();
@@ -318,7 +332,7 @@ public class LmsUserController extends BaseController {
 			User user = getSessionUser(request);
 			PrintWriter out = response.getWriter();
 			// if (user != null) {
-			UserEnvironment uce = uceService.getMyUCE(user.getId(),name);
+			UserEnvironment uce = uceService.getMyUCE(user.getId(),courseId,trainId);
 			UserTrain userTrain = userTrainService.getUserTrain(user.getId(),
 					courseId, trainId);
 			String result = userTrain == null ? "" : userTrain.getResult();

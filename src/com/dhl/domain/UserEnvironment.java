@@ -20,6 +20,8 @@ public class UserEnvironment extends BaseDomain {
 	@Column(name = "id")
 	private int id;
 	private int userId;
+	private int courseId;
+	private int trainId;
 	//环境模板名
 	private String name;
 //	private String result;
@@ -29,6 +31,18 @@ public class UserEnvironment extends BaseDomain {
 	private String password;
 	private String serverId;
 	
+	public int getCourseId() {
+		return courseId;
+	}
+	public void setCourseId(int courseId) {
+		this.courseId = courseId;
+	}
+	public int getTrainId() {
+		return trainId;
+	}
+	public void setTrainId(int trainId) {
+		this.trainId = trainId;
+	}
 	public String getHostname() {
 		return hostname;
 	}

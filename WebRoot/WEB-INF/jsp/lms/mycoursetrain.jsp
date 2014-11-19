@@ -97,13 +97,13 @@
 									<i class="icon-book"></i> 我的信息
 								</div>
 								<div class="box-content">
-									<a href="lms/mysetting.action"> <i class='icon-add'></i> 个人设置
+									<a href="lms/mysetting.action" class="list-group-item"> <i class='icon-link'></i> 个人设置
 									</a>
-									<hr class="hr-normal">
-									<a href="lms/mycourseenv.action"> <i class='icon-add'></i> 我的云平台
+									<a href="lms/mycloudenv.action" class="list-group-item"> <i class='icon-link'></i> 我的云平台
 									</a>
-									<hr class="hr-normal">
-									<a href="lms/mycoursetrain.action"> <i class='icon-add'></i> 我的实验
+									<a href="lms/mycourseenv.action" class="list-group-item"> <i class='icon-link'></i> 我的云虚机
+									</a>
+									<a href="lms/mycoursetrain.action" class="list-group-item active"> <i class='icon-link'></i> 我的实验
 									</a>
 								</div>
 							</div>

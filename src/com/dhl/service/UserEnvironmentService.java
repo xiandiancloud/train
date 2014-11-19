@@ -23,8 +23,8 @@ public class UserEnvironmentService {
 		return uceDao.get(id);
 	}
 	
-	public UserEnvironment getMyUCE(int userId,String name) {
-		return uceDao.getMyUCE(userId,name);
+	public UserEnvironment getMyUCE(int userId,int courseId,int trainId) {
+		return uceDao.getMyUCE(userId, courseId, trainId);
 	}
 	
 	public List<UserEnvironment> getMyUCE(int userId) {
@@ -40,10 +40,12 @@ public class UserEnvironmentService {
 		uceDao.update(uce);
 	}
 	
-	public void save(int userId,String name,String hostname,String username,String password,String serverId)
+	public void save(int userId,int courseId,int trainId,String name,String hostname,String username,String password,String serverId)
 	{
 		UserEnvironment uce = new UserEnvironment();
 		uce.setUserId(userId);
+		uce.setCourseId(courseId);
+		uce.setTrainId(trainId);
 		uce.setName(name);
 		uce.setHostname(hostname);
 		uce.setUsername(username);

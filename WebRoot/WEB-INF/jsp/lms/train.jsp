@@ -471,7 +471,11 @@
 		<c:forEach items="${tlist}" var="train" varStatus="status">
 		if ("${status.count}" == currentPage) {
 			var name = "${train.envname}";
+			var courseId = parseInt("${course.id}");
+			var trainId = "${train.id}";
 			var data = {
+				courseId:courseId,
+				trainId:trainId,
 				name : name
 			};
 			$.ajax({

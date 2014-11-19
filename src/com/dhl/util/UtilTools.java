@@ -34,6 +34,8 @@ import com.woorea.openstack.keystone.model.Access;
 import com.woorea.openstack.keystone.model.authentication.UsernamePassword;
 import com.woorea.openstack.nova.Nova;
 import com.woorea.openstack.nova.api.ServersResource;
+import com.woorea.openstack.nova.model.Image;
+import com.woorea.openstack.nova.model.Images;
 import com.woorea.openstack.nova.model.Server;
 import com.woorea.openstack.nova.model.Server.Addresses.Address;
 import com.woorea.openstack.nova.model.ServerForCreate;
@@ -187,14 +189,27 @@ public class UtilTools {
 
 		// KeyPairs keysPairs = nova.keyPairs().list().execute();
 		//
-		// Images images = nova.images().list(true).execute();
+		 Images images = nova.images().list(true).execute();
+		List<Image> imagelist =  images.getList();
+		String id = null;
+		for (Image image:imagelist)
+		{
+			String name = image.getName();
+			if ("CentOS-6.5-x86_64".equals(name))
+			{
+				id = image.getId();
+			}
+		}
+		if (id == null)
+		{
+			return null;
+		}
 		//
 		// Flavors flavors = nova.flavors().list(true).execute();
-
 		ServerForCreate serverForCreate = new ServerForCreate();
 		serverForCreate.setName(serverName);
 		serverForCreate.setFlavorRef("2");
-		serverForCreate.setImageRef("fd6f5232-7564-4f1c-b597-2f4e29478597");
+		serverForCreate.setImageRef(id);
 		serverForCreate.setKeyName("hello_key");
 		serverForCreate.getSecurityGroups().add(
 				new ServerForCreate.SecurityGroup("default"));

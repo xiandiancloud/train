@@ -252,6 +252,7 @@ create table user_train_history
    CONSTRAINT receiveuser_train_history_ibfk_2 FOREIGN KEY (trainId) REFERENCES t_train (id) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
+/*
 drop table if exists t_environment;
 create table t_environment
 (
@@ -260,12 +261,15 @@ create table t_environment
    primary key (id),
    UNIQUE KEY (name)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+*/
 
 drop table if exists t_user_environment;
 create table t_user_environment
 (
    id                  int not null AUTO_INCREMENT,
    userId              int(10) not null,
+   courseId            int(10) not null,
+   trainId             int(10) not null,
    name                varchar(255) not null,  
    createtime          varchar(255) not null, 
    hostname            varchar(255) default null,
@@ -273,5 +277,28 @@ create table t_user_environment
    password            varchar(255) default null,
    serverId            varchar(255) default null,
    primary key (id),
-   CONSTRAINT receivet_user_environment_ibfk_1 FOREIGN KEY (name) REFERENCES t_environment (name) ON DELETE CASCADE
+   UNIQUE KEY (userId,courseId,trainId),
+   CONSTRAINT receivet_user_environment_ibfk_1 FOREIGN KEY (courseId) REFERENCES t_course (id) ON DELETE CASCADE,
+   CONSTRAINT receivet_user_environment_ibfk_2 FOREIGN KEY (trainId) REFERENCES t_train (id) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+drop table if exists t_clound;
+create table t_clound
+(
+   id                int not null AUTO_INCREMENT,
+   ip                varchar(255) not null,
+   name              varchar(255) not null,
+   password          varchar(255) not null,
+   primary key (id),
+   UNIQUE KEY (ip)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+drop table if exists t_user_clound;
+create table t_user_clound
+(
+   id                int not null AUTO_INCREMENT,
+   userId            int(10) not null,
+   cloundId          int(10) not null,
+   primary key (id),
+   CONSTRAINT receivet_user_clound_1 FOREIGN KEY (cloundId) REFERENCES t_clound (id) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;

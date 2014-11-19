@@ -73,7 +73,7 @@ public class ShellController extends BaseController {
 				}
 				conn.close();
 				// ----------shell start--------------
-				UserEnvironment uce = uceService.getMyUCE(user.getId(), name);
+				UserEnvironment uce = uceService.getMyUCE(user.getId(),courseId,trainId);
 				if (uce != null)
 				{
 					String ip = uce.getHostname();
