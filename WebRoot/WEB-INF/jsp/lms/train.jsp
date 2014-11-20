@@ -290,7 +290,7 @@
 	{
 		var totalPages = "${fn:length(tlist)}";
 		currentPage = "${currentPage}";
-		resetTrain(currentPage);
+		//resetTrain(currentPage);
 		totalPages = parseInt(totalPages);
 		$
 				.jqPaginator(
@@ -529,7 +529,14 @@
 						
 					} else {
 						$("#hasenv").hide();
-						$("#trainjoin").show();
+						if ("无" == "${train.envname}")
+						{
+							$("#trainjoin").hide();
+						}
+						else
+						{
+							$("#trainjoin").show();
+						}
 					}
 					$("#traincon").html(a.conContent);
 					$("#trainanswer").html(a.conAnswer);

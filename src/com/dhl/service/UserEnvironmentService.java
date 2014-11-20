@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.dhl.dao.CourseDao;
+import com.dhl.dao.TrainDao;
 import com.dhl.dao.UserEnvironmentDao;
 import com.dhl.domain.UserEnvironment;
 import com.dhl.util.UtilTools;
@@ -18,6 +20,10 @@ public class UserEnvironmentService {
 	
 	@Autowired
 	private UserEnvironmentDao uceDao;
+	@Autowired
+	private CourseDao courseDao;
+	@Autowired
+	private TrainDao trainDao;
 	
 	public UserEnvironment get(int id) {
 		return uceDao.get(id);
@@ -44,8 +50,8 @@ public class UserEnvironmentService {
 	{
 		UserEnvironment uce = new UserEnvironment();
 		uce.setUserId(userId);
-		uce.setCourseId(courseId);
-		uce.setTrainId(trainId);
+		uce.setCourse(courseDao.get(courseId));
+		uce.setTrain(trainDao.get(trainId));
 		uce.setName(name);
 		uce.setHostname(hostname);
 		uce.setUsername(username);

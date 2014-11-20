@@ -94,10 +94,9 @@
 									<i class="icon-book"></i> 我的课堂
 								</div>
 								<div class="box-content">
-									<a href="lms/mycourse.action"> <i class='icon-add'></i> 进行中的课程
+									<a href="lms/mycourse.action" class="list-group-item"> <i class='icon-plus'></i> 进行中的课程
 									</a>
-									<hr class="hr-normal">
-									<a href="lms/mynoficourse.action"> <i class='icon-add'></i> 完成的课程
+									<a href="lms/mynoficourse.action" class="list-group-item active"> <i class='icon-plus'></i> 完成的课程
 									</a>
 								</div>
 							</div>
@@ -115,10 +114,9 @@
 					<img src="images/addct.png" alt="添加我的课程">
 				</div>
 			</div>
+			<div class="clear"></div>
 			<c:forEach var="ucourse" items="${finish}">
 				<div class="row wback nospace">
-					<hr>
-					<div class="clear"></div>
 					<div class="col-sm-3 courseh">
 						<a> <img src="${(empty ucourse.course.imgpath)?'images/exam.jpg':ucourse.course.imgpath}" alt="..." width="100%"
 							height="150px;" class="img-rounded">
@@ -135,7 +133,7 @@
 						</p>
 					</div>
 					<div class="col-sm-2">
-	
+						<div class="clear"></div>
 						<div class="wrap">
 							<div class="subwrap">
 								<div class="content">
@@ -150,6 +148,7 @@
 	
 					</div>
 				</div>
+				<div class="clear"></div>
 			</c:forEach>
 			</div>
 			</div>

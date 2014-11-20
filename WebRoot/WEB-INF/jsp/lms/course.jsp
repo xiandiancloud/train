@@ -65,11 +65,11 @@
 		<div class="cmargin">
 			<div class="clear"></div>
 			<div class="row panel panel-default">
-				<div class="col-sm-6">
-					<img src="${(empty course.imgpath)?'images/exam.jpg':course.imgpath}" alt="..." width="100%" height="200px;"
-						class="img-thumbnail noborder">
+				<div class="col-sm-4">
+					<img src="${(empty course.imgpath)?'images/exam.jpg':course.imgpath}" alt="..." width="100%"
+						class="img-thumbnail noborder h220">
 				</div>
-				<div class="col-sm-6">
+				<div class="col-sm-8">
 					<p>
 					<h3>${course.name}</h3>
 					</p>

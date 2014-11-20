@@ -22,6 +22,14 @@ public class Cloud extends BaseDomain {
 	private String ip;
 	private String name;
 	private String password;
+	private int userId;
+	
+	public int getUserId() {
+		return userId;
+	}
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
 	public String getIp() {
 		return ip;
 	}

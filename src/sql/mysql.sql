@@ -282,23 +282,24 @@ create table t_user_environment
    CONSTRAINT receivet_user_environment_ibfk_2 FOREIGN KEY (trainId) REFERENCES t_train (id) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
-drop table if exists t_clound;
-create table t_clound
+drop table if exists t_cloud;
+create table t_cloud
 (
    id                int not null AUTO_INCREMENT,
    ip                varchar(255) not null,
+   userId            int(10) not null,
    name              varchar(255) not null,
    password          varchar(255) not null,
    primary key (id),
    UNIQUE KEY (ip)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
-drop table if exists t_user_clound;
-create table t_user_clound
+drop table if exists t_user_cloud;
+create table t_user_cloud
 (
    id                int not null AUTO_INCREMENT,
    userId            int(10) not null,
-   cloundId          int(10) not null,
+   cloudId          int(10) not null,
    primary key (id),
-   CONSTRAINT receivet_user_clound_1 FOREIGN KEY (cloundId) REFERENCES t_clound (id) ON DELETE CASCADE
+   CONSTRAINT receivet_user_clound_1 FOREIGN KEY (cloudId) REFERENCES t_cloud (id) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;

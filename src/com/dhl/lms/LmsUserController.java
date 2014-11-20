@@ -14,11 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.dhl.cons.CommonConstant;
+import com.dhl.domain.Cloud;
 import com.dhl.domain.Train;
 import com.dhl.domain.UserCourse;
 import com.dhl.domain.UserEnvironment;
 import com.dhl.domain.UserTrain;
 import com.dhl.service.TrainService;
+import com.dhl.service.UserCloudService;
 import com.dhl.service.UserCourseService;
 import com.dhl.service.UserEnvironmentService;
 import com.dhl.service.UserTrainService;
@@ -43,12 +45,13 @@ public class LmsUserController extends BaseController {
 	@Autowired
 	private TrainService trainService;
 	@Autowired
+	private UserCloudService userCloudService;
+	@Autowired
 	private UserEnvironmentService uceService;
 	@Autowired
 	private UserTrainService userTrainService;
 	@Autowired
 	private UserCourseService userCourseService;
-
 	@Autowired
 	private UserInterface userInterface;
 	/**
@@ -159,30 +162,6 @@ public class LmsUserController extends BaseController {
 		setSessionUser(request, null);
 		HttpSession session = request.getSession(false);
 		session.setAttribute("_const_cas_assertion_", null);
-//		session.setAttribute(CASFilter.CAS_FILTER_USER)
-		
-//		Assertion assertion = (Assertion) (session == null ? request
-//                .getAttribute(AbstractCasFilter.CONST_CAS_ASSERTION) : session
-//                .getAttribute(AbstractCasFilter.CONST_CAS_ASSERTION));
-//		
-//		AttributePrincipal principal = (AttributePrincipal) request.getUserPrincipal();  
-        // AttributePrincipal principal = AssertionHolder.getAssertion().getPrincipal();
-//		if (principal != null)
-//		{
-//	        String loginName = principal.getName();  
-//	        Map<String, Object> attributes = principal.getAttributes();  
-//	        Iterator it = attributes.entrySet().iterator();    
-//	        while (it.hasNext())     
-//	        {    
-//	                Map.Entry pairs = (Map.Entry)it.next();    
-//	         }  
-//		}
-//		try {
-//			Thread.sleep(800);
-//		} catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
 		String url = "redirect:/lms/getAllCategory.action";
 		return new ModelAndView(url);
 	}
@@ -272,10 +251,32 @@ public class LmsUserController extends BaseController {
 	@RequestMapping("/mycloudenv")
 	public ModelAndView mycloudenv(HttpServletRequest request) {
 		ModelAndView view = new ModelAndView();
-
 		User user = getSessionUser(request);
+		Cloud uc = userCloudService.getMyCloud(user.getId());
+		view.addObject("uc", uc);
 		view.setViewName("/lms/mycloudenv");
 		return view;
+	}
+	
+	/**
+	 * 我的云平台
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/updatemycloudenv")
+	public void updatemycloudenv(HttpServletRequest request,HttpServletResponse response,String ip,String name,String password) {
+		try
+		{
+			PrintWriter out = response.getWriter();
+			User user = getSessionUser(request);
+			boolean flag = userCloudService.save(user.getId(), ip, name, password);
+			String temp = flag?"sucess":"fail";
+			String str = "{'sucess':'"+temp+"'}";
+			out.write(str);
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 	
 	/**

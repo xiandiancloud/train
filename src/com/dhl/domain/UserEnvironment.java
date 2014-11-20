@@ -2,9 +2,12 @@ package com.dhl.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -20,8 +23,14 @@ public class UserEnvironment extends BaseDomain {
 	@Column(name = "id")
 	private int id;
 	private int userId;
-	private int courseId;
-	private int trainId;
+//	private int courseId;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "courseId")
+	private Course course;
+//	private int trainId;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "trainId")
+	private Train train;
 	//环境模板名
 	private String name;
 //	private String result;
@@ -31,18 +40,30 @@ public class UserEnvironment extends BaseDomain {
 	private String password;
 	private String serverId;
 	
-	public int getCourseId() {
-		return courseId;
+	public Course getCourse() {
+		return course;
 	}
-	public void setCourseId(int courseId) {
-		this.courseId = courseId;
+	public void setCourse(Course course) {
+		this.course = course;
 	}
-	public int getTrainId() {
-		return trainId;
+	public Train getTrain() {
+		return train;
 	}
-	public void setTrainId(int trainId) {
-		this.trainId = trainId;
+	public void setTrain(Train train) {
+		this.train = train;
 	}
+//	public int getCourseId() {
+//		return courseId;
+//	}
+//	public void setCourseId(int courseId) {
+//		this.courseId = courseId;
+//	}
+//	public int getTrainId() {
+//		return trainId;
+//	}
+//	public void setTrainId(int trainId) {
+//		this.trainId = trainId;
+//	}
 	public String getHostname() {
 		return hostname;
 	}

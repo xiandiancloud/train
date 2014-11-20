@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.dhl.domain.UserEnvironment;
+import com.dhl.service.UserCloudService;
 import com.dhl.service.UserEnvironmentService;
-import com.dhl.util.UtilTools;
 import com.dhl.web.BaseController;
 import com.xiandian.model.User;
 
@@ -30,7 +30,8 @@ public class ISController extends BaseController {
 	// private UserTrainService userTrainService;
 	@Autowired
 	private UserEnvironmentService uceService;
-
+	@Autowired
+	private UserCloudService userCloudService;
 	// private UserCourseService userCourseService;
 
 	@RequestMapping("/createServer")
@@ -47,22 +48,29 @@ public class ISController extends BaseController {
 					out.write(uh);
 				} else {
 
-					String[] servers = UtilTools.createServer(user.getUsername() + System.currentTimeMillis());
-
-					// 创建成功后，保存hostname
-					String ip = servers[0];
-					String username = servers[1];
-					String password = servers[2];
-					String ssh = servers[3];
-					String str = "{'sucess':'sucess','ip':'" + ip
-							+ "','username':'" + username
-							+ "','password':'" + password + "','ssh':'"
-							+ ssh + "'}";
-					uceService.update(uce, ip, username, password, ssh);
-					out.write(str);
+					String[] servers = userCloudService.createServer(user.getId(), user.getUsername() + System.currentTimeMillis());
+					if (servers == null)
+					{
+						String str = "{'sucess':'fail'}";
+						out.write(str);
+					}
+					else
+					{
+						// 创建成功后，保存hostname
+						String ip = servers[0];
+						String username = servers[1];
+						String password = servers[2];
+						String ssh = servers[3];
+						String str = "{'sucess':'sucess','ip':'" + ip
+								+ "','username':'" + username
+								+ "','password':'" + password + "','ssh':'"
+								+ ssh + "'}";
+						uceService.update(uce, ip, username, password, ssh);
+						out.write(str);
+					}
 				}
 			} else {
-				String[] servers = UtilTools.createServer(user.getUsername() + System.currentTimeMillis());
+				String[] servers = userCloudService.createServer(user.getId(),user.getUsername() + System.currentTimeMillis());
 				// 创建成功后，保存hostname
 				String ip = servers[0];
 				String username = servers[1];
@@ -93,11 +101,12 @@ public class ISController extends BaseController {
 	@RequestMapping("/deleteEnv")
 	public ModelAndView delServer(HttpServletRequest request,
 			HttpServletResponse response, int id) {
+		User user = getSessionUser(request);
 		UserEnvironment uce = uceService.get(id);
 		if (uce != null) {
 			String uh = uce.getServerId();
 			if (uh != null && uh.length() > 0) {
-				UtilTools.delServer(uh);
+				userCloudService.delServer(user.getId(),uh);
 			}
 		}
 		uceService.delete(id);
